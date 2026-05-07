@@ -1,0 +1,53 @@
+# Hostinger autodeploy clones this repo into /thecivil and serves it as
+# static files — no build step on the host. The actual built static site
+# lives in out/. This .htaccess rewrites every request under /thecivil/...
+# to out/... so visitors see the site without needing to know about out/.
+
+# Serve out/index.html as the directory index for /thecivil/.
+DirectoryIndex out/index.html index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /thecivil/
+
+  # If the requested path already starts with out/, leave it alone (avoids
+  # an infinite-rewrite loop and lets `/thecivil/out/...` work directly).
+  RewriteRule ^out/ - [L]
+
+  # /thecivil/  →  out/index.html
+  RewriteRule ^$ out/index.html [L]
+
+  # /thecivil/<anything>  →  out/<anything>
+  # If out/<anything> is a real file, serve it. If it's a directory,
+  # Apache's mod_dir hands it to DirectoryIndex which will pick up
+  # out/<anything>/index.html.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.+)$ out/$1 [L]
+</IfModule>
+
+# Belt-and-braces: deny direct access to source/config files in case the
+# rewrite is bypassed for any reason. The repo also contains source code
+# (app/, components/, content/, lib/) but Apache won't render .ts/.tsx as
+# HTML anyway, and the rewrite above prevents them from being reachable.
+<FilesMatch "(^\.env|\.gitignore|\.htaccess|package(-lock)?\.json|tsconfig\.json|next\.config\.mjs|postcss\.config\.mjs|tailwind\.config\.ts|\.eslintrc\.json)$">
+  Require all denied
+</FilesMatch>
+
+# Common static-asset caching. The /thecivil/_next/static/ folder uses
+# content-hashed filenames so it can be cached aggressively.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2?|svg|png|jpg|jpeg|webp|avif|gif|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|webmanifest|xml|txt)$">
+    Header set Cache-Control "public, max-age=300"
+  </FilesMatch>
+</IfModule>
+
+# Use Apache's content-type detection for SVG and webmanifest.
+AddType image/svg+xml .svg
+AddType application/manifest+json .webmanifest
+
+# UTF-8 by default for textual responses.
+AddDefaultCharset utf-8
