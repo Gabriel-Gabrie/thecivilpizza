@@ -7,6 +7,8 @@ import { weekTable } from '@/lib/hours';
 import { withBase } from '@/lib/url';
 import gallery from '@/content/gallery.json';
 
+const PRIVATE_EVENTS_EMAIL_SUBJECT = encodeURIComponent('Private event inquiry');
+
 export const metadata: Metadata = buildMetadata({ routeKey: 'visit', path: '/visit' });
 
 export default function Visit() {
@@ -85,6 +87,33 @@ export default function Visit() {
               </figure>
             ))}
           </div>
+        </div>
+      </section>
+
+      <Rule variant="thick" className="my-16" />
+
+      {/* Private events — verbatim copy from thecivil.ca */}
+      <section className="grid gap-10 md:grid-cols-12">
+        <div className="md:col-span-7">
+          <p className="kicker mb-3">Private events</p>
+          <h2 className="font-display text-4xl font-black italic leading-[0.95] tracking-masthead sm:text-5xl">
+            Up to 30. <span className="text-ember">Whole place.</span>
+          </h2>
+          <p className="dek mt-4 max-w-xl text-pretty text-lg">
+            Our beautiful, eclectic space can accommodate up to 30 guests. We offer private
+            daytime bookings or nighttime event rentals.
+          </p>
+          <p className="dek mt-3 max-w-xl text-pretty text-lg">
+            Send us an email and we'll show you how we can make your event one to remember.
+          </p>
+        </div>
+        <div className="md:col-span-5 md:flex md:items-end">
+          <a
+            href={`mailto:${site.email}?subject=${PRIVATE_EVENTS_EMAIL_SUBJECT}`}
+            className="btn-ember w-full sm:w-auto"
+          >
+            Email about an event
+          </a>
         </div>
       </section>
     </article>
