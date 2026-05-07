@@ -1,53 +1,108 @@
 {
-  "_source": "All photos sourced from img1.wsimg.com/isteam/ip/57a23fb7-f616-48e7-883c-940e535f97ba (The Civil's GoDaddy CDN). See ASSETS.md for the per-image inventory and original filename mapping.",
+  "_source": "Photos sourced from img1.wsimg.com (The Civil's GoDaddy CDN) and tripadvisor.ca's photo library. See ASSETS.md for the per-image inventory and original filename mapping.",
   "items": [
     {
       "id": "interior-bar",
+      "category": "interior",
       "alt": "The Civil's dining room with damask wallpaper, leather banquette, brass lamps, and a chalkboard reading 'On Tap — Bellwoods Civil Lager'.",
       "stamp": "NO TVs",
       "src": "/images/interior-bar.jpg",
-      "width": 1200,
-      "height": 1600
+      "feature": true
     },
     {
       "id": "pizza-and-flight",
+      "category": "interior",
       "alt": "A pizza in the foreground and a four-glass cocktail flight behind it, set against The Civil's signature damask wallpaper.",
       "stamp": "FROM SCRATCH",
       "src": "/images/pizza-and-flight.jpg",
-      "width": 1200,
-      "height": 1600
+      "feature": true
     },
     {
       "id": "bar-sign",
+      "category": "interior",
       "alt": "Black-and-white photo of an illuminated marquee BAR sign mounted to a heritage-tannery beam.",
       "stamp": "REAL FIRE",
       "src": "/images/bar-sign.jpg",
-      "width": 1200,
-      "height": 1200
+      "feature": true
+    },
+    {
+      "id": "cocktail-foreground-sour",
+      "category": "cocktails",
+      "alt": "A whiskey sour in the foreground with a margarita flight on a wooden flight board behind it.",
+      "stamp": "FOUR POURS",
+      "src": "/images/cocktail-foreground-sour.jpg"
     },
     {
       "id": "cocktail-pineapple-rosemary",
+      "category": "cocktails",
       "alt": "Gin cocktail with a dried pineapple wheel and rosemary sprig, lit by a vintage cut-glass lamp.",
       "stamp": "FROM SCRATCH",
-      "src": "/images/cocktail-pineapple-rosemary.jpg",
-      "width": 1200,
-      "height": 1200
+      "src": "/images/cocktail-pineapple-rosemary.jpg"
     },
     {
       "id": "cocktail-negroni",
+      "category": "cocktails",
       "alt": "A negroni with a large ice block, blood orange peel rose, and segment, on a dark surface.",
       "stamp": "BITTER · ON PURPOSE",
-      "src": "/images/cocktail-negroni.jpg",
-      "width": 1200,
-      "height": 1200
+      "src": "/images/cocktail-negroni.jpg"
+    },
+    {
+      "id": "cocktail-pink-basil",
+      "category": "cocktails",
+      "alt": "A red cocktail with a basil leaf garnish on a dark table beside a white wall.",
+      "src": "/images/cocktail-pink-basil.jpg"
     },
     {
       "id": "flight-gin-tonic",
+      "category": "flights",
       "alt": "Gin & tonic flight in pastel-coloured mason jars on a wooden flight board.",
-      "stamp": "FOUR POURS",
-      "src": "/images/flight-gin-tonic.jpg",
-      "width": 1600,
-      "height": 1067
+      "stamp": "$14",
+      "src": "/images/flight-gin-tonic.jpg"
+    },
+    {
+      "id": "flight-pastel",
+      "category": "flights",
+      "alt": "Cocktail flight with strawberry, pineapple, and citrus garnishes against the damask wallpaper.",
+      "src": "/images/flight-pastel.webp"
+    },
+    {
+      "id": "flight-bright",
+      "category": "flights",
+      "alt": "Bright cocktail flight with dragon fruit and lime garnishes, white-brick background.",
+      "src": "/images/flight-bright.jpg"
+    },
+    {
+      "id": "flight-bourbon-hot-choc",
+      "category": "flights",
+      "alt": "Bourbon hot chocolate flight — four mugs topped with whipped cream against a tufted booth.",
+      "src": "/images/flight-bourbon-hot-choc.jpg"
+    },
+    {
+      "id": "flight-bourbon-mugs",
+      "category": "flights",
+      "alt": "Bourbon hot chocolate trio in clear glass mugs on a paddle.",
+      "src": "/images/flight-bourbon-mugs.jpg"
+    },
+    {
+      "id": "pizza-pepperoni-honey",
+      "category": "pies",
+      "alt": "Pepperoni pizza close-up drizzled with hot honey.",
+      "stamp": "BEE SPICY",
+      "src": "/images/pizza-pepperoni-honey.jpg"
+    },
+    {
+      "id": "pizza-dill-communication",
+      "category": "pies",
+      "alt": "Dill Communication pizza top-down — dill pickles, sesame, and sauce drizzle on a wire rack.",
+      "stamp": "DILL PICKLE",
+      "src": "/images/pizza-dill-communication.webp"
+    },
+    {
+      "id": "pizza-fungi",
+      "category": "pies",
+      "alt": "You Seem Like A Fungi pizza, mushroom-forward, in a takeout box.",
+      "stamp": "MUSHROOM",
+      "src": "/images/pizza-fungi.jpg"
     }
   ]
 }

@@ -31,15 +31,15 @@ export default function TheCause() {
         <ol className="space-y-5 font-display text-lg text-paper">
           <li className="flex gap-4">
             <span className="font-display text-3xl font-black italic text-ember leading-none">1.</span>
-            <span>Order The Cause pie — it lives on the regular menu, dine-in only.</span>
+            <span>Order The Cause pie. Dine-in only.</span>
           </li>
           <li className="flex gap-4">
             <span className="font-display text-3xl font-black italic text-ember leading-none">2.</span>
-            <span>$3 from your pie goes straight to that month's chosen KW charity.</span>
+            <span>$3 from your pie goes straight to this month's chosen KW charity.</span>
           </li>
           <li className="flex gap-4">
             <span className="font-display text-3xl font-black italic text-ember leading-none">3.</span>
-            <span>The chalkboard above the bar tracks the running total. Come check.</span>
+            <span>Ask any of us who we're supporting this month — and why.</span>
           </li>
         </ol>
         <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.2em] text-paper/70">

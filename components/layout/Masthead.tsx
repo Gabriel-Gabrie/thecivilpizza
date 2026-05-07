@@ -12,6 +12,7 @@ import { site } from '@/lib/seo';
 const NAV = [
   { href: '/menu', label: 'Menu' },
   { href: '/cocktails', label: 'Cocktails' },
+  { href: '/gallery', label: 'Gallery' },
   { href: '/the-cause', label: 'The Cause' },
   { href: '/visit', label: 'Visit' },
   { href: '/manifesto', label: 'Manifesto' },
