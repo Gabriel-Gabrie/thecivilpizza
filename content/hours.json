@@ -1,0 +1,18 @@
+{
+  "timezone": "America/Toronto",
+  "schedule": [
+    { "day": 0, "label": "Sun", "ranges": [] },
+    { "day": 1, "label": "Mon", "ranges": [{ "open": "17:00", "close": "22:00" }] },
+    { "day": 2, "label": "Tue", "ranges": [{ "open": "17:00", "close": "22:00" }] },
+    { "day": 3, "label": "Wed", "ranges": [{ "open": "12:00", "close": "22:00" }] },
+    { "day": 4, "label": "Thu", "ranges": [{ "open": "12:00", "close": "22:00" }] },
+    { "day": 5, "label": "Fri", "ranges": [{ "open": "12:00", "close": "23:00" }] },
+    { "day": 6, "label": "Sat", "ranges": [{ "open": "12:00", "close": "23:00" }] }
+  ],
+  "lunch": {
+    "days": [3, 4, 5, 6],
+    "open": "12:00",
+    "close": "16:00"
+  },
+  "exceptions": []
+}

@@ -1,0 +1,143 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
+
+// Vapour-bubble showpiece. Borrowed from The Civil's Rotating Bubble Infusion
+// cocktail. Idle drift, faint cursor parallax on desktop, pop-on-tap that
+// emits puff dots and reforms after ~2s. Respects prefers-reduced-motion.
+
+export function Bubble({
+  className,
+  size = 220,
+}: {
+  className?: string;
+  size?: number;
+}) {
+  const reduced = useReducedMotion();
+  const [popped, setPopped] = useState(false);
+  const [parallax, setParallax] = useState({ x: 0, y: 0 });
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (reduced) return;
+    if (typeof window === 'undefined') return;
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    let raf = 0;
+    let target = { x: 0, y: 0 };
+    const ease = () => {
+      setParallax((p) => ({
+        x: p.x + (target.x - p.x) * 0.08,
+        y: p.y + (target.y - p.y) * 0.08,
+      }));
+      raf = requestAnimationFrame(ease);
+    };
+    const onMove = (e: MouseEvent) => {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      target = { x: ((e.clientX - cx) / cx) * 14, y: ((e.clientY - cy) / cy) * 12 };
+    };
+    window.addEventListener('mousemove', onMove);
+    raf = requestAnimationFrame(ease);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      cancelAnimationFrame(raf);
+    };
+  }, [reduced]);
+
+  const handlePop = () => {
+    if (popped) return;
+    setPopped(true);
+    window.setTimeout(() => setPopped(false), 2200);
+  };
+
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{ width: size, height: size, position: 'relative' }}
+    >
+      <AnimatePresence initial={false} mode="wait">
+        {!popped && (
+          <motion.button
+            key="bubble"
+            type="button"
+            aria-label="Pop the vapour bubble"
+            onClick={handlePop}
+            className="absolute inset-0 cursor-pointer rounded-full"
+            initial={{ scale: 0.6, opacity: 0 }}
+            animate={
+              reduced
+                ? { scale: 1, opacity: 1 }
+                : {
+                    scale: [1, 1.04, 1],
+                    opacity: 1,
+                    x: parallax.x,
+                    y: parallax.y,
+                  }
+            }
+            transition={
+              reduced
+                ? { duration: 0 }
+                : { scale: { repeat: Infinity, duration: 6.4, ease: 'easeInOut' }, opacity: { duration: 0.6 } }
+            }
+            exit={{ scale: 1.6, opacity: 0, transition: { duration: 0.18 } }}
+            whileTap={{ scale: 0.96 }}
+          >
+            <BubbleSvg />
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {popped &&
+          [...Array(7)].map((_, i) => {
+            const angle = (i / 7) * Math.PI * 2;
+            const dist = 70 + Math.random() * 40;
+            return (
+              <motion.span
+                key={i}
+                aria-hidden="true"
+                className="absolute left-1/2 top-1/2 h-2 w-2 rounded-full bg-vapour/80"
+                initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+                animate={{
+                  x: Math.cos(angle) * dist,
+                  y: Math.sin(angle) * dist,
+                  opacity: 0,
+                  scale: 0.4,
+                }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.4, ease: 'easeOut' }}
+              />
+            );
+          })}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function BubbleSvg() {
+  return (
+    <svg viewBox="0 0 220 220" className="h-full w-full" aria-hidden="true">
+      <defs>
+        <radialGradient id="bubble-fill" cx="38%" cy="34%" r="68%">
+          <stop offset="0%" stopColor="rgb(var(--vapour))" stopOpacity="0.95" />
+          <stop offset="40%" stopColor="rgb(var(--vapour))" stopOpacity="0.35" />
+          <stop offset="78%" stopColor="rgb(var(--brass))" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="rgb(var(--ember))" stopOpacity="0.18" />
+        </radialGradient>
+        <radialGradient id="bubble-rim" cx="50%" cy="50%" r="50%">
+          <stop offset="92%" stopColor="rgb(var(--paper))" stopOpacity="0" />
+          <stop offset="100%" stopColor="rgb(var(--paper))" stopOpacity="0.7" />
+        </radialGradient>
+      </defs>
+      <circle cx="110" cy="110" r="100" fill="url(#bubble-fill)" />
+      <circle cx="110" cy="110" r="100" fill="url(#bubble-rim)" />
+      {/* iridescent highlights */}
+      <ellipse cx="78" cy="72" rx="34" ry="18" fill="rgb(var(--paper))" opacity="0.55" />
+      <ellipse cx="74" cy="68" rx="14" ry="6" fill="rgb(var(--paper))" opacity="0.95" />
+      <ellipse cx="142" cy="148" rx="22" ry="6" fill="rgb(var(--paper))" opacity="0.18" />
+    </svg>
+  );
+}

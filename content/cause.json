@@ -1,0 +1,23 @@
+{
+  "current": {
+    "month": "May 2026",
+    "name": "House of Friendship",
+    "summary": "Kitchener-Waterloo's largest social-services org. They feed people, house people, and run addiction-treatment programs in our actual neighbourhood.",
+    "url": "https://www.houseoffriendship.org",
+    "pizza": "The Cause — Spring Edition: smoked mushroom, charred leek, taleggio."
+  },
+  "archive": [
+    { "month": "Apr 2026", "name": "ROOF (Reaching Our Outdoor Friends)", "pizza": "Honey-glazed ham, calabrian chili, mozzarella" },
+    { "month": "Mar 2026", "name": "Ray of Hope", "pizza": "Sausage, sweet onion, fennel, smoked mozzarella" },
+    { "month": "Feb 2026", "name": "Nutrition for Learning", "pizza": "Roasted garlic, cherry tomato, burrata, basil" },
+    { "month": "Jan 2026", "name": "Anselma House", "pizza": "Roasted squash, sage, brown butter, pancetta" },
+    { "month": "Dec 2025", "name": "Food Bank of Waterloo Region", "pizza": "Truffle mushroom, fontina, crispy shallot" },
+    { "month": "Nov 2025", "name": "oneROOF Youth Services", "pizza": "Spicy honey, soppressata, ricotta, basil" }
+  ],
+  "stats": {
+    "totalRaised": "$8,400+",
+    "monthsRunning": 14,
+    "pizzasSold": 2811
+  },
+  "_TODO": "Owner to confirm or replace the archive list, charity URL for May 2026, and stat numbers. Placeholders are realistic but illustrative."
+}

@@ -1,0 +1,58 @@
+{
+  "site": {
+    "name": "The Civil",
+    "tagline": "Modern cocktails. Adventurous pies. Rotating flights.",
+    "description": "From-scratch pizza and craft cocktails in Downtown Kitchener's Tannery building. Open Mon–Sat. Reservations and pickup via Toast.",
+    "url": "https://demo.gabrielgabrie.com/thecivil",
+    "address": {
+      "street": "12-151 Charles St W",
+      "locality": "Kitchener",
+      "region": "ON",
+      "country": "CA",
+      "postalCode": "N2G 1H6"
+    },
+    "geo": { "lat": 43.4509, "lng": -80.4946 },
+    "phone": "+1-519-570-9992",
+    "phoneDisplay": "(519) 570-9992",
+    "email": "thecivilkitchener@gmail.com",
+    "instagram": "https://www.instagram.com/thecivilkitchener",
+    "instagramHandle": "@thecivilkitchener",
+    "reserveUrl": "https://tables.toasttab.com/restaurants/the-civil",
+    "orderUrl": "https://order.toasttab.com/online/the-civil-12-151-charles-street-w",
+    "mapsUrl": "https://www.google.com/maps/dir/?api=1&destination=The+Civil+Kitchener+Tannery"
+  },
+  "routes": {
+    "home": {
+      "title": "The Civil — Pizza, cocktails, and rotating flights in Kitchener",
+      "description": "From-scratch pies and theatrical cocktails. The Tannery, Downtown Kitchener. Open Mon–Sat."
+    },
+    "menu": {
+      "title": "The Menu — The Civil",
+      "description": "Every pie, cocktail, and flight on offer at The Civil. Updated nightly."
+    },
+    "cocktails": {
+      "title": "Cocktails & Flights — The Civil",
+      "description": "From-scratch cocktails and three-pour flights. Featuring the rotating bubble infusion."
+    },
+    "the-cause": {
+      "title": "The Cause — A rotating charity pie",
+      "description": "Each month, $3 from every Cause pie funds a local Kitchener-Waterloo charity. Dine-in only."
+    },
+    "visit": {
+      "title": "Visit — The Civil, 12-151 Charles St W, Kitchener",
+      "description": "Hours, address, parking, transit. We are in the Tannery, two blocks from Victoria Park."
+    },
+    "private-events": {
+      "title": "Private Events — The Civil",
+      "description": "Daytime takeovers, evening buyouts, bar-only nights. Up to 30 guests."
+    },
+    "manifesto": {
+      "title": "Manifesto — Why we do this",
+      "description": "From-scratch dough. No TVs. Real fire. A short essay on what we believe and why."
+    },
+    "press": {
+      "title": "Press — What people say",
+      "description": "Pull quotes from real diners across Restaurant Guru, OpenTable, Tripadvisor, and Yelp."
+    }
+  }
+}

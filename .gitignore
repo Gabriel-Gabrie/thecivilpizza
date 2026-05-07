@@ -1,0 +1,44 @@
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# next
+.next
+out
+build
+next-env.d.ts
+
+# production
+dist
+
+# testing
+coverage
+
+# environment
+.env*.local
+.env.local
+.env.development.local
+.env.production.local
+
+# misc
+.DS_Store
+*.pem
+.idea
+.vscode
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# typescript
+*.tsbuildinfo
+
+# claude code
+.claude/settings.local.json
+
+# scratch
+plans/_scratch/
+# Original scraped photos — duplicates of the labelled copies in public/images/.
+# See ASSETS.md for the rename mapping; re-downloadable via the GoDaddy CDN.
+public/images/source/

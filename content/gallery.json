@@ -1,0 +1,53 @@
+{
+  "_source": "All photos sourced from img1.wsimg.com/isteam/ip/57a23fb7-f616-48e7-883c-940e535f97ba (The Civil's GoDaddy CDN). See ASSETS.md for the per-image inventory and original filename mapping.",
+  "items": [
+    {
+      "id": "interior-bar",
+      "alt": "The Civil's dining room with damask wallpaper, leather banquette, brass lamps, and a chalkboard reading 'On Tap — Bellwoods Civil Lager'.",
+      "stamp": "NO TVs",
+      "src": "/images/interior-bar.jpg",
+      "width": 1200,
+      "height": 1600
+    },
+    {
+      "id": "pizza-and-flight",
+      "alt": "A pizza in the foreground and a four-glass cocktail flight behind it, set against The Civil's signature damask wallpaper.",
+      "stamp": "FROM SCRATCH",
+      "src": "/images/pizza-and-flight.jpg",
+      "width": 1200,
+      "height": 1600
+    },
+    {
+      "id": "bar-sign",
+      "alt": "Black-and-white photo of an illuminated marquee BAR sign mounted to a heritage-tannery beam.",
+      "stamp": "REAL FIRE",
+      "src": "/images/bar-sign.jpg",
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "cocktail-pineapple-rosemary",
+      "alt": "Gin cocktail with a dried pineapple wheel and rosemary sprig, lit by a vintage cut-glass lamp.",
+      "stamp": "FROM SCRATCH",
+      "src": "/images/cocktail-pineapple-rosemary.jpg",
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "cocktail-negroni",
+      "alt": "A negroni with a large ice block, blood orange peel rose, and segment, on a dark surface.",
+      "stamp": "BITTER · ON PURPOSE",
+      "src": "/images/cocktail-negroni.jpg",
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "flight-gin-tonic",
+      "alt": "Gin & tonic flight in pastel-coloured mason jars on a wooden flight board.",
+      "stamp": "FOUR POURS",
+      "src": "/images/flight-gin-tonic.jpg",
+      "width": 1600,
+      "height": 1067
+    }
+  ]
+}
