@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
 import { OpenClosedPill } from '@/components/status/OpenClosedPill';
@@ -19,13 +20,16 @@ const NAV = [
 export function Masthead() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  // Track when we've mounted on the client so the createPortal call is safe.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   // Close the drawer whenever the route changes.
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  // Close on Escape.
+  // Close on Escape and lock body scroll while open.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
@@ -37,12 +41,11 @@ export function Masthead() {
     };
   }, [open]);
 
-  // IMPORTANT: do not add backdrop-filter / filter / transform to the <header>.
-  // Those properties create a CSS containing block, which would scope the
-  // drawer's position:fixed inside the masthead and collapse it to ~0 height.
-  // Masthead is z-40, drawer is z-30 — masthead always sits on top of the
-  // open drawer regardless of how tall the masthead is on a given device.
-  return (
+  // IMPORTANT: do not add backdrop-filter / filter / transform to <header>.
+  // Those create a CSS stacking context, which would trap the drawer's z-30
+  // beneath the masthead's z-40 children — making the close X unreachable.
+  // The drawer is portaled to <body> for the same reason.
+  const header = (
     <header className="sticky top-0 z-40 bg-ink">
       {/* status strip */}
       <div className="border-b border-paper/15">
@@ -92,16 +95,21 @@ export function Masthead() {
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((v) => !v)}
-            className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-full border border-paper/30 text-paper transition hover:border-paper/70"
+            className="md:hidden relative z-50 inline-flex h-9 w-9 items-center justify-center rounded-full border border-paper/30 text-paper transition hover:border-paper/70"
           >
             {open ? <IconClose /> : <IconMenu />}
           </button>
         </div>
       </div>
+    </header>
+  );
 
-      {/* mobile drawer — covers the full viewport behind the masthead.
-          The masthead (z-40) sits on top, so we don't need to compute its
-          exact height. Drawer's nav content uses pt to clear the masthead. */}
+  // Drawer is portaled to <body> so it lives outside the masthead's
+  // stacking context. The masthead (z-40) sits cleanly on top of the
+  // open drawer (z-30), so the close X remains visible and clickable.
+  const drawer =
+    mounted &&
+    createPortal(
       <div
         id="mobile-nav"
         className={clsx(
@@ -110,7 +118,7 @@ export function Masthead() {
         )}
         aria-hidden={!open}
       >
-        {/* backdrop — solid bg-ink covering the entire viewport */}
+        {/* solid backdrop covers the whole viewport, doubles as a close button */}
         <button
           type="button"
           aria-label="Close menu"
@@ -118,8 +126,7 @@ export function Masthead() {
           className="absolute inset-0 bg-ink"
           tabIndex={open ? 0 : -1}
         />
-        {/* nav content — pt-28 (112px) is more than the tallest masthead so
-            links never start behind it, even with iOS safe-area inset. */}
+        {/* nav content — pt-28 clears the masthead height even with iOS safe-area */}
         <nav
           aria-label="Primary"
           className={clsx(
@@ -148,8 +155,15 @@ export function Masthead() {
             })}
           </ul>
         </nav>
-      </div>
-    </header>
+      </div>,
+      document.body
+    );
+
+  return (
+    <>
+      {header}
+      {drawer}
+    </>
   );
 }
 
