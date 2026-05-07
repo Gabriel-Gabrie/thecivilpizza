@@ -74,41 +74,26 @@ none of it was reachable via the rewrite. Cleaner now.
   technically needs a paid plan) — fine for a demo, talk to the owner
   before making this the production home.
 
-## If we keep Hostinger but only deploy `out/`
+## What's already in place on Hostinger (current setup)
 
-Set up a GitHub Actions workflow that builds on push and force-pushes
-just the `out/` contents to a `deploy` branch. Then point Hostinger's
-webhook at `deploy` instead of `main`.
+We already do the "deploy `out/` to a `deploy` branch" pattern — that's
+what the workflow at [.github/workflows/deploy.yml](.github/workflows/deploy.yml)
+does. Hostinger's webhook watches `deploy` and pulls.
 
-```yaml
-# .github/workflows/deploy.yml
-name: Deploy out/ to deploy branch
-on:
-  push:
-    branches: [main]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 20 }
-      - run: npm ci
-      - run: npm run build
-        env:
-          NEXT_PUBLIC_BASE_PATH: /thecivil
-          NEXT_PUBLIC_SITE_URL: https://demo.gabrielgabrie.com/thecivil
-      - name: Push out/ to deploy branch
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
-          publish_branch: deploy
-          force_orphan: true
-```
+**One important detail:** the workflow does *not* use `force_orphan: true`
+(the obvious choice for "always replace contents wholesale"). An earlier
+version did, and Hostinger's auto-pull broke — every deploy was a
+parentless commit, so the server's `git pull` had no fast-forward path
+and the working tree got stuck on stale files until manually wiped.
+With normal-history pushes (`force_orphan` omitted), `git pull`
+fast-forwards cleanly. The full reasoning is in a comment at the top of
+the workflow file.
 
-Pros: keep the Hostinger setup, only ship the static output.
-Cons: still hosting on Hostinger's shared infrastructure, no edge CDN.
+Pros of the current setup: zero server-side config, owner already pays
+for Hostinger, deploy-on-push is a single webhook.
+Cons: still on Hostinger's shared infrastructure, no edge CDN. The
+"better hosting" options above (Cloudflare Pages especially) are worth
+revisiting when the demo moves to `thecivil.ca`.
 
 ## What lives where
 

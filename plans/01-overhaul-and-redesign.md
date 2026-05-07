@@ -1,5 +1,22 @@
 # The Civil — Website Overhaul & Redesign Plan
 
+> **⚠️ HISTORICAL — do not treat this as the current spec.**
+> This is the original v0 plan. The implementation has diverged
+> in several places. **For the current state of the site, read
+> [README.md](../README.md), [ADMIN.md](../ADMIN.md), and
+> [HOSTING.md](../HOSTING.md).** Notable drift:
+> - `/manifesto` and `/press` were planned but never shipped (or were
+>   removed). They do **not** exist as routes today.
+> - `content/cause.json`, `content/manifesto.ts`, and `content/press.json`
+>   referenced below do **not** exist. The Cause page is hardcoded.
+> - The `/admin` editor (with encrypted-PAT auth and 4 tabs for
+>   contact / hours / menu / gallery) was added after this plan was
+>   written and is not described here.
+> - The Tannery has been removed from all copy (the building reference
+>   below is stale; the address is just "151 Charles St W, Kitchener").
+> - Photo count has grown from ~14 to 76. See [ASSETS.md](../ASSETS.md).
+> - Cocktail and flight prices were resolved: $12 cocktails, $14 flights.
+
 **Status:** Draft v1.1 · Ready for implementation agent
 **Target:** A demo-grade, mobile-first, design-led marketing site for The Civil (Kitchener pizzeria + craft cocktail bar)
 **Live reference:** https://thecivil.ca · Instagram: @thecivilkitchener

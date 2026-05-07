@@ -1,31 +1,40 @@
 # Assets — Photo Inventory & Rights Checklist
 
-All photographs currently used in the demo were **sourced from The Civil's existing GoDaddy CDN** at `img1.wsimg.com/isteam/ip/57a23fb7-f616-48e7-883c-940e535f97ba/`. The bulk of the gallery comes from a professional photoshoot whose filenames followed an `IMG_5XXX-Final.jpg` pattern; URLs were recovered from the Wayback Machine snapshot of `thecivil.ca` and the rest of the sequence was discovered by brute-forcing IDs 5500-5700 against the same CDN. Originals live at [public/images/source/](public/images/source/) (gitignored) and renamed working copies live at [public/images/](public/images/).
+The site currently ships with **76 photographs** in [public/images/](public/images/). All of them were collected by us — none were taken by us. Before publishing the site to a new domain (or to thecivil.ca itself), the owner must confirm right-to-use on every image.
 
-Before publishing this site to a new domain (or to thecivil.ca itself), the owner must confirm right-to-use on each image below. This is the go-live checklist.
+The authoritative list of which images are referenced where, with alt text and category, lives in [content/gallery.json](content/gallery.json). 56 of the 76 are referenced by the gallery; the rest are direct `<Image src=...>` references inside specific pages (hero backdrops, the cocktails feature, the visit page exterior shot, the home strip).
 
 ---
 
-## Inventory
+## Sourcing summary
 
-| File in `public/images/` | Original CDN filename | Subject | Used on | Owner-confirmed? |
-|---|---|---|---|---|
-| `pizza-and-flight.jpg` | `1000095337.jpg` | A pizza in the foreground with a four-glass cocktail flight behind it. Damask wallpaper visible. | `/` (hero backdrop, gallery), Civil Disobedience tile | [ ] |
-| `pizza-pepperoni-honey.jpg` | `1000095338.jpg` | Pepperoni close-up with hot honey drizzle. | Bee Spicy / Just All The Pepperoni tiles | [ ] |
-| `pizza-dill-communication.webp` | `1000096210.webp` | Dill Communication pizza, top-down. | Dill Communication tile | [ ] |
-| `pizza-fungi.jpg` | `1000096566.jpg` | You Seem Like A Fungi pizza in box. | You Seem Like A Fungi tile | [ ] |
-| `flight-pastel.webp` | `1000096761.webp` | Pastel flight on damask wallpaper. | (held; available for future use) | [ ] |
-| `flight-bright.jpg` | `1000097988.jpg` | Bright flight against white-brick wall. | (held) | [ ] |
-| `flight-bourbon-hot-choc.jpg` | `1000098668.jpg` | Bourbon hot chocolate flight (4 mugs, whipped cream). | (held) | [ ] |
-| `flight-bourbon-mugs.jpg` | `1000099231.jpg` | Bourbon hot chocolate trio. | (held) | [ ] |
-| `flight-gin-tonic.jpg` | `IMG_5526-Final.jpg` | **Pro shot** — gin & tonic flight in pastel mason jars. | `/visit` gallery | [ ] |
-| `interior-bar.jpg` | `1000098719.jpg` | **Money shot** — wide dining-room interior with damask wallpaper, leather banquette, brass lamps, "On Tap — Bellwoods Civil Lager" chalkboard. | `/` gallery, `/visit` | [ ] |
-| `bar-sign.jpg` | `IMG_20220307_153326_779.jpg` | Black-and-white "BAR" marquee sign on a tannery beam. | `/` gallery, `/visit` | [ ] |
-| `cocktail-pink-basil.jpg` | `1000099143.jpg` | Single red cocktail with basil leaf garnish. | (held) | [ ] |
-| `cocktail-negroni.jpg` | `IMG_20211123_082050_229.jpg` | **Pro shot** — moody negroni with large ice block and blood orange. | `/cocktails` hero | [ ] |
-| `cocktail-pineapple-rosemary.jpg` | `IMG_20211125_090548_952.jpg` | Gin cocktail with pineapple wheel + rosemary, lit by a vintage cut-glass lamp. | `/` Tonight on the bar feature | [ ] |
+| Source | What we got | How |
+|---|---|---|
+| **The Civil's GoDaddy CDN** (`img1.wsimg.com/isteam/ip/57a23fb7-f616-48e7-883c-940e535f97ba/`) | The original gallery photos already published on `thecivil.ca`. ~14 photos including the wide interior, the BAR sign, the dill-pickle pizza, and several flight/cocktail shots. | Direct CDN download by URL. |
+| **The Civil's Wayback Machine snapshot** | A professional photoshoot whose filenames followed an `IMG_5XXX-Final.jpg` pattern — the pro shots: the negroni, the gin & tonic flight, the pineapple-rosemary cocktail. | URLs recovered from a Wayback snapshot, plus brute-forcing IDs 5500-5700 against the same CDN. |
+| **The Civil's Instagram & Tripadvisor** | Additional pies, cocktails, and interiors. | Manual download. |
+| **Google Maps screenshots provided by the owner** | ~30 photos of the room, the food, the exterior, and the block. | Owner forwarded these directly. |
+| **Logo PNG (`logo-original.jpg`)** | The Civil's existing logo on the menu graphics. | Used as a reference for the SVG logomark in [components/ui/Seal.tsx](components/ui/Seal.tsx) and [components/ui/Wordmark.tsx](components/ui/Wordmark.tsx). |
 
-Two GoDaddy assets (`1000098597.png`, `1000109288.png`) were menu graphics, not photos. They were used to **transcribe** the current cocktail/flight/lunch menu (cocktails are now $12, flights $14 — corrected in [content/menu.json](content/menu.json)). Not shipped as imagery.
+The two GoDaddy menu graphics (`1000098597.png`, `1000109288.png`) were used to **transcribe** the cocktail / flight / lunch menu — text only. Not shipped as imagery.
+
+Originals are in [public/images/source/](public/images/source/) (gitignored). The processed working copies in [public/images/](public/images/) are run through [scripts/optimize-images.mjs](scripts/optimize-images.mjs) — resized to max 1600px wide, recompressed with mozjpeg / WebP. Roughly 24% payload reduction.
+
+---
+
+## Naming convention
+
+Filenames are descriptive, not provenance-based:
+
+- `interior-*` — the room itself
+- `exterior-*` — the storefront, the patio, the block
+- `pie-*` — pizza shots (informal)
+- `pro-*` — professional photoshoot pies (the high-quality batch)
+- `pizza-*` — original-site gallery pizzas
+- `cocktail-*` — drinks
+- `flight-*` — cocktail/dessert flights
+
+This makes scanning the directory and `content/gallery.json` much easier than an `IMG_5526-Final.jpg`-style scheme would.
 
 ---
 
@@ -33,27 +42,30 @@ Two GoDaddy assets (`1000098597.png`, `1000109288.png`) were menu graphics, not 
 
 | Path | Purpose |
 |---|---|
-| [components/ui/Seal.tsx](components/ui/Seal.tsx) | Inline SVG civic seal — used as logomark and footer stamp. |
+| [components/ui/Seal.tsx](components/ui/Seal.tsx) | Inline SVG civic seal — used as logomark and footer stamp. Hand-traced from the logo PNG. |
 | [components/ui/Wordmark.tsx](components/ui/Wordmark.tsx) | "The Civil" wordmark, set in Fraunces 900 italic via `next/font`. |
 | [components/ui/Stamp.tsx](components/ui/Stamp.tsx) | Rotated typographic stamp template (REAL FIRE / NO TVs / DINE-IN ONLY etc). |
 | [app/icon.svg](app/icon.svg), [app/apple-icon.svg](app/apple-icon.svg) | Favicons. |
-| [app/opengraph-image.tsx](app/opengraph-image.tsx) | Edge-rendered Open Graph card (newspaper masthead style). |
 
 These are all generated in this repo and have no third-party rights claims. The wordmark is intentionally close to the existing typographic identity but is **not** a copy of any registered mark — owner can request a custom commissioned wordmark before going to production at `thecivil.ca`.
 
 ---
 
-## Procedure if a photo is rejected
+## Rights-confirmation procedure
 
-1. Remove the file from `public/images/` and update the references in:
-   - [content/gallery.json](content/gallery.json) (gallery items)
-   - [components/menu/PizzaTile.tsx](components/menu/PizzaTile.tsx) (`PIE_PHOTOS` map)
-   - Any direct `<Image src="/images/..." />` references — grep the repo
-2. Either replace with a different existing photo, or remove the slot. The PizzaTile component falls back to its SVG art automatically if a slug has no entry in `PIE_PHOTOS`.
-3. Update this file's "Owner-confirmed?" column to a strikethrough.
+Before the site goes live on `thecivil.ca`:
+
+1. **Owner confirms photographer credits.** The pro shots (e.g. `cocktail-negroni.jpg`, `cocktail-pineapple-rosemary.jpg`, `flight-gin-tonic.jpg`, the `pro-*` series) are clearly higher-quality than the rest. If a credit is required, add it to that image's `alt` field in [content/gallery.json](content/gallery.json) (or the figcaption on the page that uses it directly).
+2. **Owner confirms right-to-use** on every image — most are already on the existing thecivil.ca, but a new domain is a new context.
+3. **If a photo is rejected:**
+   - Remove the file from `public/images/`.
+   - Remove its entry from [content/gallery.json](content/gallery.json).
+   - If it's referenced directly in a page, grep for `/images/<filename>` and either swap to a different photo or drop the slot. The PizzaTile component falls back to its SVG art automatically if a slug has no entry in `PIE_PHOTOS`.
+
+The `/admin` Gallery tab also gives the owner a way to delete and replace photos themselves — they don't need to touch the repo.
 
 ---
 
-## Photographer credits
+## What changed since this doc was first written
 
-The two `IMG_*` files are clearly higher-quality than the rest and look professionally shot. **Owner: please confirm photographer credit.** If a credit is required, add it to the alt text in [content/gallery.json](content/gallery.json) and to the figcaption on `/visit`.
+The first version of this file listed 14 photos in a hand-maintained table. We dropped the table once the count went past 50 — a 76-row table goes stale every time anyone uploads a photo via `/admin`. The source of truth is now the directory listing plus `content/gallery.json`. If you need to know what a specific image is, open it; if you need to know where it's used, grep the repo.

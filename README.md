@@ -1,10 +1,10 @@
 # The Civil — Website
 
-Marketing site for **The Civil**, a from-scratch pizzeria & craft cocktail bar in Downtown Kitchener (12-151 Charles St W, The Tannery).
+Marketing site for **The Civil**, a from-scratch pizzeria & craft cocktail bar in Downtown Kitchener (151 Charles St W).
 
 - **Demo:** https://demo.gabrielgabrie.com/thecivil
 - **Live reference (existing site):** https://thecivil.ca
-- **Stack:** Next.js 14 (App Router) · TypeScript · Tailwind CSS · Framer Motion · Vercel-style image optimization
+- **Stack:** Next.js 14 (App Router) · TypeScript · Tailwind CSS · Framer Motion. Static export — no server required.
 
 ---
 
@@ -13,12 +13,12 @@ Marketing site for **The Civil**, a from-scratch pizzeria & craft cocktail bar i
 ```bash
 npm install
 npm run dev          # http://localhost:3000
-npm run build        # production build
+npm run build        # production build → out/
 npm run typecheck    # tsc --noEmit
 npm run lint
 ```
 
-Node 20+ recommended. Tested on Node 24.14.
+Node 20+ recommended.
 
 ---
 
@@ -26,44 +26,11 @@ Node 20+ recommended. Tested on Node 24.14.
 
 A demo-grade replacement for The Civil's GoDaddy-template site. Designed to be:
 
-- **Mobile-first.** Designed at 375px. Sticky bottom action bar (Reserve / Order / Call). Live open-closed pill in `America/Toronto`.
-- **Editorial.** "The Civil Times" — newspaper masthead, broadsheet menu, drop caps, classified-ad sections.
+- **Mobile-first.** Designed at 375px. Sticky bottom action bar with 4 buttons (Reserve / Order / Directions / Call). Live open-closed pill in `America/Toronto`.
+- **Editorial.** "The Civil Times" — newspaper masthead, broadsheet menu, classified-ad sections, drop caps, rules.
 - **Theatrical.** A single animated vapour bubble (the Bubble Infusion cocktail) drifts in the hero. Tap it. It pops. It comes back.
 - **Operationally invisible.** Reserve/Order CTAs deep-link to The Civil's existing **Toast** flows. Nothing about their POS, ordering, or menu data flow changes.
-
----
-
-## Deployment
-
-Push to `main` → GitHub Actions builds the static site → force-pushes
-`out/` to the `deploy` branch as an orphan commit → Hostinger watches
-`deploy` and clones it into `demo.gabrielgabrie.com/thecivil`.
-
-- **Workflow:** [.github/workflows/deploy.yml](.github/workflows/deploy.yml)
-- **Detail / migration history:** [HOSTING.md](HOSTING.md)
-- **Subpath:** the site lives at `/thecivil`, configured in
-  [next.config.mjs](next.config.mjs) via `basePath` and `assetPrefix`.
-  The workflow injects `NEXT_PUBLIC_BASE_PATH=/thecivil` and
-  `NEXT_PUBLIC_SITE_URL` at build time. In dev (no env vars) the site
-  runs at `http://localhost:3000` with no prefix.
-
----
-
-## Editing content
-
-All content lives in [content/](content/) as JSON or TypeScript. No CMS yet.
-
-| File | Purpose |
-|------|---------|
-| [content/menu.json](content/menu.json) | Pizzas, starters, cocktails, flights, beer/wine, lunch. Source of truth — touched by `/menu`, `/cocktails`, JSON-LD, marquees. |
-| [content/hours.json](content/hours.json) | Schedule + lunch window + holiday exceptions. Powers the live open/closed pill. Timezone fixed to `America/Toronto`. |
-| [content/cause.json](content/cause.json) | This month's charity, archive of past months, total raised. **Owner-edited monthly.** |
-| [content/press.json](content/press.json) | Pull quotes from Restaurant Guru, Yelp, OpenTable, Tripadvisor, Find Me Gluten Free. |
-| [content/gallery.json](content/gallery.json) | Image manifest used by `/visit` and the home gallery. |
-| [content/manifesto.ts](content/manifesto.ts) | The long-form essay. ~750 words. |
-| [content/seo.json](content/seo.json) | Address, phone, Toast URLs, per-route titles & descriptions. Edit ONCE here, propagates everywhere. |
-
-**To swap the Cause pie:** edit `content/cause.json`'s `current` block, push to `main`. The hero strip, `/the-cause` page, OG card, and JSON-LD update on the next deploy.
+- **Owner-editable.** A private `/admin` route lets the owner edit menu, hours, photos, and contact info from the browser. Edits commit straight to `main`, the deploy workflow rebuilds, and the live site updates in ~90 seconds.
 
 ---
 
@@ -71,15 +38,34 @@ All content lives in [content/](content/) as JSON or TypeScript. No CMS yet.
 
 | Route | What's there |
 |-------|--------------|
-| `/` | Landing — hero with Bubble showpiece, pizza-name marquee, Bubble Infusion feature, Cause strip, gallery, hours, address. |
-| `/menu` | Full broadsheet menu with filter chips (All · Veggie · Meaty · Spicy · Sweet) and `Menu` JSON-LD. |
+| `/` | Landing — hero with Bubble showpiece, pizza-name marquee, Bubble Infusion feature, Cause strip, room photos, hours/address. |
+| `/menu` | Full broadsheet menu with filter chips for Pies (All · Veggie · Meaty · Spicy · Sweet · Dine-in only) and `Menu` JSON-LD. |
 | `/cocktails` | Split view of cocktails + flights with the bubble overlaid on a real cocktail photo. |
-| `/the-cause` | Charity pie program — evergreen, 3-step explainer. |
-| `/visit` | Hours, address, photo gallery, and a Private Events section (`#private-events` deep-linked from the footer). |
-| `/manifesto` | Long-form essay on what they believe and why. Drop caps and rules. |
-| `/press` | Verbatim pull quotes treated as letters-to-the-editor. |
-| `/sitemap.xml` `/robots.txt` `/manifest.webmanifest` `/icon.svg` `/apple-icon.svg` `/opengraph-image` | Auto-generated by Next.js conventions. |
-| `404` (`not-found.tsx`) | Off-menu page revealing a hidden 16th pizza ("The Quiet Riot"). |
+| `/the-cause` | Charity pie program — evergreen, 3-step explainer, rotating pie ribbon. |
+| `/gallery` | Photo gallery sorted by category (room / pies / cocktails / flights / the block) with a featured hero row. |
+| `/visit` | Address + hours + private events (`#private-events`). |
+| `/admin` | Owner editor (auth-gated). See [ADMIN.md](ADMIN.md). |
+| `/sitemap.xml` `/robots.txt` `/icon.svg` `/apple-icon.svg` | Auto-generated by Next.js conventions. |
+| `404` ([app/not-found.tsx](app/not-found.tsx)) | Off-menu page revealing a hidden 16th pizza ("The Quiet Riot"). |
+
+Routes that **used to exist** and have been removed: `/manifesto`, `/press`. If a doc, comment, or commit message mentions them, it's stale.
+
+---
+
+## Editing content
+
+Day-to-day, the owner edits content via `/admin`. The admin tabs map onto these JSON files:
+
+| File | Purpose | Admin tab |
+|------|---------|-----------|
+| [content/seo.json](content/seo.json) | Address, phone, email, Toast URLs, tagline & description, per-route titles & descriptions. Edit ONCE here, propagates everywhere. | Contact & links |
+| [content/hours.json](content/hours.json) | Schedule + lunch window + holiday exceptions. Powers the live open/closed pill. Timezone fixed to `America/Toronto`. | Hours |
+| [content/menu.json](content/menu.json) | Pizzas, starters, cocktails, flights, beer & wine, lunch. Source of truth — touched by `/menu`, `/cocktails`, JSON-LD, marquees. | Menu |
+| [content/gallery.json](content/gallery.json) | Image manifest used by `/gallery`, `/visit`, and the home gallery strip. | Gallery |
+
+There is no `content/cause.json`, `content/press.json`, or `content/manifesto.ts` anymore — those were planned in v0 but the Cause page is hardcoded copy and the press/manifesto routes were dropped. Older docs (and the original plan file) reference them; ignore.
+
+**Changing the Cause pie copy:** edit [app/the-cause/page.tsx](app/the-cause/page.tsx) and the `ROTATION` array of past pies inside the same file.
 
 ---
 
@@ -87,24 +73,56 @@ All content lives in [content/](content/) as JSON or TypeScript. No CMS yet.
 
 ```
 components/
+├── admin/                  # Owner-facing editor — see ADMIN.md
+│   ├── AdminShell.tsx      # tab nav + Save flow
+│   ├── AuthGate.tsx        # username/password OR token-paste fallback
+│   ├── ContactTab.tsx      # SEO/contact editor
+│   ├── HoursTab.tsx        # schedule editor (split shifts, lunch pills)
+│   ├── MenuTab.tsx         # menu editor (sections + items + tag pills)
+│   ├── GalleryTab.tsx      # photo upload + alt-text + category
+│   ├── PublishDialog.tsx   # diff preview + commit-batch trigger
+│   ├── Field.tsx CsvInput.tsx Pills.tsx  # form primitives
+├── gallery/
+│   └── GallerySection.tsx  # collapsible per-category gallery row
 ├── layout/
-│   ├── Masthead.tsx          # sticky top: volume/issue + nav + status pill
-│   ├── Footer.tsx            # seal, address, IG/email, "Built with disobedience"
-│   └── StickyActionBar.tsx   # mobile-only Reserve/Order/Call bar
-├── motion/
-│   ├── Bubble.tsx            # vapour-bubble showpiece (Framer Motion)
-│   └── Marquee.tsx           # CSS-keyframe pizza-name ticker
+│   ├── Masthead.tsx        # sticky top: status strip + nav (drawer is portaled to body)
+│   ├── Footer.tsx          # seal, address, IG/email, "Built by Gabriel Gabrie"
+│   └── StickyActionBar.tsx # mobile-only Reserve/Order/Directions/Call bar
 ├── menu/
-│   ├── PizzaTile.tsx         # photo + headline tile (uses real photos when available)
-│   └── MenuFilters.tsx       # client-side filter chips (DOM toggle)
+│   ├── PizzaTile.tsx       # photo-or-SVG tile
+│   └── MenuFilters.tsx     # client-side filter chips (DOM toggle)
+├── motion/
+│   ├── Bubble.tsx          # vapour-bubble showpiece (Framer Motion)
+│   └── Marquee.tsx         # CSS-keyframe pizza-name ticker
 ├── status/
-│   └── OpenClosedPill.tsx    # live status pill, refreshes every 60s
+│   └── OpenClosedPill.tsx  # live status pill, refreshes every 60s
 └── ui/
-    ├── Seal.tsx              # circular civic seal SVG
-    ├── Wordmark.tsx          # The Civil wordmark
-    ├── Stamp.tsx             # rotated typographic stamp
-    └── Rule.tsx              # newspaper-style horizontal rule
+    ├── Seal.tsx            # circular civic seal SVG
+    ├── Wordmark.tsx        # The Civil wordmark
+    ├── Stamp.tsx           # rotated typographic stamp
+    └── Rule.tsx            # newspaper-style horizontal rule
 ```
+
+---
+
+## Deployment
+
+```
+push to main
+   ↓
+GitHub Actions (.github/workflows/deploy.yml)
+   ↓
+npm ci → npm run build → out/
+   ↓
+peaceiris/actions-gh-pages pushes out/ to deploy branch (normal history, NOT orphan)
+   ↓
+Hostinger webhook fast-forwards deploy → demo.gabrielgabrie.com/thecivil/
+```
+
+- **Subpath:** the site lives at `/thecivil`, configured via `basePath` and `assetPrefix` in [next.config.mjs](next.config.mjs). The workflow injects `NEXT_PUBLIC_BASE_PATH=/thecivil` and `NEXT_PUBLIC_SITE_URL` at build time. In dev (no env vars) the site runs at `http://localhost:3000` with no prefix.
+- **Why non-orphan history:** an earlier version used `force_orphan: true` which broke Hostinger's auto-pull (every deploy was unrelated to the previous one, no fast-forward path). See the workflow file's top-of-file comment.
+- **Why an encrypted bundled PAT:** the `/admin` page needs a GitHub token to commit. Bundling a raw PAT triggered GitHub secret-scanning auto-revocation. We now bundle an AES-256-GCM-encrypted blob unlocked by the owner's password. See [ADMIN.md](ADMIN.md).
+- **Full detail:** [HOSTING.md](HOSTING.md).
 
 ---
 
@@ -112,22 +130,21 @@ components/
 
 - Online ordering UI (Toast keeps it)
 - Reservation UI (Toast keeps it)
-- CMS (single-PR menu edits are fine for now)
-- Loyalty / accounts / login
+- Loyalty / accounts / login (other than owner admin)
 - Newsletter
 - Multi-language
 - Gift card flow
-- Real CSS-in-JS — Tailwind is enough
 - Cookies / analytics SDK — privacy-friendly out of the box
 
-See [plans/01-overhaul-and-redesign.md](plans/01-overhaul-and-redesign.md) for the full plan and v2 candidates.
+The single-file CMS-by-PAT pattern (`/admin`) covers the day-to-day content editing without bringing in a full CMS dependency.
+
+See [plans/01-overhaul-and-redesign.md](plans/01-overhaul-and-redesign.md) for the original plan and v2 candidates. **That document is historical** — it predates the admin system, several routes have been dropped (`/manifesto`, `/press`), and several "still TBD" sections were resolved before launch.
 
 ---
 
 ## What needs owner sign-off before going to thecivil.ca
 
-1. Photo rights — see [ASSETS.md](ASSETS.md). All current photos are scraped from the existing thecivil.ca CDN; we want owner confirmation before publishing them on a new domain.
-2. The "Cause" archive months and stats are **placeholder** — see `_TODO` field in [content/cause.json](content/cause.json).
-3. Accessibility text on `/visit` is best-effort. Confirm step-free entry & accessible washroom details.
-4. Optional: confirm flight prices ($14, 4×0.5oz total = 2oz) — transcribed from your menu PNG.
-5. See [QUESTIONS.md](QUESTIONS.md) for the full list.
+1. **Photo rights** — see [ASSETS.md](ASSETS.md). Many photos are sourced from the existing thecivil.ca CDN; we want owner confirmation before publishing them on a new domain.
+2. **Menu accuracy** — confirm prices, ingredients, and item names in [content/menu.json](content/menu.json).
+3. **Accessibility text on `/visit`** is best-effort. Confirm step-free entry & accessible washroom details.
+4. See [QUESTIONS.md](QUESTIONS.md) for the full list.
