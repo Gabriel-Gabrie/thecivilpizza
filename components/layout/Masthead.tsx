@@ -19,6 +19,8 @@ const NAV = [
 
 export function Masthead() {
   const pathname = usePathname();
+  // Admin route renders its own header chrome.
+  const isAdmin = pathname?.startsWith('/admin') ?? false;
   const [open, setOpen] = useState(false);
   // Track when we've mounted on the client so the createPortal call is safe.
   const [mounted, setMounted] = useState(false);
@@ -40,6 +42,8 @@ export function Masthead() {
       document.body.style.overflow = '';
     };
   }, [open]);
+
+  if (isAdmin) return null;
 
   // IMPORTANT: do not add backdrop-filter / filter / transform to <header>.
   // Those create a CSS stacking context, which would trap the drawer's z-30

@@ -1,10 +1,13 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
 import { site } from '@/lib/seo';
 
 export function StickyActionBar() {
+  const pathname = usePathname();
+  const isAdmin = pathname?.startsWith('/admin') ?? false;
   const [hidden, setHidden] = useState(false);
   const lastY = useRef(0);
 
@@ -19,6 +22,8 @@ export function StickyActionBar() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  if (isAdmin) return null;
 
   return (
     <div

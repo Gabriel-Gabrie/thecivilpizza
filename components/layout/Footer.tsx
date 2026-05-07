@@ -1,8 +1,13 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Seal } from '@/components/ui/Seal';
 import { site } from '@/lib/seo';
 
 export function Footer() {
+  const pathname = usePathname();
+  if (pathname?.startsWith('/admin')) return null;
   const year = new Date().getFullYear();
   return (
     <footer className="mt-24 border-t border-paper/15">
