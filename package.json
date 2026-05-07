@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "optimize-images": "node scripts/optimize-images.mjs"
+    "optimize-images": "node scripts/optimize-images.mjs",
+    "encrypt-admin-pat": "node scripts/encrypt-admin-pat.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

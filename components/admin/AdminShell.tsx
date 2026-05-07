@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { readJson } from '@/lib/admin/github';
 import { clearToken } from '@/lib/admin/storage';
-import { endSession, HAS_BUNDLED_PAT } from '@/lib/admin/auth';
+import { clearCachedPat, HAS_BUNDLED_PAT } from '@/lib/admin/auth';
 import { ContactTab, type SeoFile } from './ContactTab';
 import { HoursTab, type HoursFile } from './HoursTab';
 import { MenuTab, type MenuFile } from './MenuTab';
@@ -96,10 +96,13 @@ export function AdminShell({ token, login, onSignOut }: { token: string; login: 
 
   const signOut = () => {
     if (totalDirtyFiles > 0 && !confirm('You have unsaved changes. Sign out anyway?')) return;
-    endSession();
-    // Only wipe a stored token if we're in the dev / token-paste flow.
-    // In production the PAT is bundled, not stored.
-    if (!HAS_BUNDLED_PAT) clearToken();
+    if (HAS_BUNDLED_PAT) {
+      // Production: forget the decrypted PAT for this tab.
+      clearCachedPat();
+    } else {
+      // Dev: forget the pasted token.
+      clearToken();
+    }
     onSignOut();
   };
 

@@ -4,19 +4,13 @@ import { useState } from 'react';
 import { verifyRepoAccess, verifyToken } from '@/lib/admin/github';
 import { writeToken } from '@/lib/admin/storage';
 import {
-  BUNDLED_PAT,
+  BUNDLED_PAT_ENC,
   HAS_BUNDLED_PAT,
   OWNER_PASSWORD,
   OWNER_USERNAME,
-  startSession,
+  cachePat,
 } from '@/lib/admin/auth';
-
-// Two modes:
-//   1. Production / authed CI build → username + password form. Validates
-//      against OWNER_USERNAME / OWNER_PASSWORD. On success, the bundled
-//      PAT is used for all subsequent API calls.
-//   2. Local dev (no ADMIN_PAT secret bundled) → falls back to the legacy
-//      personal-access-token field so the developer can still test.
+import { decryptPat, WrongPasswordError } from '@/lib/admin/crypto';
 
 export function AuthGate({ onAuth }: { onAuth: (token: string, login: string) => void }) {
   return HAS_BUNDLED_PAT ? <UserPassGate onAuth={onAuth} /> : <TokenGate onAuth={onAuth} />;
@@ -32,18 +26,35 @@ function UserPassGate({ onAuth }: { onAuth: (token: string, login: string) => vo
     e.preventDefault();
     setBusy(true);
     setError(null);
+
     if (username.trim() !== OWNER_USERNAME || password !== OWNER_PASSWORD) {
       setError('That username or password is wrong.');
       setBusy(false);
       return;
     }
+
+    let pat: string;
     try {
-      // Sanity check: hit GitHub once so we surface any token issues
-      // before the editor screen loads.
-      const { login } = await verifyToken(BUNDLED_PAT);
-      await verifyRepoAccess(BUNDLED_PAT);
-      startSession();
-      onAuth(BUNDLED_PAT, login);
+      pat = await decryptPat(password, BUNDLED_PAT_ENC);
+    } catch (err) {
+      // Most likely the password doesn't match the one used at encrypt
+      // time — show the same wrong-password message either way.
+      if (err instanceof WrongPasswordError) {
+        setError('That username or password is wrong.');
+      } else {
+        setError(
+          "We can't unlock the editor. Please email Gabriel."
+        );
+      }
+      setBusy(false);
+      return;
+    }
+
+    try {
+      const { login } = await verifyToken(pat);
+      await verifyRepoAccess(pat);
+      cachePat(pat);
+      onAuth(pat, login);
     } catch {
       setError(
         "We can't reach the site's editor right now. Please email Gabriel."
@@ -123,7 +134,6 @@ function TokenGate({ onAuth }: { onAuth: (token: string, login: string) => void 
       const { login } = await verifyToken(trimmed);
       await verifyRepoAccess(trimmed);
       writeToken(trimmed);
-      startSession();
       onAuth(trimmed, login);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -138,7 +148,7 @@ function TokenGate({ onAuth }: { onAuth: (token: string, login: string) => void 
         Paste a personal access token
       </h1>
       <p className="mt-3 text-base text-ink/75">
-        This screen only shows up when ADMIN_PAT isn't baked into the build.
+        This screen only shows up when ADMIN_PAT_ENC isn't baked into the build.
         In production the owner sees a username/password form instead.
       </p>
 

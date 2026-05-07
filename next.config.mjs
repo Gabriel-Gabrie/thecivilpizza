@@ -32,10 +32,10 @@ const nextConfig = {
       (process.env.NODE_ENV === 'production'
         ? 'https://demo.gabrielgabrie.com/thecivil'
         : 'http://localhost:3000'),
-    // When set, the admin page shows a username/password login. When
-    // empty, the admin page asks the user to paste a personal access
-    // token (used in local dev where the secret isn't available).
-    NEXT_PUBLIC_ADMIN_PAT: process.env.NEXT_PUBLIC_ADMIN_PAT ?? '',
+    // When set, the admin page shows a username/password login that
+    // unlocks the bundled (AES-encrypted) PAT. When empty, the admin
+    // page falls back to the developer "paste a token" form.
+    NEXT_PUBLIC_ADMIN_PAT_ENC: process.env.NEXT_PUBLIC_ADMIN_PAT_ENC ?? '',
   },
 };
 
