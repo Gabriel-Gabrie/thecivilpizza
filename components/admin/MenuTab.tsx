@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Field } from './Field';
+import { CsvInput } from './CsvInput';
 
 export type MenuItem = {
   slug: string;
@@ -205,9 +206,12 @@ export function MenuTab({
             const orig = origSection.items.find((o) => o.slug === item.slug);
             const isDirty = !orig || dirty(item, orig);
             const isNew = !orig;
+            // Use idx as React key, NOT item.slug. The slug auto-regenerates
+            // from the name on each keystroke for new items, which made
+            // React unmount/remount the input and lose focus mid-typing.
             return (
               <li
-                key={item.slug}
+                key={idx}
                 className={
                   'rounded-md border p-5 ' +
                   (isDirty
@@ -276,38 +280,33 @@ export function MenuTab({
                     />
                   </div>
                   <div className="sm:col-span-2">
-                    <Field
+                    <CsvInput
                       label="Ingredients (comma-separated)"
-                      value={item.ingredients.join(', ')}
-                      onChange={(v) =>
-                        updateItem(activeSection, idx, {
-                          ingredients: v
-                            .split(',')
-                            .map((s) => s.trim())
-                            .filter(Boolean),
-                        })
+                      value={item.ingredients}
+                      onChange={(next) =>
+                        updateItem(activeSection, idx, { ingredients: next })
                       }
                       placeholder="ricotta, prosciutto, pear, gorgonzola"
                     />
                   </div>
-                  <div className="sm:col-span-2">
-                    <Field
-                      label="Tags (comma-separated)"
-                      value={(item.tags ?? []).join(', ')}
-                      onChange={(v) =>
-                        updateItem(activeSection, idx, {
-                          tags: v
-                            .split(',')
-                            .map((s) => s.trim())
-                            .filter(Boolean),
-                        })
-                      }
-                      placeholder="meaty, spicy, sweet"
-                      helper={
-                        'Used by the menu page filters. Common values: veggie, meaty, spicy, sweet, dine-in-only.'
-                      }
-                    />
-                  </div>
+                  {/* Tags drive the /menu page filter chips, which only
+                      exist for Pies. Hiding the editor for everything else
+                      removes a dead control without deleting any data. */}
+                  {activeSection === 'pizzas' && (
+                    <div className="sm:col-span-2">
+                      <CsvInput
+                        label="Tags (comma-separated)"
+                        value={item.tags ?? []}
+                        onChange={(next) =>
+                          updateItem(activeSection, idx, { tags: next })
+                        }
+                        placeholder="meaty, spicy, sweet"
+                        helper={
+                          'Used by the /menu page filter chips. Common values: veggie, meaty, spicy, sweet, dine-in-only.'
+                        }
+                      />
+                    </div>
+                  )}
                 </div>
               </li>
             );

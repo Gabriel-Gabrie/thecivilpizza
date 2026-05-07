@@ -158,9 +158,12 @@ export function GalleryTab({
             const isNew = !orig;
             const pending = pendingImages.find((p) => p.path === `public${item.src}`);
             const previewSrc = pending ? pending.previewDataUrl : withBase(item.src);
+            // Use idx as React key, NOT item.id. The id field is editable;
+            // typing in it would otherwise unmount/remount the row and steal
+            // focus mid-keystroke.
             return (
               <li
-                key={item.id + idx}
+                key={idx}
                 className={
                   'rounded-md border p-3 ' +
                   (isDirty

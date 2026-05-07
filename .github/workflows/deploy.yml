@@ -1,9 +1,16 @@
 name: Build + push to deploy branch
 
-# Builds the Next.js static site on every push to main and force-pushes
-# the contents of out/ to the deploy branch as a single orphan commit.
-# Hostinger's webhook should watch the deploy branch (not main) so it
-# only ever clones the lightweight built output, never source code.
+# Builds the Next.js static site on every push to main and pushes the
+# contents of out/ to the deploy branch as a normal commit (parent =
+# previous deploy commit). Hostinger's webhook watches the deploy
+# branch and pulls.
+#
+# Note: we do NOT use force_orphan. Earlier we did, which made every
+# deploy commit a parentless orphan. That broke Hostinger's auto-pull
+# because there was never a fast-forward path between the previous and
+# new commit; the server's working tree got stuck on stale files until
+# we manually wiped it. With normal-history pushes, `git pull` on the
+# Hostinger side fast-forwards cleanly.
 
 on:
   push:
@@ -38,7 +45,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./out
           publish_branch: deploy
-          force_orphan: true
+          # force_orphan intentionally omitted. See top-of-file note.
           commit_message: "deploy: ${{ github.event.head_commit.message }}"
           user_name: github-actions[bot]
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
