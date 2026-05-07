@@ -1,6 +1,6 @@
 # Assets — Photo Inventory & Rights Checklist
 
-All photographs currently used in the demo were **scraped from The Civil's existing GoDaddy CDN** at `img1.wsimg.com/isteam/ip/57a23fb7-f616-48e7-883c-940e535f97ba/`. Originals live at [public/images/source/](public/images/source/) (gitignored) and renamed working copies live at [public/images/](public/images/).
+All photographs currently used in the demo were **sourced from The Civil's existing GoDaddy CDN** at `img1.wsimg.com/isteam/ip/57a23fb7-f616-48e7-883c-940e535f97ba/`. The bulk of the gallery comes from a professional photoshoot whose filenames followed an `IMG_5XXX-Final.jpg` pattern; URLs were recovered from the Wayback Machine snapshot of `thecivil.ca` and the rest of the sequence was discovered by brute-forcing IDs 5500-5700 against the same CDN. Originals live at [public/images/source/](public/images/source/) (gitignored) and renamed working copies live at [public/images/](public/images/).
 
 Before publishing this site to a new domain (or to thecivil.ca itself), the owner must confirm right-to-use on each image below. This is the go-live checklist.
 

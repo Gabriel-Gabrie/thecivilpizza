@@ -15,11 +15,15 @@ type Pie = {
 // We have real photos for some pies. For the rest we render the same
 // gradient/topping SVG art used elsewhere on the site so tiles never look broken.
 const PIE_PHOTOS: Record<string, string> = {
-  'civil-disobedience': '/images/pizza-and-flight.jpg',
+  'the-bouge': '/images/pro-bouge-topdown.jpg',
+  'civil-disobedience': '/images/pro-egg-bbq-pizza.jpg',
   'bee-spicy': '/images/pizza-pepperoni-honey.jpg',
-  'just-all-the-pepperoni': '/images/pizza-pepperoni-honey.jpg',
+  'just-all-the-pepperoni': '/images/pro-pepperoni-window.jpg',
   'dill-communication': '/images/pizza-dill-communication.webp',
-  'you-seem-like-a-fungi': '/images/pizza-fungi.jpg',
+  'you-seem-like-a-fungi': '/images/pro-mushroom-side.jpg',
+  'donair-it-in-public': '/images/pro-donair-topdown.jpg',
+  'caprese-in-love': '/images/pro-chicken-tomato-topdown.jpg',
+  'pollo-pesto': '/images/pro-chicken-pie-pastel-flight.jpg',
 };
 
 const TILE_PALETTES: Array<[string, string]> = [

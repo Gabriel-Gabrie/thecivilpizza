@@ -1,30 +1,126 @@
 {
-  "_source": "Photos sourced from img1.wsimg.com (The Civil's GoDaddy CDN) and tripadvisor.ca's photo library. See ASSETS.md for the per-image inventory and original filename mapping.",
+  "_source": "Photos sourced from img1.wsimg.com (The Civil's GoDaddy CDN). The IMG_5XXX-Final series is a professional photoshoot recovered via Wayback Machine archived snapshots. See ASSETS.md.",
   "items": [
+    {
+      "id": "pro-pepperoni-mushroom",
+      "category": "interior",
+      "alt": "Pepperoni pizza in the foreground, mushroom pizza behind it, and a margarita cocktail on a wooden table.",
+      "stamp": "FROM SCRATCH",
+      "src": "/images/pro-pepperoni-mushroom.jpg",
+      "feature": true
+    },
     {
       "id": "interior-bar",
       "category": "interior",
       "alt": "The Civil's dining room with damask wallpaper, leather banquette, brass lamps, and a chalkboard reading 'On Tap — Bellwoods Civil Lager'.",
-      "stamp": "NO TVs",
+      "stamp": "THE ROOM",
       "src": "/images/interior-bar.jpg",
-      "feature": true
-    },
-    {
-      "id": "pizza-and-flight",
-      "category": "interior",
-      "alt": "A pizza in the foreground and a four-glass cocktail flight behind it, set against The Civil's signature damask wallpaper.",
-      "stamp": "FROM SCRATCH",
-      "src": "/images/pizza-and-flight.jpg",
       "feature": true
     },
     {
       "id": "bar-sign",
       "category": "interior",
       "alt": "Black-and-white photo of an illuminated marquee BAR sign mounted to a heritage-tannery beam.",
-      "stamp": "REAL FIRE",
+      "stamp": "BAR",
       "src": "/images/bar-sign.jpg",
       "feature": true
     },
+
+    {
+      "id": "pro-server-pizza-tattoo",
+      "category": "interior",
+      "alt": "A server holds out a mushroom pizza on a wooden board. The Civil's logo is tattooed on their forearm. A margarita cocktail and a flight sit on the table.",
+      "src": "/images/pro-server-pizza-tattoo.jpg"
+    },
+    {
+      "id": "pro-server-bouge-handheld",
+      "category": "interior",
+      "alt": "A server holds out a prosciutto and arugula pizza in front of a sunny window.",
+      "src": "/images/pro-server-bouge-handheld.jpg"
+    },
+
+    {
+      "id": "pro-bouge-topdown",
+      "category": "pies",
+      "alt": "Top-down view of The Bouge — prosciutto, ricotta, arugula, and pear on a wood-fired crust.",
+      "stamp": "THE BOUGE",
+      "src": "/images/pro-bouge-topdown.jpg"
+    },
+    {
+      "id": "pro-pepperoni-window",
+      "category": "pies",
+      "alt": "Pepperoni pizza in foreground with a hand reaching for a slice; another pizza and cocktail glass in the background.",
+      "stamp": "PEPPERONI",
+      "src": "/images/pro-pepperoni-window.jpg"
+    },
+    {
+      "id": "pro-mushroom-side",
+      "category": "pies",
+      "alt": "Side-angle close-up of a mushroom pizza on a wood table.",
+      "stamp": "FUNGI",
+      "src": "/images/pro-mushroom-side.jpg"
+    },
+    {
+      "id": "pro-egg-bbq-pizza",
+      "category": "pies",
+      "alt": "BBQ pizza with eggs and red onion drizzled in sauce, top-down on a rustic wood plank.",
+      "stamp": "BBQ + EGG",
+      "src": "/images/pro-egg-bbq-pizza.jpg"
+    },
+    {
+      "id": "pro-donair-topdown",
+      "category": "pies",
+      "alt": "Donair It In Public pizza top-down — donair meat, tomato, onions on a wood-fired crust.",
+      "stamp": "DONAIR",
+      "src": "/images/pro-donair-topdown.jpg"
+    },
+    {
+      "id": "pro-chicken-tomato-topdown",
+      "category": "pies",
+      "alt": "Chicken, tomato, and red onion pizza top-down on rustic wood.",
+      "src": "/images/pro-chicken-tomato-topdown.jpg"
+    },
+    {
+      "id": "pro-four-pies-collage",
+      "category": "pies",
+      "alt": "Four pies arranged top-down: prosciutto-arugula, mushroom, donair, and a fourth.",
+      "stamp": "FOUR PIES",
+      "src": "/images/pro-four-pies-collage.jpg"
+    },
+    {
+      "id": "pizza-pepperoni-honey",
+      "category": "pies",
+      "alt": "Pepperoni pizza close-up drizzled with hot honey.",
+      "stamp": "BEE SPICY",
+      "src": "/images/pizza-pepperoni-honey.jpg"
+    },
+    {
+      "id": "pizza-dill-communication",
+      "category": "pies",
+      "alt": "Dill Communication pizza top-down — dill pickles, sesame, and sauce drizzle.",
+      "stamp": "DILL",
+      "src": "/images/pizza-dill-communication.webp"
+    },
+
+    {
+      "id": "pro-three-pies-menu",
+      "category": "interior",
+      "alt": "Three pizzas arranged on a wood table beside a menu clipboard and a flight of cocktails.",
+      "src": "/images/pro-three-pies-menu.jpg"
+    },
+    {
+      "id": "pro-two-pies-flight",
+      "category": "interior",
+      "alt": "Two pizzas, a cocktail flight, and a printed dinner menu on a wood table.",
+      "src": "/images/pro-two-pies-flight.jpg"
+    },
+    {
+      "id": "pro-pies-stacked-cocktails",
+      "category": "interior",
+      "alt": "Two pizzas in vertical composition with a margarita cocktail and a flight on the side.",
+      "src": "/images/pro-pies-stacked-cocktails.jpg"
+    },
+
     {
       "id": "cocktail-foreground-sour",
       "category": "cocktails",
@@ -43,7 +139,7 @@
       "id": "cocktail-negroni",
       "category": "cocktails",
       "alt": "A negroni with a large ice block, blood orange peel rose, and segment, on a dark surface.",
-      "stamp": "BITTER · ON PURPOSE",
+      "stamp": "NEGRONI",
       "src": "/images/cocktail-negroni.jpg"
     },
     {
@@ -53,6 +149,13 @@
       "src": "/images/cocktail-pink-basil.jpg"
     },
     {
+      "id": "pro-pepperoni-cucumber-cocktail",
+      "category": "cocktails",
+      "alt": "A foamy cocktail with a cucumber wheel and lemon, in the foreground of a pepperoni pizza scene.",
+      "src": "/images/pro-pepperoni-cucumber-cocktail.jpg"
+    },
+
+    {
       "id": "flight-gin-tonic",
       "category": "flights",
       "alt": "Gin & tonic flight in pastel-coloured mason jars on a wooden flight board.",
@@ -60,9 +163,15 @@
       "src": "/images/flight-gin-tonic.jpg"
     },
     {
+      "id": "flight-strawberry-citrus",
+      "category": "flights",
+      "alt": "Cocktail flight with strawberry and citrus garnishes against the damask wallpaper.",
+      "src": "/images/flight-strawberry-citrus.jpg"
+    },
+    {
       "id": "flight-pastel",
       "category": "flights",
-      "alt": "Cocktail flight with strawberry, pineapple, and citrus garnishes against the damask wallpaper.",
+      "alt": "Cocktail flight in pastel pink, orange, and yellow tones against the damask wallpaper.",
       "src": "/images/flight-pastel.webp"
     },
     {
@@ -76,33 +185,6 @@
       "category": "flights",
       "alt": "Bourbon hot chocolate flight — four mugs topped with whipped cream against a tufted booth.",
       "src": "/images/flight-bourbon-hot-choc.jpg"
-    },
-    {
-      "id": "flight-bourbon-mugs",
-      "category": "flights",
-      "alt": "Bourbon hot chocolate trio in clear glass mugs on a paddle.",
-      "src": "/images/flight-bourbon-mugs.jpg"
-    },
-    {
-      "id": "pizza-pepperoni-honey",
-      "category": "pies",
-      "alt": "Pepperoni pizza close-up drizzled with hot honey.",
-      "stamp": "BEE SPICY",
-      "src": "/images/pizza-pepperoni-honey.jpg"
-    },
-    {
-      "id": "pizza-dill-communication",
-      "category": "pies",
-      "alt": "Dill Communication pizza top-down — dill pickles, sesame, and sauce drizzle on a wire rack.",
-      "stamp": "DILL PICKLE",
-      "src": "/images/pizza-dill-communication.webp"
-    },
-    {
-      "id": "pizza-fungi",
-      "category": "pies",
-      "alt": "You Seem Like A Fungi pizza, mushroom-forward, in a takeout box.",
-      "stamp": "MUSHROOM",
-      "src": "/images/pizza-fungi.jpg"
     }
   ]
 }

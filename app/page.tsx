@@ -14,7 +14,7 @@ import { PizzaTile } from '@/components/menu/PizzaTile';
 export default function Home() {
   const week = weekTable();
   // Pies we have real photos for — surfaces the most photo-rich tiles up front.
-  const FEATURED_SLUGS = ['civil-disobedience', 'bee-spicy', 'you-seem-like-a-fungi'] as const;
+  const FEATURED_SLUGS = ['the-bouge', 'just-all-the-pepperoni', 'you-seem-like-a-fungi'] as const;
   const featuredPies = FEATURED_SLUGS
     .map((s) => menu.pizzas.items.find((p) => p.slug === s))
     .filter((p): p is (typeof menu)['pizzas']['items'][number] => Boolean(p));
@@ -26,7 +26,7 @@ export default function Home() {
         {/* photo backdrop, very subtle */}
         <div className="pointer-events-none absolute inset-0 -z-0 opacity-[0.18]" aria-hidden="true">
           <Image
-            src={withBase('/images/pizza-and-flight.jpg')}
+            src={withBase('/images/pro-pepperoni-mushroom.jpg')}
             alt=""
             fill
             priority
