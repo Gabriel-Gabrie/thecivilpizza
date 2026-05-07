@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
-  <rect width="180" height="180" rx="32" fill="#0e0d0b"/>
+  <rect width="180" height="180" rx="32" fill="#1a1814"/>
   <g transform="translate(40,40)">
-    <circle cx="50" cy="50" r="38" fill="none" stroke="#f2ebdc" stroke-width="3.4"/>
-    <g stroke="#f2ebdc" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="22" y1="32" x2="62" y2="64"/>
-      <polyline points="56,58 62,64 56,68"/>
-      <line x1="30" y1="32" x2="70" y2="64"/>
-      <polyline points="64,58 70,64 64,68"/>
-      <line x1="38" y1="32" x2="78" y2="64"/>
-      <polyline points="72,58 78,64 72,68"/>
+    <circle cx="50" cy="50" r="40" fill="none" stroke="#f6f0e2" stroke-width="4"/>
+    <g stroke="#f6f0e2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="22" y1="36" x2="64" y2="78"/>
+      <polyline points="56,78 64,78 64,70"/>
+      <line x1="32" y1="36" x2="74" y2="78"/>
+      <polyline points="66,78 74,78 74,70"/>
+      <line x1="42" y1="36" x2="82" y2="76"/>
+      <polyline points="74,76 82,76 82,68"/>
     </g>
   </g>
 </svg>

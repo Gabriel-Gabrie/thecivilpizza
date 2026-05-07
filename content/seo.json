@@ -5,7 +5,8 @@
     "description": "From-scratch pizza and craft cocktails in Downtown Kitchener's Tannery building. Open Mon–Sat. Reservations and pickup via Toast.",
     "url": "https://demo.gabrielgabrie.com/thecivil",
     "address": {
-      "street": "12-151 Charles St W",
+      "street": "151 Charles St W",
+      "streetFull": "12-151 Charles St W",
       "locality": "Kitchener",
       "region": "ON",
       "country": "CA",
