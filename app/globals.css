@@ -24,6 +24,10 @@
     background-color: rgb(var(--ink));
     color: rgb(var(--paper));
     color-scheme: dark;
+    /* Anchor jumps (#slug) leave room for the sticky masthead so the target
+       isn't hidden under it. ~96px covers status strip + logo strip on mobile. */
+    scroll-padding-top: 96px;
+    scroll-behavior: smooth;
     /* hairline ink rule used in many places */
     --rule: 1px solid rgb(var(--paper) / 0.18);
   }

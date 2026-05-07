@@ -29,30 +29,39 @@ export function StickyActionBar() {
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
       <div className="mx-auto max-w-md px-3 pb-3 pt-2">
-        <div className="grid grid-cols-3 gap-2 rounded-full border border-paper/20 bg-ink/95 p-1.5 backdrop-blur shadow-[0_-12px_30px_-15px_rgba(0,0,0,0.8)]">
+        <div className="grid grid-cols-4 gap-1.5 rounded-full border border-paper/20 bg-ink/95 p-1.5 backdrop-blur shadow-[0_-12px_30px_-15px_rgba(0,0,0,0.8)]">
           <a
             href={site.reserveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-col items-center justify-center rounded-full bg-ember py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-paper"
+            className="flex flex-col items-center justify-center gap-0.5 rounded-full bg-ember py-2 font-mono text-[9px] uppercase tracking-[0.14em] text-paper"
           >
-            <IconCalendar className="mb-0.5 h-4 w-4" />
+            <IconCalendar className="h-[18px] w-[18px]" />
             Reserve
           </a>
           <a
             href={site.orderUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-col items-center justify-center rounded-full border border-paper/40 py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-paper"
+            className="flex flex-col items-center justify-center gap-0.5 rounded-full border border-paper/40 py-2 font-mono text-[9px] uppercase tracking-[0.14em] text-paper"
           >
-            <IconBag className="mb-0.5 h-4 w-4" />
+            <IconBag className="h-[18px] w-[18px]" />
             Order
           </a>
           <a
-            href={`tel:${site.phone}`}
-            className="flex flex-col items-center justify-center rounded-full border border-paper/40 py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-paper"
+            href={site.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-col items-center justify-center gap-0.5 rounded-full border border-paper/40 py-2 font-mono text-[9px] uppercase tracking-[0.14em] text-paper"
           >
-            <IconPhone className="mb-0.5 h-4 w-4" />
+            <IconPin className="h-[18px] w-[18px]" />
+            Directions
+          </a>
+          <a
+            href={`tel:${site.phone}`}
+            className="flex flex-col items-center justify-center gap-0.5 rounded-full border border-paper/40 py-2 font-mono text-[9px] uppercase tracking-[0.14em] text-paper"
+          >
+            <IconPhone className="h-[18px] w-[18px]" />
             Call
           </a>
         </div>
@@ -74,6 +83,14 @@ function IconBag({ className }: { className?: string }) {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} aria-hidden="true">
       <path d="M5 8h14l-1 12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 8z" />
       <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+    </svg>
+  );
+}
+function IconPin({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z" />
+      <circle cx="12" cy="10" r="2.5" />
     </svg>
   );
 }

@@ -35,7 +35,7 @@ export default function Visit() {
 
       <Rule variant="thick" />
 
-      <section className="mt-12 grid gap-12 md:grid-cols-12">
+      <section id="hours" className="mt-12 scroll-mt-24 grid gap-12 md:grid-cols-12">
         <div className="md:col-span-5">
           <p className="kicker mb-3">Hours</p>
           <ul className="space-y-1.5 font-mono">

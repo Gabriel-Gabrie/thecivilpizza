@@ -4,6 +4,7 @@ import { Bubble } from '@/components/motion/Bubble';
 import { Marquee } from '@/components/motion/Marquee';
 import { Stamp } from '@/components/ui/Stamp';
 import { Rule } from '@/components/ui/Rule';
+import { weekTable } from '@/lib/hours';
 import { site } from '@/lib/seo';
 import { withBase } from '@/lib/url';
 import menu from '@/content/menu.json';
@@ -11,6 +12,7 @@ import gallery from '@/content/gallery.json';
 import { PizzaTile } from '@/components/menu/PizzaTile';
 
 export default function Home() {
+  const week = weekTable();
   // Pies we have real photos for — surfaces the most photo-rich tiles up front.
   const FEATURED_SLUGS = ['civil-disobedience', 'bee-spicy', 'you-seem-like-a-fungi'] as const;
   const featuredPies = FEATURED_SLUGS
@@ -204,25 +206,50 @@ export default function Home() {
         </div>
       </section>
 
-      {/* find us — short, links to /visit for full hours */}
-      <section className="border-t border-paper/15 bg-ink/30">
-        <div className="mx-auto flex max-w-7xl flex-col items-start gap-6 px-4 py-12 sm:flex-row sm:items-end sm:justify-between sm:px-6">
-          <div>
+      {/* find us */}
+      <section id="find-us" className="border-t border-paper/15 bg-ink/30">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 sm:py-20 md:grid-cols-12">
+          <div className="md:col-span-7">
             <p className="kicker mb-2">Find us</p>
             <h3 className="font-display text-3xl font-black italic leading-tight tracking-masthead sm:text-4xl">
-              {site.address.street}, The Tannery
+              {site.address.street}<br/>
+              The Tannery, Downtown Kitchener
             </h3>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn-ember">
+                Get directions
+              </a>
+              <a href={`tel:${site.phone}`} className="btn-paper">
+                {site.phoneDisplay}
+              </a>
+            </div>
+            <p className="mt-6 dek max-w-md">
+              Two blocks from Victoria Park, walking distance from the LRT.
+            </p>
           </div>
-          <div className="flex flex-wrap gap-3">
-            <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn-paper">
-              Directions
-            </a>
-            <a href={`tel:${site.phone}`} className="btn-paper">
-              {site.phoneDisplay}
-            </a>
-            <Link href="/visit" className="btn-paper">
-              Hours →
-            </Link>
+
+          <div id="hours" className="md:col-span-5">
+            <p className="kicker mb-3">Hours</p>
+            <ul className="space-y-1.5 font-mono">
+              {week.map((d) => (
+                <li
+                  key={d.label}
+                  className={
+                    d.isToday
+                      ? 'flex items-baseline justify-between gap-3 border-b border-paper/30 pb-1.5 text-paper'
+                      : 'flex items-baseline justify-between gap-3 text-paper/75'
+                  }
+                >
+                  <span className="uppercase tracking-[0.2em] text-sm">
+                    {d.label}{d.isToday ? ' · today' : ''}
+                  </span>
+                  <span className="text-sm">{d.ranges.join(' · ')}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-paper/65">
+              Lunch: Wed–Sat, 12pm–4pm
+            </p>
           </div>
         </div>
       </section>
