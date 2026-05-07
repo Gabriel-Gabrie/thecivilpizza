@@ -49,7 +49,7 @@ export default function TheCause() {
             name, that does work we have actually seen with our own eyes.
           </p>
           <p className="dek mt-3 max-w-2xl text-pretty text-lg">
-            Dine-in only — because we want you to ask us about it.
+            Dine-in only.
           </p>
         </div>
       </section>
@@ -93,7 +93,7 @@ export default function TheCause() {
           </li>
           <li className="flex gap-4">
             <span className="font-display text-3xl font-black italic text-ember leading-none">3.</span>
-            <span>Ask any of us who we're supporting this month — and why.</span>
+            <span>Small per pie, but it adds up — real, local impact every month.</span>
           </li>
         </ol>
         <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.2em] text-paper/70">
@@ -108,7 +108,7 @@ export default function TheCause() {
 
       <section className="mx-auto max-w-4xl px-4 py-12 text-center sm:py-16">
         <p className="dek text-lg">
-          The fastest way to support is to come in, order The Cause, and tell us what you think.
+          The easiest way to help is to come in and order The Cause.
         </p>
         <a
           href={site.reserveUrl}
