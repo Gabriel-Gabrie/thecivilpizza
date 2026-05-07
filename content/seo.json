@@ -17,8 +17,8 @@
     "email": "thecivilkitchener@gmail.com",
     "instagram": "https://www.instagram.com/thecivilkitchener",
     "instagramHandle": "@thecivilkitchener",
-    "reserveUrl": "https://tables.toasttab.com/restaurants/the-civil",
-    "orderUrl": "https://order.toasttab.com/online/the-civil-12-151-charles-street-w",
+    "reserveUrl": "https://tables.toasttab.com/restaurants/c06e286e-aca9-4781-a747-6bea2c4419db/findTime",
+    "orderUrl": "https://order.toasttab.com/online/the-civil-151-charles-st-w",
     "mapsUrl": "https://www.google.com/maps/dir/?api=1&destination=The+Civil+Kitchener+Tannery"
   },
   "routes": {
@@ -49,10 +49,6 @@
     "manifesto": {
       "title": "Manifesto — Why we do this",
       "description": "From-scratch dough. No TVs. Real fire. A short essay on what we believe and why."
-    },
-    "press": {
-      "title": "Press — What people say",
-      "description": "Pull quotes from real diners across Restaurant Guru, OpenTable, Tripadvisor, and Yelp."
     }
   }
 }

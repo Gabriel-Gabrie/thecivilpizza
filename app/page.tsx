@@ -4,16 +4,13 @@ import { Bubble } from '@/components/motion/Bubble';
 import { Marquee } from '@/components/motion/Marquee';
 import { Stamp } from '@/components/ui/Stamp';
 import { Rule } from '@/components/ui/Rule';
-import { weekTable } from '@/lib/hours';
 import { site } from '@/lib/seo';
 import { withBase } from '@/lib/url';
 import menu from '@/content/menu.json';
 import gallery from '@/content/gallery.json';
-import cause from '@/content/cause.json';
 import { PizzaTile } from '@/components/menu/PizzaTile';
 
 export default function Home() {
-  const week = weekTable();
   // Pies we have real photos for — surfaces the most photo-rich tiles up front.
   const FEATURED_SLUGS = ['civil-disobedience', 'bee-spicy', 'you-seem-like-a-fungi'] as const;
   const featuredPies = FEATURED_SLUGS
@@ -114,11 +111,11 @@ export default function Home() {
         </Marquee>
       </section>
 
-      {/* TONIGHT'S FEATURE — bubble cocktail */}
+      {/* SIGNATURE — bubble cocktail */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-5 flex flex-col">
-            <p className="kicker mb-3">Tonight on the bar</p>
+            <p className="kicker mb-3">The signature</p>
             <h2 className="font-display text-4xl font-black italic leading-[0.95] tracking-masthead sm:text-6xl">
               Bubble Infusion
             </h2>
@@ -126,12 +123,9 @@ export default function Home() {
               Blueberry-infused gin, lemon, honey, egg white. Topped with a vapour-filled bubble.
               We pop it for you. The smell is the point.
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
+            <div className="mt-6">
               <Link href="/cocktails" className="btn-paper">
                 See all cocktails
-              </Link>
-              <Link href="/menu" className="font-mono text-[12px] uppercase tracking-[0.2em] text-paper/80 underline-offset-4 hover:underline">
-                Pies →
               </Link>
             </div>
             <figure className="relative mt-8 aspect-[4/5] overflow-hidden border border-paper/15">
@@ -153,30 +147,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* THE CAUSE — full-bleed strip */}
+      {/* THE CAUSE — evergreen strip */}
       <section className="bg-ember text-paper">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 sm:py-20 md:grid-cols-12">
-          <div className="md:col-span-7">
+          <div className="md:col-span-8">
             <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-paper/85">
-              The Cause · {cause.current.month}
+              The Cause
             </p>
             <h2 className="mt-3 font-display text-4xl font-black italic leading-[0.95] tracking-masthead sm:text-6xl">
-              $3 from every Cause pie funds {cause.current.name}.
+              One pie. A different local cause every month.
             </h2>
             <p className="mt-4 max-w-2xl font-display italic text-paper/95 text-lg">
-              {cause.current.summary}
+              $3 from every Cause pie goes to a Kitchener-Waterloo charity. Dine-in only. Ask us
+              who this month.
             </p>
           </div>
-          <div className="md:col-span-5 flex flex-col justify-end gap-5">
-            <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-paper/85">
-              This month's Cause pie
-            </p>
-            <p className="font-display italic text-paper text-xl">{cause.current.pizza}</p>
+          <div className="md:col-span-4 flex md:items-end md:justify-end">
             <Link
               href="/the-cause"
-              className="inline-flex items-center gap-2 self-start rounded-full border-2 border-paper px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.22em] text-paper hover:bg-paper hover:text-ember"
+              className="inline-flex items-center gap-2 self-start rounded-full border-2 border-paper px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.22em] text-paper hover:bg-paper hover:text-ember md:self-end"
             >
-              Read the story →
+              How it works →
             </Link>
           </div>
         </div>
@@ -213,54 +204,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* HOURS + ADDRESS */}
-      <section className="border-t border-paper/15 bg-ink/40">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-20 md:grid-cols-12">
-          <div className="md:col-span-5">
-            <p className="kicker mb-3">Hours</p>
-            <ul className="space-y-1.5 font-mono text-sm">
-              {week.map((d) => (
-                <li
-                  key={d.label}
-                  className={
-                    d.isToday
-                      ? 'flex items-baseline justify-between gap-3 border-b border-paper/30 pb-1.5 text-paper'
-                      : 'flex items-baseline justify-between gap-3 text-paper/65'
-                  }
-                >
-                  <span className="uppercase tracking-[0.2em]">
-                    {d.label}{d.isToday ? ' · today' : ''}
-                  </span>
-                  <span>{d.ranges.join(' · ')}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-6 dek max-w-sm">
-              Lunch served Wed–Sat, 12pm–4pm. Reservations and pickup are routed through Toast.
-            </p>
-          </div>
-          <div className="md:col-span-7">
-            <p className="kicker mb-3">Find us</p>
+      {/* find us — short, links to /visit for full hours */}
+      <section className="border-t border-paper/15 bg-ink/30">
+        <div className="mx-auto flex max-w-7xl flex-col items-start gap-6 px-4 py-12 sm:flex-row sm:items-end sm:justify-between sm:px-6">
+          <div>
+            <p className="kicker mb-2">Find us</p>
             <h3 className="font-display text-3xl font-black italic leading-tight tracking-masthead sm:text-4xl">
-              {site.address.street}<br />
-              The Tannery, Downtown Kitchener
+              {site.address.street}, The Tannery
             </h3>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href={site.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-paper"
-              >
-                Get directions
-              </a>
-              <a href={`tel:${site.phone}`} className="btn-paper">
-                {site.phoneDisplay}
-              </a>
-            </div>
-            <p className="mt-8 dek max-w-md">
-              Two blocks from Victoria Park. Walking distance from the LRT. Parking lot at Charles &amp; Water.
-            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn-paper">
+              Directions
+            </a>
+            <a href={`tel:${site.phone}`} className="btn-paper">
+              {site.phoneDisplay}
+            </a>
+            <Link href="/visit" className="btn-paper">
+              Hours →
+            </Link>
           </div>
         </div>
       </section>

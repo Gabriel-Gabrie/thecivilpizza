@@ -4,14 +4,15 @@
 
 :root {
   /* color tokens (RGB triplets so Tailwind alpha-modifier works) */
-  --ink: 14 13 11;
-  --paper: 242 235 220;
+  /* ink lifted from #0E0D0B to #1A1814 — still warm-dark but less crushing */
+  --ink: 26 24 20;
+  --paper: 246 240 226;
   --paper-2: 232 223 200;
-  --ember: 200 51 30;
-  --brass: 201 162 74;
+  --ember: 220 70 45;
+  --brass: 218 178 88;
   --char: 42 31 24;
   --vapour: 184 212 210;
-  --basil: 90 125 63;
+  --basil: 110 145 80;
 }
 
 @layer base {
@@ -32,8 +33,8 @@
     background-color: rgb(var(--ink));
     color: rgb(var(--paper));
     background-image:
-      radial-gradient(ellipse 1200px 600px at 20% -10%, rgb(var(--brass) / 0.05), transparent 60%),
-      radial-gradient(ellipse 900px 500px at 110% 110%, rgb(var(--ember) / 0.06), transparent 65%);
+      radial-gradient(ellipse 1200px 600px at 20% -10%, rgb(var(--brass) / 0.07), transparent 60%),
+      radial-gradient(ellipse 900px 500px at 110% 110%, rgb(var(--ember) / 0.08), transparent 65%);
   }
 
   ::selection {
@@ -72,11 +73,11 @@
   }
 
   .kicker {
-    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-paper/70;
+    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-paper/80;
   }
 
   .dek {
-    @apply font-display italic text-paper/80;
+    @apply font-display italic text-paper/90;
   }
 
   .stamp {

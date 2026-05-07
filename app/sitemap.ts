@@ -10,7 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/visit',
     '/private-events',
     '/manifesto',
-    '/press',
   ];
   const now = new Date();
   return paths.map((p) => ({

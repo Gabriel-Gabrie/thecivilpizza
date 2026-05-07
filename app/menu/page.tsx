@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Marquee } from '@/components/motion/Marquee';
 import { MenuFilters } from '@/components/menu/MenuFilters';
 import { Rule } from '@/components/ui/Rule';
 import { Stamp } from '@/components/ui/Stamp';
@@ -20,35 +19,19 @@ type MenuItem = {
 export default function MenuPage() {
   return (
     <>
-      <section className="border-b border-paper/15 bg-ink py-3">
-        <Marquee>
-          {menu.pizzas.items.map((p) => (
-            <span
-              key={p.slug}
-              className="font-display text-[clamp(1.6rem,4vw,2.4rem)] italic text-paper/80"
-            >
-              {p.name}
-              <span className="px-6 text-paper/30">★</span>
-            </span>
-          ))}
-        </Marquee>
-      </section>
-
       <article className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-16">
         <header className="mb-8 text-center">
-          <p className="kicker mb-2">The full broadsheet</p>
           <h1 className="font-display text-balance text-5xl font-black leading-none tracking-masthead sm:text-7xl">
             The <span className="italic text-ember">Menu</span>
           </h1>
           <p className="dek mx-auto mt-4 max-w-xl text-pretty text-lg">
-            Every pie, cocktail, and flight on offer tonight. The only thing not on this page is whatever the chef just took out of the oven.
+            Pizzas, starters, cocktails, flights. Made from scratch.
           </p>
         </header>
 
-        <MenuFilters />
-
         <section aria-labelledby="pies" className="mt-2">
           <SectionHeader id="pies" label={menu.pizzas.heading} />
+          <MenuFilters />
           <div className="md:columns-2 md:gap-12">
             {menu.pizzas.items.map((p) => (
               <PieRow key={p.slug} item={p} />

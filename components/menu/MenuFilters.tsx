@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { clsx } from 'clsx';
 
 const FILTERS = [
@@ -16,8 +16,8 @@ type FilterKey = (typeof FILTERS)[number]['key'];
 export function MenuFilters() {
   const [active, setActive] = useState<FilterKey>('all');
 
-  // Update DOM on filter change — vanilla CSS toggling avoids re-rendering
-  // every pizza row in React.
+  // Toggle visibility on the data-pie nodes directly. Cheaper than re-mounting
+  // the menu list, and keeps the rendered HTML the same for SEO.
   useEffect(() => {
     const all = document.querySelectorAll<HTMLElement>('[data-pie]');
     all.forEach((el) => {
@@ -28,27 +28,28 @@ export function MenuFilters() {
   }, [active]);
 
   return (
-    <div
-      role="tablist"
-      aria-label="Filter pizzas"
-      className="sticky top-[88px] z-20 -mx-4 mb-8 flex gap-2 overflow-x-auto border-y border-paper/15 bg-ink/85 px-4 py-2 backdrop-blur sm:mx-0 sm:rounded-full sm:border sm:px-3"
-    >
-      {FILTERS.map((f) => (
-        <button
-          key={f.key}
-          role="tab"
-          aria-selected={active === f.key}
-          onClick={() => setActive(f.key)}
-          className={clsx(
-            'pill shrink-0 transition-colors',
-            active === f.key
-              ? 'border-ember bg-ember text-paper'
-              : 'border-paper/40 text-paper/80 hover:text-paper'
-          )}
-        >
-          {f.label}
-        </button>
-      ))}
+    <div className="-mx-4 mb-8 flex items-center gap-3 overflow-x-auto px-4 py-1 sm:mx-0 sm:px-0">
+      <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.22em] text-paper/65">
+        Filter pies
+      </span>
+      <div role="tablist" aria-label="Filter pizzas by tag" className="flex gap-2">
+        {FILTERS.map((f) => (
+          <button
+            key={f.key}
+            role="tab"
+            aria-selected={active === f.key}
+            onClick={() => setActive(f.key)}
+            className={clsx(
+              'pill shrink-0 transition-colors',
+              active === f.key
+                ? 'border-ember bg-ember text-paper'
+                : 'border-paper/40 text-paper/85 hover:text-paper'
+            )}
+          >
+            {f.label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
