@@ -3,17 +3,10 @@
   "_categorization": "Photos go in 'interior' only when the room itself is the subject. A pizza on a table is in 'pies' even if the room is visible. Same for cocktails and flights.",
   "items": [
     {
-      "id": "interior-bar-cocktail-lounge",
-      "category": "interior",
-      "alt": "The Civil's bar with a 'cocktail lounge' red neon sign, the chalkboard logo above it, the BAR marquee, the pizza oven, and a 'DRINK GOOD GIN' sign.",
-      "src": "/images/interior-bar-cocktail-lounge.jpg",
-      "feature": true
-    },
-    {
-      "id": "exterior-neon-pizza",
-      "category": "exterior",
-      "alt": "The Civil's storefront at night — a black 'THE CIVIL · pizza cocktails beer' sign above neon PIZZA and OPEN signs in the window, with a small patio table out front.",
-      "src": "/images/exterior-neon-pizza.jpg",
+      "id": "interior-decor-wall",
+      "category": "feature-only",
+      "alt": "The Civil's neon cursive sign on a black accent wall, with a mounted cow skull, antelope head, painted gold-skull canvas, and an abstract painting beneath the ceiling beams and string lights.",
+      "src": "/images/interior-decor-wall.jpg",
       "feature": true
     },
     {
@@ -22,6 +15,18 @@
       "alt": "A samoyed dog sitting next to a chalkboard outside The Civil that reads 'Wild Pies. Cocktails. Beer. (oh, and Margarita Flights).'",
       "src": "/images/exterior-dog-chalkboard.jpg",
       "feature": true
+    },
+    {
+      "id": "interior-bar-cocktail-lounge",
+      "category": "interior",
+      "alt": "The Civil's bar with a 'cocktail lounge' red neon sign, the chalkboard logo above it, the BAR marquee, the pizza oven, and a 'DRINK GOOD GIN' sign.",
+      "src": "/images/interior-bar-cocktail-lounge.jpg"
+    },
+    {
+      "id": "exterior-neon-pizza",
+      "category": "exterior",
+      "alt": "The Civil's storefront at night — a black 'THE CIVIL · pizza cocktails beer' sign above neon PIZZA and OPEN signs in the window, with a small patio table out front.",
+      "src": "/images/exterior-neon-pizza.jpg"
     },
 
     {
@@ -59,12 +64,6 @@
       "category": "interior",
       "alt": "The bar from a wider angle showing the BAR marquee, cocktail lounge neon, the chalkboard logo, and the kitchen pass behind.",
       "src": "/images/interior-bar-marquee.jpg"
-    },
-    {
-      "id": "interior-decor-wall",
-      "category": "interior",
-      "alt": "Black accent wall with a mounted cow skull, painted gold-skull canvas, antelope head, and a small Civil neon — eclectic-rustic decor.",
-      "src": "/images/interior-decor-wall.jpg"
     },
     {
       "id": "interior-bw-booth",

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Rule } from '@/components/ui/Rule';
+import { GallerySection } from '@/components/gallery/GallerySection';
 import { buildMetadata } from '@/lib/seo';
 import { withBase } from '@/lib/url';
 import gallery from '@/content/gallery.json';
@@ -19,7 +20,8 @@ const SECTIONS: Array<{ key: string; label: string }> = [
 ];
 
 export default function GalleryPage() {
-  // Bucket items by their category so each section renders independently.
+  // Bucket items by their category. 'feature-only' items are intentionally
+  // excluded from every category bucket — they appear only in the hero row.
   const buckets = SECTIONS.reduce(
     (acc, s) => {
       acc[s.key] = gallery.items.filter((g) => g.category === s.key);
@@ -27,6 +29,8 @@ export default function GalleryPage() {
     },
     {} as Record<string, typeof gallery.items>
   );
+
+  const features = gallery.items.filter((g) => g.feature);
 
   return (
     <article className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-16">
@@ -36,73 +40,41 @@ export default function GalleryPage() {
           The <span className="italic text-ember">Gallery</span>
         </h1>
         <p className="dek mx-auto mt-4 max-w-xl text-pretty text-lg">
-          The room, the food, the bar, the block. Tap a photo for a closer look.
+          The room, the food, the bar, the block.
         </p>
       </header>
 
       <Rule variant="thick" />
 
-      {/* Hero feature: the three best shots, big */}
-      <section className="mt-10 grid gap-3 sm:grid-cols-3">
-        {gallery.items
-          .filter((g) => g.feature)
-          .slice(0, 3)
-          .map((g, idx) => (
-            <figure
-              key={g.id}
-              className={
-                idx === 0
-                  ? 'relative aspect-[4/5] overflow-hidden border border-paper/15 sm:col-span-2 sm:aspect-[16/10]'
-                  : 'relative aspect-[4/5] overflow-hidden border border-paper/15'
-              }
-            >
-              <Image
-                src={withBase(g.src)}
-                alt={g.alt}
-                fill
-                sizes={
-                  idx === 0
-                    ? '(max-width: 640px) 100vw, 66vw'
-                    : '(max-width: 640px) 100vw, 33vw'
-                }
-                className="object-cover"
-                priority={idx === 0}
-              />
-            </figure>
-          ))}
+      {/* Hero feature row. Two photos, side-by-side, equal weight. */}
+      <section className="mt-10 grid gap-3 sm:grid-cols-2">
+        {features.map((g, idx) => (
+          <figure
+            key={g.id}
+            className="relative aspect-[4/3] overflow-hidden border border-paper/15"
+          >
+            <Image
+              src={withBase(g.src)}
+              alt={g.alt}
+              fill
+              sizes="(max-width: 640px) 100vw, 50vw"
+              className="object-cover"
+              priority={idx === 0}
+            />
+          </figure>
+        ))}
       </section>
 
-      {/* Per-category sections */}
+      {/* Per-category sections — each handles its own mobile collapse. */}
       {SECTIONS.map((section) => {
         const items = buckets[section.key] ?? [];
         if (items.length === 0) return null;
         return (
-          <section key={section.key} className="mt-16">
-            <div className="mb-5 flex items-end justify-between border-b-2 border-paper/85 pb-2">
-              <h2 className="font-display text-3xl font-black italic uppercase tracking-tight sm:text-4xl">
-                {section.label}
-              </h2>
-              <p className="hidden font-mono text-[10px] uppercase tracking-[0.3em] text-paper/55 sm:block">
-                {items.length} {items.length === 1 ? 'photo' : 'photos'}
-              </p>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {items.map((g) => (
-                <figure
-                  key={g.id}
-                  className="relative aspect-[4/5] overflow-hidden border border-paper/15"
-                >
-                  <Image
-                    src={withBase(g.src)}
-                    alt={g.alt}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-700 hover:scale-[1.03]"
-                  />
-                </figure>
-              ))}
-            </div>
-          </section>
+          <GallerySection
+            key={section.key}
+            label={section.label}
+            items={items}
+          />
         );
       })}
     </article>
