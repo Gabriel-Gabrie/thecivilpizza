@@ -1,7 +1,7 @@
-// The Civil's logomark — circle with three diagonal arrows shooting
-// down-right. Hand-traced from the official logo: thick stroke, parallel
-// arrows offset across the upper-left of the circle, right-angle
-// arrowheads at each lower-right end. Pure SVG, no deps.
+// The Civil's logomark — a pizza-shaped circle with a triangular slice
+// removed from the top (creating an open V), and three diagonal arrows
+// shooting from the upper-right down through the lower-left of the
+// circle. Hand-traced from the official high-res logo.
 
 import { clsx } from 'clsx';
 
@@ -15,17 +15,20 @@ export function Seal({ className, size = 64 }: { className?: string; size?: numb
       aria-label="The Civil logomark"
       className={clsx('shrink-0', className)}
     >
-      {/* outer circle */}
-      <circle
-        cx="50"
-        cy="50"
-        r="40"
+      {/* Pizza outline minus a V wedge taken out of the top.
+          Path: from V's left rim point → down to V's bottom point →
+          up to V's right rim point → large clockwise arc all the way
+          around the circle back to start. */}
+      <path
+        d="M 30 18 L 50 48 L 70 18 A 38 38 0 1 1 30 18"
         fill="none"
         stroke="currentColor"
         strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
 
-      {/* three parallel diagonal arrows */}
+      {/* Three parallel arrows shooting from upper-right toward lower-left. */}
       <g
         fill="none"
         stroke="currentColor"
@@ -33,17 +36,16 @@ export function Seal({ className, size = 64 }: { className?: string; size?: numb
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        {/* arrow 1 (top) — line + L-shape arrowhead opening back-and-up */}
-        <line x1="22" y1="36" x2="64" y2="78" />
-        <polyline points="56,78 64,78 64,70" />
+        <line x1="70" y1="38" x2="38" y2="70" />
+        <line x1="62" y1="38" x2="30" y2="70" />
+        <line x1="54" y1="38" x2="22" y2="70" />
+      </g>
 
-        {/* arrow 2 (middle) */}
-        <line x1="32" y1="36" x2="74" y2="78" />
-        <polyline points="66,78 74,78 74,70" />
-
-        {/* arrow 3 (bottom) */}
-        <line x1="42" y1="36" x2="82" y2="76" />
-        <polyline points="74,76 82,76 82,68" />
+      {/* Filled triangle arrowheads at each line's lower-left tip. */}
+      <g fill="currentColor" stroke="currentColor" strokeWidth="0.6" strokeLinejoin="round">
+        <polygon points="38,70 44,68 40,64" />
+        <polygon points="30,70 36,68 32,64" />
+        <polygon points="22,70 28,68 24,64" />
       </g>
     </svg>
   );

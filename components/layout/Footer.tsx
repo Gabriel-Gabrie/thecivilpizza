@@ -65,11 +65,6 @@ export function Footer() {
                   Instagram
                 </a>
               </li>
-              <li>
-                <Link href="/manifesto" className="hover:text-ember">
-                  Manifesto
-                </Link>
-              </li>
             </ul>
           </div>
         </div>

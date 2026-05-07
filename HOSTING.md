@@ -101,13 +101,42 @@ jobs:
 Pros: keep the Hostinger setup, only ship the static output.
 Cons: still hosting on Hostinger's shared infrastructure, no edge CDN.
 
-## My recommendation
+## What's actually wired up right now
 
-**Move to Cloudflare Pages.** Free, fast everywhere in the world, hooks
-into your existing GitHub repo, only ships `out/`. Hostinger continues
-to host whatever else lives at `gabrielgabrie.com`; just point the
-`/thecivil` subdomain (or use a fresh subdomain like `civil.gabrielgabrie.com`)
-at the CF Pages project.
+We chose to stay on Hostinger and use the **deploy branch** approach.
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) builds
+the static site on every push to `main` and force-pushes the contents
+of `out/` to a `deploy` branch as a single orphan commit.
 
-If you want, I can write the migration commit (config + DNS notes) and
-hand you a one-pager.
+### One-time switch the owner needs to do
+
+The first push of this commit will create the `deploy` branch
+automatically once GitHub Actions runs. After that:
+
+1. Open the Hostinger panel for the `demo.gabrielgabrie.com/thecivil`
+   webhook deployment.
+2. Change the watched branch from `main` to `deploy`.
+3. Trigger a manual sync (or push any small commit) so Hostinger
+   pulls `deploy` for the first time.
+
+After that switch, every push to `main`:
+- triggers the GitHub Action
+- which builds the site
+- which force-pushes `out/*` to `deploy` (replacing whatever was there)
+- which Hostinger pulls and serves at `/thecivil/`
+
+### What lives where after the switch
+
+- **`main`**: source code, plans, original photos, all the docs. Never
+  served to anyone.
+- **`deploy`**: only the contents of `out/` — `index.html`, per-route
+  folders, `_next/static/*`, `images/*`, the Next.js icon files, plus
+  `public/.htaccess` for caching headers. No source, no node_modules,
+  no `.git` history.
+
+### Cleanup (do this AFTER you confirm `deploy` is serving correctly)
+
+Once `deploy` is the source of truth and Hostinger is pulling from it,
+the `out/` folder and the root `.htaccess` (with the rewrite rules)
+can be removed from `main` — they're no longer needed there. Tell me
+when you've confirmed and I'll write that cleanup commit.

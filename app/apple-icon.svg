@@ -1,14 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
   <rect width="180" height="180" rx="32" fill="#1a1814"/>
   <g transform="translate(40,40)">
-    <circle cx="50" cy="50" r="40" fill="none" stroke="#f6f0e2" stroke-width="4"/>
-    <g stroke="#f6f0e2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="22" y1="36" x2="64" y2="78"/>
-      <polyline points="56,78 64,78 64,70"/>
-      <line x1="32" y1="36" x2="74" y2="78"/>
-      <polyline points="66,78 74,78 74,70"/>
-      <line x1="42" y1="36" x2="82" y2="76"/>
-      <polyline points="74,76 82,76 82,68"/>
+    <path d="M 30 18 L 50 48 L 70 18 A 38 38 0 1 1 30 18" fill="none" stroke="#f6f0e2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="none" stroke="#f6f0e2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="70" y1="38" x2="38" y2="70"/>
+      <line x1="62" y1="38" x2="30" y2="70"/>
+      <line x1="54" y1="38" x2="22" y2="70"/>
+    </g>
+    <g fill="#f6f0e2">
+      <polygon points="38,70 44,68 40,64"/>
+      <polygon points="30,70 36,68 32,64"/>
+      <polygon points="22,70 28,68 24,64"/>
     </g>
   </g>
 </svg>

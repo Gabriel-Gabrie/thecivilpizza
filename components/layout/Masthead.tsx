@@ -15,7 +15,6 @@ const NAV = [
   { href: '/gallery', label: 'Gallery' },
   { href: '/the-cause', label: 'The Cause' },
   { href: '/visit', label: 'Visit' },
-  { href: '/manifesto', label: 'Manifesto' },
 ];
 
 export function Masthead() {
