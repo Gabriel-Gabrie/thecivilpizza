@@ -589,12 +589,12 @@
       },
       {
         "slug": "item",
-        "name": "Test",
-        "dek": "Test new item",
+        "name": "Edited name",
+        "dek": "This is a test of editing items.",
         "ingredients": [
           "ingredient"
         ],
-        "price": "$0",
+        "price": "$30",
         "tags": [
           "tag"
         ]
