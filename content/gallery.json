@@ -28,7 +28,6 @@
       "alt": "The Civil's storefront at night — a black 'THE CIVIL · pizza cocktails beer' sign above neon PIZZA and OPEN signs in the window, with a small patio table out front.",
       "src": "/images/exterior-neon-pizza.jpg"
     },
-
     {
       "id": "interior-bar",
       "category": "interior",
@@ -95,7 +94,6 @@
       "alt": "Black-and-white photo of an illuminated marquee BAR sign mounted to a heritage-tannery beam.",
       "src": "/images/bar-sign.jpg"
     },
-
     {
       "id": "exterior-lang-tanning",
       "category": "exterior",
@@ -108,13 +106,11 @@
       "alt": "Wide nighttime shot of the heritage Lang Tanning Company building with Communitech and D2L signage on the upper floors.",
       "src": "/images/exterior-building-wide.jpg"
     },
-
     {
       "id": "pro-pepperoni-mushroom",
       "category": "pies",
       "alt": "Pepperoni pizza in the foreground, mushroom pizza behind it, and a margarita cocktail on a wooden table.",
-      "src": "/images/pro-pepperoni-mushroom.jpg",
-      "feature": true
+      "src": "/images/pro-pepperoni-mushroom.jpg"
     },
     {
       "id": "pro-server-pizza-tattoo",
@@ -218,7 +214,6 @@
       "alt": "Pizza with dill pickles, sesame seeds, and sauce drizzle, top-down.",
       "src": "/images/pizza-dill-communication.webp"
     },
-
     {
       "id": "cocktail-purple-tall",
       "category": "cocktails",
@@ -292,7 +287,6 @@
       "alt": "A whiskey sour in the foreground with a margarita flight on a wooden flight board behind it.",
       "src": "/images/cocktail-foreground-sour.jpg"
     },
-
     {
       "id": "flight-double-dessert",
       "category": "flights",
