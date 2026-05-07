@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: /admin
+
+Sitemap: https://demo.gabrielgabrie.com/thecivil/sitemap.xml
