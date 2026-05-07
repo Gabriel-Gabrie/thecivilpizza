@@ -51,7 +51,7 @@ export default function Home() {
             </h1>
             <p className="dek mt-6 max-w-xl text-pretty text-lg sm:text-xl">
               From-scratch pizzas, theatrical cocktails, and a vapour bubble we will pop in
-              front of you. In the Tannery. Open Mon–Sat.
+              front of you. Open Mon–Sat.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
@@ -225,7 +225,7 @@ export default function Home() {
               aria-label="Open directions in Google Maps"
             >
               {site.address.street}<br/>
-              The Tannery, Downtown Kitchener
+              Downtown Kitchener
             </a>
             <div className="mt-6 flex flex-wrap gap-3">
               <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn-ember">

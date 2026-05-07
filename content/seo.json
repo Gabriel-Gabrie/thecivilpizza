@@ -2,7 +2,7 @@
   "site": {
     "name": "The Civil",
     "tagline": "Modern cocktails. Adventurous pies. Rotating flights.",
-    "description": "From-scratch pizza and craft cocktails in Downtown Kitchener's Tannery building. Open Mon–Sat. Reservations and pickup via Toast.",
+    "description": "From-scratch pizza and craft cocktails in Downtown Kitchener. Open Mon–Sat. Reservations and pickup via Toast.",
     "url": "https://demo.gabrielgabrie.com/thecivil",
     "address": {
       "street": "151 Charles St W",
@@ -23,12 +23,12 @@
     "instagramHandle": "@thecivilkitchener",
     "reserveUrl": "https://tables.toasttab.com/restaurants/c06e286e-aca9-4781-a747-6bea2c4419db/findTime",
     "orderUrl": "https://order.toasttab.com/online/the-civil-151-charles-st-w",
-    "mapsUrl": "https://www.google.com/maps/dir/?api=1&destination=The+Civil+Kitchener+Tannery"
+    "mapsUrl": "https://www.google.com/maps/dir/?api=1&destination=The+Civil+Kitchener"
   },
   "routes": {
     "home": {
       "title": "The Civil — Pizza, cocktails, and rotating flights in Kitchener",
-      "description": "From-scratch pies and theatrical cocktails. The Tannery, Downtown Kitchener. Open Mon–Sat."
+      "description": "From-scratch pies and theatrical cocktails. Downtown Kitchener. Open Mon–Sat."
     },
     "menu": {
       "title": "The Menu — The Civil",
@@ -44,7 +44,7 @@
     },
     "visit": {
       "title": "Visit — The Civil, 12-151 Charles St W, Kitchener",
-      "description": "Hours, address, parking, transit. We are in the Tannery, two blocks from Victoria Park."
+      "description": "Hours, address, parking, transit. Two blocks from Victoria Park, Downtown Kitchener."
     },
     "gallery": {
       "title": "Gallery — The Civil",

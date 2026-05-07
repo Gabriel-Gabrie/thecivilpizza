@@ -61,7 +61,7 @@ export function Masthead() {
             className="underline-offset-4 hover:text-paper hover:underline"
             aria-label="Get directions to The Civil"
           >
-            <span className="hidden sm:inline">Kitchener, ON · The Tannery</span>
+            <span className="hidden sm:inline">Kitchener, ON</span>
             <span className="sm:hidden">Kitchener, ON</span>
           </a>
           <OpenClosedPill />

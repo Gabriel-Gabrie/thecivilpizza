@@ -80,19 +80,19 @@ export function ContactTab({
       >
         <div className="grid gap-4 sm:grid-cols-2">
           <Field
-            label="Phone (E.164)"
+            label="Phone"
             value={site.phone}
             onChange={(v) => set('phone', v)}
             placeholder="+15195709992"
-            helper={'Used in tel: links. Format: +1XXXXXXXXXX, no spaces.'}
+            helper="Used when someone taps to call. Format: +1XXXXXXXXXX, no spaces or dashes."
             dirty={dirty(site.phone, orig.phone)}
           />
           <Field
-            label="Phone (display)"
+            label="Phone (how it shows on the site)"
             value={site.phoneDisplay}
             onChange={(v) => set('phoneDisplay', v)}
             placeholder="(519) 570-9992"
-            helper={'How the number appears on the site.'}
+            helper="How visitors read the number on the page."
             dirty={dirty(site.phoneDisplay, orig.phoneDisplay)}
           />
           <Field
@@ -201,7 +201,10 @@ export function ContactTab({
         </div>
       </Section>
 
-      <Section title="Brand copy">
+      <Section
+        title="Headline & search description"
+        description="The short tagline that appears on the site, and the longer description Google uses when the site shows up in search results."
+      >
         <div className="grid gap-4">
           <Field
             label="Tagline"
@@ -211,7 +214,7 @@ export function ContactTab({
             dirty={dirty(site.tagline, orig.tagline)}
           />
           <Field
-            label="Site description (used by search engines)"
+            label="Description shown in Google search results"
             value={site.description}
             onChange={(v) => set('description', v)}
             multiline

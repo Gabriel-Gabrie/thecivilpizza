@@ -3,6 +3,18 @@
 import { useState } from 'react';
 import { Field } from './Field';
 import { CsvInput } from './CsvInput';
+import { Pills } from './Pills';
+
+// Allowed pie tags. These match what the /menu page filter chips
+// understand. Anything not in this list won't be filterable on the
+// public site, so the picker is restricted.
+const PIE_TAGS = [
+  { value: 'veggie', label: 'Veggie' },
+  { value: 'meaty', label: 'Meaty' },
+  { value: 'spicy', label: 'Spicy' },
+  { value: 'sweet', label: 'Sweet' },
+  { value: 'dine-in-only', label: 'Dine-in only' },
+] as const;
 
 export type MenuItem = {
   slug: string;
@@ -189,7 +201,7 @@ export function MenuTab({
 
         <div className="mt-4 max-w-md">
           <Field
-            label="Section heading (shown on /menu)"
+            label="Section heading (shown on the menu page)"
             value={section.heading}
             onChange={(v) =>
               setDraft({
@@ -221,7 +233,7 @@ export function MenuTab({
               >
                 <div className="mb-4 flex flex-wrap items-center gap-3">
                   <span className="text-sm text-ink/60">
-                    #{idx + 1} · <span className="font-mono text-xs">{item.slug}</span>
+                    #{idx + 1}
                     {isNew && (
                       <span className="ml-2 rounded-full bg-basil/20 px-2 py-0.5 text-xs font-medium text-ink">
                         new
@@ -271,12 +283,13 @@ export function MenuTab({
                   />
                   <div className="sm:col-span-2">
                     <Field
-                      label="Tagline / dek"
+                      label="One-line tagline"
                       value={item.dek}
                       onChange={(v) => updateItem(activeSection, idx, { dek: v })}
                       multiline
                       rows={2}
                       placeholder="A felony of flavor. Three counts on the indictment."
+                      helper="The witty line that appears under the item name."
                     />
                   </div>
                   <div className="sm:col-span-2">
@@ -294,16 +307,14 @@ export function MenuTab({
                       removes a dead control without deleting any data. */}
                   {activeSection === 'pizzas' && (
                     <div className="sm:col-span-2">
-                      <CsvInput
-                        label="Tags (comma-separated)"
-                        value={item.tags ?? []}
+                      <Pills<string>
+                        label="Tags"
+                        options={[...PIE_TAGS]}
+                        selected={item.tags ?? []}
                         onChange={(next) =>
                           updateItem(activeSection, idx, { tags: next })
                         }
-                        placeholder="meaty, spicy, sweet"
-                        helper={
-                          'Used by the /menu page filter chips. Common values: veggie, meaty, spicy, sweet, dine-in-only.'
-                        }
+                        helper="Click a tag to add or remove it. Visitors filter the menu by these."
                       />
                     </div>
                   )}

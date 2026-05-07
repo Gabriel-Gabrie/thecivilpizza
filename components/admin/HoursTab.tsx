@@ -1,6 +1,7 @@
 'use client';
 
 import { Field } from './Field';
+import { Pills } from './Pills';
 
 export type Range = { open: string; close: string };
 export type DaySchedule = { day: number; label: string; ranges: Range[] };
@@ -135,21 +136,21 @@ export function HoursTab({
 
       <Section
         title="Lunch window"
-        description="Used in the dek beneath the hours table — e.g. “Lunch served Wed–Sat 12pm–4pm.”"
+        description="Used in the line beneath the hours table — e.g. “Lunch served Wed–Sat 12pm–4pm.”"
       >
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2">
           <Field
-            label="Lunch open"
+            label="Lunch starts"
             value={draft.lunch.open}
             onChange={(v) =>
               setDraft({ ...draft, lunch: { ...draft.lunch, open: v } })
             }
             placeholder="12:00"
-            helper="HH:MM, 24-hour."
+            helper="HH:MM, 24-hour. (12:00 = noon, 16:00 = 4pm.)"
             dirty={dirty(draft.lunch.open, original.lunch.open)}
           />
           <Field
-            label="Lunch close"
+            label="Lunch ends"
             value={draft.lunch.close}
             onChange={(v) =>
               setDraft({ ...draft, lunch: { ...draft.lunch, close: v } })
@@ -157,19 +158,26 @@ export function HoursTab({
             placeholder="16:00"
             dirty={dirty(draft.lunch.close, original.lunch.close)}
           />
-          <Field
-            label="Days (comma-separated, 0=Sun)"
-            value={draft.lunch.days.join(',')}
-            onChange={(v) => {
-              const parsed = v
-                .split(',')
-                .map((s) => parseInt(s.trim(), 10))
-                .filter((n) => !Number.isNaN(n) && n >= 0 && n <= 6);
-              setDraft({ ...draft, lunch: { ...draft.lunch, days: parsed } });
-            }}
-            placeholder="3,4,5,6"
-            helper="0=Sun, 1=Mon … 6=Sat. Currently Wed–Sat."
-            monospace
+        </div>
+        <div className="mt-4">
+          <Pills<number>
+            label="Days lunch is served"
+            options={[
+              { value: 0, label: 'Sun' },
+              { value: 1, label: 'Mon' },
+              { value: 2, label: 'Tue' },
+              { value: 3, label: 'Wed' },
+              { value: 4, label: 'Thu' },
+              { value: 5, label: 'Fri' },
+              { value: 6, label: 'Sat' },
+            ]}
+            selected={draft.lunch.days}
+            onChange={(days) =>
+              setDraft({
+                ...draft,
+                lunch: { ...draft.lunch, days: [...days].sort((a, b) => a - b) },
+              })
+            }
             dirty={dirty(draft.lunch.days, original.lunch.days)}
           />
         </div>

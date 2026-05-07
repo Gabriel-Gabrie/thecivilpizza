@@ -28,6 +28,17 @@ export type PendingImage = {
 
 const CATEGORIES = ['interior', 'exterior', 'pies', 'cocktails', 'flights', 'feature-only'];
 
+// Friendlier display labels for the dropdown. The underlying values
+// must stay as-is — they match the gallery page's section keys.
+const CATEGORY_LABELS: Record<string, string> = {
+  interior: 'The room',
+  exterior: 'Outside / The block',
+  pies: 'The pies',
+  cocktails: 'Cocktails',
+  flights: 'Flights',
+  'feature-only': 'Featured only (top of page)',
+};
+
 function slugifyName(name: string): string {
   const base = name.toLowerCase().replace(/[^a-z0-9.]+/g, '-').replace(/^-+|-+$/g, '');
   return base || 'image';
@@ -184,15 +195,7 @@ export function GalleryTab({
                     </span>
                   )}
                 </div>
-                <p className="mt-2 truncate text-sm text-ink/60">{item.id}</p>
-
                 <div className="mt-3 space-y-3">
-                  <Field
-                    label="ID (used as React key)"
-                    value={item.id}
-                    onChange={(v) => updateItem(idx, { id: v })}
-                    monospace
-                  />
                   <label className="block">
                     <span className="text-sm font-medium text-ink">Category</span>
                     <select
@@ -202,17 +205,18 @@ export function GalleryTab({
                     >
                       {CATEGORIES.map((c) => (
                         <option key={c} value={c}>
-                          {c}
+                          {CATEGORY_LABELS[c] ?? c}
                         </option>
                       ))}
                     </select>
                   </label>
                   <Field
-                    label="Alt text"
+                    label="What's in this photo?"
                     value={item.alt}
                     onChange={(v) => updateItem(idx, { alt: v })}
                     multiline
                     rows={2}
+                    helper="Used by screen readers and search engines. A short sentence is plenty."
                   />
                   <label className="flex items-center gap-2 text-sm text-ink/85">
                     <input
@@ -222,7 +226,7 @@ export function GalleryTab({
                         updateItem(idx, { feature: e.target.checked || undefined })
                       }
                     />
-                    Feature on /gallery hero row
+                    Show this photo at the top of the Gallery page
                   </label>
                   <button
                     type="button"

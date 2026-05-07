@@ -110,7 +110,7 @@ export function AdminShell({ token, login, onSignOut }: { token: string; login: 
     <div className="min-h-screen">
       <header className="sticky top-0 z-30 border-b border-ink/10 bg-paper/95 backdrop-blur supports-[backdrop-filter]:bg-paper/85">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6">
-          <span className="text-base font-semibold text-ink">The Civil — Owner</span>
+          <span className="text-base font-semibold text-ink">The Civil — Admin Site</span>
           <div className="flex items-center gap-3">
             {totalDirtyFiles > 0 && (
               <span className="hidden rounded-full bg-brass/20 px-3 py-1 text-xs font-medium text-ink sm:inline">

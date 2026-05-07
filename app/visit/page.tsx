@@ -23,7 +23,7 @@ export default function Visit() {
           className="block font-display text-balance text-5xl font-black leading-none tracking-masthead transition hover:text-ember sm:text-7xl"
           aria-label="Open directions in Google Maps"
         >
-          {site.address.street}, <span className="italic text-ember">The Tannery</span>
+          {site.address.street}, <span className="italic text-ember">Kitchener</span>
         </a>
         <p className="dek mt-4 max-w-2xl text-pretty text-lg">
           Two blocks from Victoria Park, walking distance from the LRT. Tap the address for directions.
