@@ -93,7 +93,7 @@ export default function Visit() {
       <Rule variant="thick" className="my-16" />
 
       {/* Private events — verbatim copy from thecivil.ca */}
-      <section className="grid gap-10 md:grid-cols-12">
+      <section id="private-events" className="scroll-mt-24 grid gap-10 md:grid-cols-12">
         <div className="md:col-span-7">
           <p className="kicker mb-3">Private events</p>
           <h2 className="font-display text-4xl font-black italic leading-[0.95] tracking-masthead sm:text-5xl">

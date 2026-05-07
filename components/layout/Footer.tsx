@@ -51,6 +51,11 @@ export function Footer() {
                 </a>
               </li>
               <li>
+                <Link href="/visit#private-events" className="hover:text-ember">
+                  Private events
+                </Link>
+              </li>
+              <li>
                 <a href={site.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-ember">
                   Instagram
                 </a>

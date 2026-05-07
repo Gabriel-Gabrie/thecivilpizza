@@ -94,26 +94,26 @@ export function Masthead() {
         </div>
       </div>
 
-      {/* mobile drawer */}
+      {/* mobile drawer — bg-ink applied to the wrapper itself so it's a
+          guaranteed solid surface regardless of how nested children compute. */}
       <div
         id="mobile-nav"
         className={clsx(
-          'md:hidden fixed inset-x-0 top-[88px] bottom-0 z-30 transition-opacity duration-200',
+          'md:hidden fixed inset-x-0 top-[88px] bottom-0 z-30 overflow-y-auto bg-ink transition-opacity duration-200',
           open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         )}
         aria-hidden={!open}
+        style={{
+          backgroundImage:
+            'radial-gradient(ellipse 800px 400px at 0% 0%, rgb(var(--brass) / 0.06), transparent 60%), radial-gradient(ellipse 600px 400px at 100% 100%, rgb(var(--ember) / 0.08), transparent 65%)',
+        }}
       >
-        {/* solid sheet — covers the whole below-masthead area so text is legible */}
         <nav
           aria-label="Primary"
           className={clsx(
-            'h-full overflow-y-auto bg-ink px-4 pb-10 pt-6 transition-transform duration-200',
+            'min-h-full px-4 pb-12 pt-6 transition-transform duration-200',
             open ? 'translate-y-0' : '-translate-y-3'
           )}
-          style={{
-            backgroundImage:
-              'radial-gradient(ellipse 800px 400px at 0% 0%, rgb(var(--brass) / 0.06), transparent 60%), radial-gradient(ellipse 600px 400px at 100% 100%, rgb(var(--ember) / 0.08), transparent 65%)',
-          }}
         >
           <ul className="space-y-1">
             {NAV.map((n) => {

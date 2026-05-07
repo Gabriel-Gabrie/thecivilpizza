@@ -8,7 +8,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/cocktails',
     '/the-cause',
     '/visit',
-    '/private-events',
     '/manifesto',
   ];
   const now = new Date();
