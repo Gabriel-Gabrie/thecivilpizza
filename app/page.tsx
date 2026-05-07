@@ -143,8 +143,22 @@ export default function Home() {
               </Stamp>
             </figure>
           </div>
-          <div className="md:col-span-7">
-            <FeaturedPiesGrid pies={featuredPies} />
+          <div className="md:col-span-7 flex flex-col">
+            <p className="kicker mb-3">The pies</p>
+            <h2 className="font-display text-4xl font-black italic leading-[0.95] tracking-masthead sm:text-6xl">
+              Fifteen pies. <span className="text-ember">All $20.</span>
+            </h2>
+            <p className="dek mt-4 max-w-lg text-lg">
+              From-scratch dough, fired hot. Punny names, serious cooking — see for yourself.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link href="/menu" className="btn-paper">
+                See the full menu
+              </Link>
+            </div>
+            <div className="mt-8">
+              <FeaturedPiesGrid pies={featuredPies} />
+            </div>
           </div>
         </div>
       </section>
@@ -211,10 +225,16 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 sm:py-20 md:grid-cols-12">
           <div className="md:col-span-7">
             <p className="kicker mb-2">Find us</p>
-            <h3 className="font-display text-3xl font-black italic leading-tight tracking-masthead sm:text-4xl">
+            <a
+              href={site.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block font-display text-3xl font-black italic leading-tight tracking-masthead transition hover:text-ember sm:text-4xl"
+              aria-label="Open directions in Google Maps"
+            >
               {site.address.street}<br/>
               The Tannery, Downtown Kitchener
-            </h3>
+            </a>
             <div className="mt-6 flex flex-wrap gap-3">
               <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn-ember">
                 Get directions

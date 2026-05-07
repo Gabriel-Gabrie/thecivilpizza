@@ -20,8 +20,15 @@ export function Footer() {
           <div className="md:col-span-4">
             <p className="kicker mb-3">Visit</p>
             <address className="not-italic text-paper">
-              {site.address.street}<br />
-              {site.address.locality}, {site.address.region} {site.address.postalCode}<br />
+              <a
+                href={site.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline-offset-4 hover:text-ember hover:underline"
+              >
+                {site.address.street}<br />
+                {site.address.locality}, {site.address.region} {site.address.postalCode}
+              </a><br />
               <a href={`tel:${site.phone}`} className="underline-offset-4 hover:underline">
                 {site.phoneDisplay}
               </a><br />

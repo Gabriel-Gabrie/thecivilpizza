@@ -1,18 +1,22 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 
-// Vapour-bubble showpiece. Borrowed from The Civil's Rotating Bubble Infusion
+// Vapour-bubble showpiece. Borrowed from The Civil's Bubble Infusion
 // cocktail. Idle drift, faint cursor parallax on desktop, pop-on-tap that
-// emits puff dots and reforms after ~2s. Respects prefers-reduced-motion.
+// emits puff dots and reveals a "See cocktails →" CTA so visitors connect
+// the bubble to the cocktail program. Respects prefers-reduced-motion.
 
 export function Bubble({
   className,
   size = 220,
+  ctaTarget = '/cocktails',
 }: {
   className?: string;
   size?: number;
+  ctaTarget?: string;
 }) {
   const reduced = useReducedMotion();
   const [popped, setPopped] = useState(false);
@@ -49,7 +53,8 @@ export function Bubble({
   const handlePop = () => {
     if (popped) return;
     setPopped(true);
-    window.setTimeout(() => setPopped(false), 2200);
+    // Hold the popped state ~3.5s so the CTA is readable, then re-form.
+    window.setTimeout(() => setPopped(false), 3500);
   };
 
   return (
@@ -90,6 +95,7 @@ export function Bubble({
         )}
       </AnimatePresence>
 
+      {/* puff dots */}
       <AnimatePresence>
         {popped &&
           [...Array(7)].map((_, i) => {
@@ -97,9 +103,9 @@ export function Bubble({
             const dist = 70 + Math.random() * 40;
             return (
               <motion.span
-                key={i}
+                key={`puff-${i}`}
                 aria-hidden="true"
-                className="absolute left-1/2 top-1/2 h-2 w-2 rounded-full bg-vapour/80"
+                className="pointer-events-none absolute left-1/2 top-1/2 h-2 w-2 rounded-full bg-vapour/80"
                 initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
                 animate={{
                   x: Math.cos(angle) * dist,
@@ -112,6 +118,29 @@ export function Bubble({
               />
             );
           })}
+      </AnimatePresence>
+
+      {/* reveal CTA — fades in alongside the puff and persists while popped */}
+      <AnimatePresence>
+        {popped && (
+          <motion.div
+            key="bubble-cta"
+            className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-center text-center"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0, transition: { delay: 0.25, duration: 0.35 } }}
+            exit={{ opacity: 0, y: -4, transition: { duration: 0.2 } }}
+          >
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-paper/85">
+              That's our Bubble Infusion
+            </p>
+            <Link
+              href={ctaTarget}
+              className="mt-2 inline-flex items-center gap-2 rounded-full border-2 border-paper bg-paper/10 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.22em] text-paper backdrop-blur transition hover:bg-paper hover:text-ink"
+            >
+              See cocktails →
+            </Link>
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
   );

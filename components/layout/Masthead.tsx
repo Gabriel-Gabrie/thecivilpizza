@@ -1,9 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { clsx } from 'clsx';
 import { OpenClosedPill } from '@/components/status/OpenClosedPill';
 import { Wordmark } from '@/components/ui/Wordmark';
+import { site } from '@/lib/seo';
 
 const NAV = [
   { href: '/menu', label: 'Menu' },
@@ -15,17 +18,40 @@ const NAV = [
 
 export function Masthead() {
   const pathname = usePathname();
-  // The mobile "Menu →" CTA is just a wayfinder — hide it when we're already
-  // on /menu. Same for any other top-level page if we add CTAs later.
-  const onMenu = pathname === '/menu' || pathname === '/menu/';
+  const [open, setOpen] = useState(false);
+
+  // Close the drawer whenever the route changes.
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  // Close on Escape.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    window.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [open]);
 
   return (
     <header className="sticky top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-ink/75 bg-ink/95">
       {/* status strip */}
       <div className="border-b border-paper/15">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2 text-[10px] font-mono uppercase tracking-[0.2em] text-paper/75 sm:px-6">
-          <span className="hidden sm:inline">Kitchener, ON · The Tannery</span>
-          <span className="sm:hidden">Kitchener, ON</span>
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2 text-[10px] font-mono uppercase tracking-[0.2em] text-paper/80 sm:px-6">
+          <a
+            href={site.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline-offset-4 hover:text-paper hover:underline"
+            aria-label="Get directions to The Civil"
+          >
+            <span className="hidden sm:inline">Kitchener, ON · The Tannery</span>
+            <span className="sm:hidden">Kitchener, ON</span>
+          </a>
           <OpenClosedPill />
         </div>
       </div>
@@ -47,7 +73,7 @@ export function Masthead() {
                   className={
                     active
                       ? 'font-mono text-[11px] uppercase tracking-[0.2em] text-paper'
-                      : 'font-mono text-[11px] uppercase tracking-[0.2em] text-paper/75 transition hover:text-paper'
+                      : 'font-mono text-[11px] uppercase tracking-[0.2em] text-paper/80 transition hover:text-paper'
                   }
                 >
                   {n.label}
@@ -55,16 +81,114 @@ export function Masthead() {
               );
             })}
           </nav>
-          {!onMenu && (
-            <Link
-              href="/menu"
-              className="md:hidden font-mono text-[11px] uppercase tracking-[0.2em] text-paper/85"
-            >
-              Menu →
-            </Link>
-          )}
+          <button
+            type="button"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            onClick={() => setOpen((v) => !v)}
+            className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-full border border-paper/30 text-paper transition hover:border-paper/70"
+          >
+            {open ? <IconClose /> : <IconMenu />}
+          </button>
         </div>
       </div>
+
+      {/* mobile drawer */}
+      <div
+        id="mobile-nav"
+        className={clsx(
+          'md:hidden fixed inset-x-0 top-[88px] bottom-0 z-30 transition',
+          open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
+        )}
+        aria-hidden={!open}
+      >
+        {/* backdrop */}
+        <button
+          type="button"
+          aria-label="Close menu"
+          onClick={() => setOpen(false)}
+          className="absolute inset-0 bg-ink/85 backdrop-blur"
+          tabIndex={open ? 0 : -1}
+        />
+        {/* sheet */}
+        <nav
+          aria-label="Primary"
+          className={clsx(
+            'absolute inset-x-0 top-0 origin-top transform px-4 pb-8 pt-6 transition-transform duration-200',
+            open ? 'translate-y-0' : '-translate-y-3'
+          )}
+        >
+          <ul className="space-y-1">
+            {NAV.map((n) => {
+              const active = pathname === n.href || pathname === `${n.href}/`;
+              return (
+                <li key={n.href}>
+                  <Link
+                    href={n.href}
+                    onClick={() => setOpen(false)}
+                    aria-current={active ? 'page' : undefined}
+                    className={clsx(
+                      'block border-b border-paper/15 py-4 font-display text-3xl font-black italic tracking-masthead',
+                      active ? 'text-ember' : 'text-paper hover:text-ember'
+                    )}
+                  >
+                    {n.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+
+          <div className="mt-8 grid grid-cols-2 gap-3 text-center">
+            <a
+              href={site.reserveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ember"
+              onClick={() => setOpen(false)}
+            >
+              Reserve
+            </a>
+            <a
+              href={site.orderUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-paper"
+              onClick={() => setOpen(false)}
+            >
+              Order pickup
+            </a>
+          </div>
+
+          <div className="mt-6 flex justify-between font-mono text-[11px] uppercase tracking-[0.2em] text-paper/75">
+            <a href={`tel:${site.phone}`} onClick={() => setOpen(false)} className="hover:text-paper">
+              {site.phoneDisplay}
+            </a>
+            <a href={site.instagram} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)} className="hover:text-paper">
+              @thecivilkitchener
+            </a>
+          </div>
+        </nav>
+      </div>
     </header>
+  );
+}
+
+function IconMenu() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+      <line x1="4" y1="7" x2="20" y2="7" />
+      <line x1="4" y1="12" x2="20" y2="12" />
+      <line x1="4" y1="17" x2="20" y2="17" />
+    </svg>
+  );
+}
+function IconClose() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+      <line x1="6" y1="6" x2="18" y2="18" />
+      <line x1="18" y1="6" x2="6" y2="18" />
+    </svg>
   );
 }

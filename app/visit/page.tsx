@@ -17,11 +17,17 @@ export default function Visit() {
     <article className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-16">
       <header className="mb-12">
         <p className="kicker mb-2">Find us</p>
-        <h1 className="font-display text-balance text-5xl font-black leading-none tracking-masthead sm:text-7xl">
+        <a
+          href={site.mapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block font-display text-balance text-5xl font-black leading-none tracking-masthead transition hover:text-ember sm:text-7xl"
+          aria-label="Open directions in Google Maps"
+        >
           {site.address.street}, <span className="italic text-ember">The Tannery</span>
-        </h1>
+        </a>
         <p className="dek mt-4 max-w-2xl text-pretty text-lg">
-          Two blocks from Victoria Park, walking distance from the LRT.
+          Two blocks from Victoria Park, walking distance from the LRT. Tap the address for directions.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn-ember">
