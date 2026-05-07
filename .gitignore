@@ -5,9 +5,12 @@ node_modules
 
 # next
 .next
-out
 build
 next-env.d.ts
+# `out/` is intentionally NOT gitignored — the autodeploy at
+# demo.gabrielgabrie.com/thecivil is a static file host that serves whatever
+# is checked into the repo. The built site lives in out/. Run `npm run build`
+# to refresh it before pushing.
 
 # production
 dist

@@ -5,6 +5,7 @@ import { Stamp } from '@/components/ui/Stamp';
 import { Rule } from '@/components/ui/Rule';
 import { buildMetadata, site } from '@/lib/seo';
 import { weekTable } from '@/lib/hours';
+import { withBase } from '@/lib/url';
 import gallery from '@/content/gallery.json';
 
 export const metadata: Metadata = buildMetadata({ routeKey: 'visit', path: '/visit' });
@@ -100,7 +101,7 @@ export default function Visit() {
           {gallery.items.map((g, idx) => (
             <figure key={g.id} className="relative aspect-[4/5] overflow-hidden border border-paper/15">
               <Image
-                src={g.src}
+                src={withBase(g.src)}
                 alt={g.alt}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"

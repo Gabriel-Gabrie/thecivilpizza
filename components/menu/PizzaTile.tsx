@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Stamp } from '@/components/ui/Stamp';
+import { withBase } from '@/lib/url';
 
 type Pie = {
   slug: string;
@@ -42,7 +43,7 @@ export function PizzaTile({ pie, idx }: { pie: Pie; idx: number }) {
       <div className="absolute inset-0">
         {photo ? (
           <Image
-            src={photo}
+            src={withBase(photo)}
             alt={pie.name}
             fill
             sizes="(max-width: 768px) 50vw, 25vw"

@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     url: site.url,
     telephone: site.phone,
     email: site.email,
-    image: `${site.url}/opengraph-image`,
+    image: `${site.url}/og.svg`,
     address: {
       '@type': 'PostalAddress',
       streetAddress: site.address.street,

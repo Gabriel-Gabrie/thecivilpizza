@@ -15,7 +15,10 @@ export function buildMetadata(opts: {
   const title = opts.title ?? route?.title ?? seo.site.name;
   const description = opts.description ?? route?.description ?? seo.site.description;
   const url = absoluteUrl(opts.path);
-  const ogImage = opts.ogImage ?? `/opengraph-image?title=${encodeURIComponent(title)}`;
+  // Static export means we ship one pre-rendered OG card for the whole site.
+  // If we ever want per-route cards, we can pre-generate at build time and
+  // place them at /og/<route>.svg.
+  const ogImage = opts.ogImage ?? absoluteUrl('/og.svg');
   return {
     title,
     description,

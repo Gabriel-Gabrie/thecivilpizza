@@ -6,6 +6,7 @@ import { Stamp } from '@/components/ui/Stamp';
 import { Rule } from '@/components/ui/Rule';
 import { weekTable } from '@/lib/hours';
 import { site } from '@/lib/seo';
+import { withBase } from '@/lib/url';
 import menu from '@/content/menu.json';
 import gallery from '@/content/gallery.json';
 import cause from '@/content/cause.json';
@@ -26,7 +27,7 @@ export default function Home() {
         {/* photo backdrop, very subtle */}
         <div className="pointer-events-none absolute inset-0 -z-0 opacity-[0.18]" aria-hidden="true">
           <Image
-            src="/images/pizza-and-flight.jpg"
+            src={withBase('/images/pizza-and-flight.jpg')}
             alt=""
             fill
             priority
@@ -135,7 +136,7 @@ export default function Home() {
             </div>
             <figure className="relative mt-8 aspect-[4/5] overflow-hidden border border-paper/15">
               <Image
-                src="/images/cocktail-pineapple-rosemary.jpg"
+                src={withBase('/images/cocktail-pineapple-rosemary.jpg')}
                 alt="A gin cocktail with dried pineapple wheel and rosemary, lit by a vintage cut-glass lamp."
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
@@ -195,7 +196,7 @@ export default function Home() {
           {gallery.items.slice(0, 3).map((g, idx) => (
             <figure key={g.id} className="relative aspect-[4/5] overflow-hidden border border-paper/15 bg-paper-2/10 sm:aspect-[3/4]">
               <Image
-                src={g.src}
+                src={withBase(g.src)}
                 alt={g.alt}
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"

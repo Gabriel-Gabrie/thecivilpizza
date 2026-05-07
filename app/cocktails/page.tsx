@@ -5,6 +5,7 @@ import { Bubble } from '@/components/motion/Bubble';
 import { Rule } from '@/components/ui/Rule';
 import { Stamp } from '@/components/ui/Stamp';
 import { buildMetadata, site } from '@/lib/seo';
+import { withBase } from '@/lib/url';
 import menu from '@/content/menu.json';
 
 export const metadata: Metadata = buildMetadata({ routeKey: 'cocktails', path: '/cocktails' });
@@ -32,7 +33,7 @@ export default function Cocktails() {
         <div className="relative md:col-span-5">
           <div className="relative aspect-[4/5] overflow-hidden border border-paper/15">
             <Image
-              src="/images/cocktail-negroni.jpg"
+              src={withBase('/images/cocktail-negroni.jpg')}
               alt="A negroni with a large ice block, blood orange peel, and segment, on a dark surface."
               fill
               priority
