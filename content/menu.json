@@ -7,25 +7,47 @@
         "slug": "strawberry-goat-walnut",
         "name": "Strawberry, Goat Cheese & Walnut Salad",
         "dek": "Summer in a bowl, even in February.",
-        "ingredients": ["Ontario goat cheese", "candied walnuts", "spinach", "balsamic vinaigrette"],
+        "ingredients": [
+          "Ontario goat cheese",
+          "candied walnuts",
+          "spinach",
+          "balsamic vinaigrette"
+        ],
         "price": "$12",
-        "tags": ["veggie"]
+        "tags": [
+          "veggie"
+        ]
       },
       {
         "slug": "spinach-caesar",
         "name": "Spinach Caesar with Prosciutto",
         "dek": "We replaced the romaine with baby spinach. The Romans would understand.",
-        "ingredients": ["baby spinach", "Caesar dressing", "prosciutto", "croutons"],
+        "ingredients": [
+          "baby spinach",
+          "Caesar dressing",
+          "prosciutto",
+          "croutons"
+        ],
         "price": "$12",
-        "tags": ["meaty"]
+        "tags": [
+          "meaty"
+        ]
       },
       {
         "slug": "insanity-loaf",
         "name": "Insanity Loaf",
         "dek": "Pull-apart bread that does not pull its punches.",
-        "ingredients": ["fresh dough", "roasted garlic butter", "mozzarella", "Italian spices", "parmesan"],
+        "ingredients": [
+          "fresh dough",
+          "roasted garlic butter",
+          "mozzarella",
+          "Italian spices",
+          "parmesan"
+        ],
         "price": "$11",
-        "tags": ["veggie"]
+        "tags": [
+          "veggie"
+        ]
       }
     ]
   },
@@ -36,121 +58,244 @@
         "slug": "the-bouge",
         "name": "The Bouge",
         "dek": "Fancy enough that it could vote against itself.",
-        "ingredients": ["ricotta", "prosciutto", "pear", "gorgonzola", "pecans", "honey", "arugula"],
+        "ingredients": [
+          "ricotta",
+          "prosciutto",
+          "pear",
+          "gorgonzola",
+          "pecans",
+          "honey",
+          "arugula"
+        ],
         "price": "$20",
-        "tags": ["meaty", "sweet"]
+        "tags": [
+          "meaty",
+          "sweet"
+        ]
       },
       {
         "slug": "the-cause",
         "name": "The Cause",
         "dek": "Rotating monthly. $3 from every pie funds a local charity. Dine-in only.",
-        "ingredients": ["chef's pick", "rotating monthly"],
+        "ingredients": [
+          "chef's pick",
+          "rotating monthly"
+        ],
         "price": "$20",
-        "tags": ["dine-in-only"]
+        "tags": [
+          "dine-in-only"
+        ]
       },
       {
         "slug": "caprese-in-love",
         "name": "Caprese In Love",
         "dek": "A summer fling that lasts a year.",
-        "ingredients": ["bocconcini", "Roma tomato", "chicken breast", "basil", "balsamic reduction"],
+        "ingredients": [
+          "bocconcini",
+          "Roma tomato",
+          "chicken breast",
+          "basil",
+          "balsamic reduction"
+        ],
         "price": "$20",
-        "tags": ["meaty"]
+        "tags": [
+          "meaty"
+        ]
       },
       {
         "slug": "just-all-the-pepperoni",
         "name": "Just All The Pepperoni",
         "dek": "We did the math. The math said: more pepperoni.",
-        "ingredients": ["extra pepperoni", "mozzarella", "tomato sauce", "garlic butter"],
+        "ingredients": [
+          "extra pepperoni",
+          "mozzarella",
+          "tomato sauce",
+          "garlic butter"
+        ],
         "price": "$20",
-        "tags": ["meaty"]
+        "tags": [
+          "meaty"
+        ]
       },
       {
         "slug": "get-your-greens",
         "name": "Get Your Greens",
         "dek": "Tell your mother. She'll be so proud.",
-        "ingredients": ["fresh spinach", "Grana Padano", "mozzarella", "tomato sauce"],
+        "ingredients": [
+          "fresh spinach",
+          "Grana Padano",
+          "mozzarella",
+          "tomato sauce"
+        ],
         "price": "$20",
-        "tags": ["veggie"]
+        "tags": [
+          "veggie"
+        ]
       },
       {
         "slug": "civil-disobedience",
         "name": "Civil Disobedience",
         "dek": "A felony of flavor. Three counts on the indictment.",
-        "ingredients": ["smoked ham", "grilled pineapple", "jalapeños", "mozzarella", "tomato sauce"],
+        "ingredients": [
+          "smoked ham",
+          "grilled pineapple",
+          "jalapeños",
+          "mozzarella",
+          "tomato sauce"
+        ],
         "price": "$20",
-        "tags": ["meaty", "spicy", "sweet"]
+        "tags": [
+          "meaty",
+          "spicy",
+          "sweet"
+        ]
       },
       {
         "slug": "but-like-actually-good-veggie",
         "name": "But Like Actually A Good Veggie Pie",
         "dek": "No mushrooms-as-meat-substitute energy. Just good vegetables.",
-        "ingredients": ["mushrooms", "red peppers", "eggplant", "mozzarella", "tomato sauce"],
+        "ingredients": [
+          "mushrooms",
+          "red peppers",
+          "eggplant",
+          "mozzarella",
+          "tomato sauce"
+        ],
         "price": "$20",
-        "tags": ["veggie"]
+        "tags": [
+          "veggie"
+        ]
       },
       {
         "slug": "calabrese-cousin",
         "name": "Calabrese Cousin",
         "dek": "Your nonna's nephew, but with a leather jacket.",
-        "ingredients": ["Genoa salami", "pepperoni", "banana peppers", "olives", "mozzarella"],
+        "ingredients": [
+          "Genoa salami",
+          "pepperoni",
+          "banana peppers",
+          "olives",
+          "mozzarella"
+        ],
         "price": "$20",
-        "tags": ["meaty"]
+        "tags": [
+          "meaty"
+        ]
       },
       {
         "slug": "panchetta-brielieve-it",
         "name": "Panchetta Brie-Lieve It",
         "dek": "We brie-lieve in you.",
-        "ingredients": ["ricotta", "mozzarella", "pancetta", "mushroom", "chimichurri"],
+        "ingredients": [
+          "ricotta",
+          "mozzarella",
+          "pancetta",
+          "mushroom",
+          "chimichurri"
+        ],
         "price": "$20",
-        "tags": ["meaty"]
+        "tags": [
+          "meaty"
+        ]
       },
       {
         "slug": "pollo-pesto",
         "name": "Pollo Pesto",
         "dek": "The chicken came first, then the basil, then this pizza.",
-        "ingredients": ["pesto alfredo", "mozzarella", "chicken", "tomato", "red onion"],
+        "ingredients": [
+          "pesto alfredo",
+          "mozzarella",
+          "chicken",
+          "tomato",
+          "red onion"
+        ],
         "price": "$20",
-        "tags": ["meaty"]
+        "tags": [
+          "meaty"
+        ]
       },
       {
         "slug": "you-seem-like-a-fungi",
         "name": "You Seem Like A Fungi",
         "dek": "A pickup line that actually works.",
-        "ingredients": ["ricotta", "mushroom", "pesto", "mozzarella", "chimichurri"],
+        "ingredients": [
+          "ricotta",
+          "mushroom",
+          "pesto",
+          "mozzarella",
+          "chimichurri"
+        ],
         "price": "$20",
-        "tags": ["veggie"]
+        "tags": [
+          "veggie"
+        ]
       },
       {
         "slug": "donair-it-in-public",
         "name": "Donair It In Public",
         "dek": "East Coast loyalty, Kitchener postal code.",
-        "ingredients": ["donair meat", "donair sauce", "mozzarella", "tomato", "red onion"],
+        "ingredients": [
+          "donair meat",
+          "donair sauce",
+          "mozzarella",
+          "tomato",
+          "red onion"
+        ],
         "price": "$20",
-        "tags": ["meaty", "sweet"]
+        "tags": [
+          "meaty",
+          "sweet"
+        ]
       },
       {
         "slug": "full-denim-tuxedo",
         "name": "Full Denim Tuxedo",
         "dek": "All cuts. All confidence.",
-        "ingredients": ["pesto cream", "mozzarella", "pepperoni", "pancetta", "mushrooms"],
+        "ingredients": [
+          "pesto cream",
+          "mozzarella",
+          "pepperoni",
+          "pancetta",
+          "mushrooms"
+        ],
         "price": "$20",
-        "tags": ["meaty"]
+        "tags": [
+          "meaty"
+        ]
       },
       {
         "slug": "bee-spicy",
         "name": "Bee Spicy",
         "dek": "Hot. Sweet. The good kind of sting.",
-        "ingredients": ["spicy tomato sauce", "pepperoni", "Italian sausage", "mozzarella", "hot honey"],
+        "ingredients": [
+          "spicy tomato sauce",
+          "pepperoni",
+          "Italian sausage",
+          "mozzarella",
+          "hot honey"
+        ],
         "price": "$20",
-        "tags": ["meaty", "spicy", "sweet"]
+        "tags": [
+          "meaty",
+          "spicy",
+          "sweet"
+        ]
       },
       {
         "slug": "dill-communication",
         "name": "Dill Communication",
         "dek": "Open lines. Crunchy lines.",
-        "ingredients": ["dill pickle garlic butter", "pancetta", "pickles", "parmesan", "mozzarella"],
+        "ingredients": [
+          "dill pickle garlic butter",
+          "pancetta",
+          "pickles",
+          "parmesan",
+          "mozzarella"
+        ],
         "price": "$20",
-        "tags": ["meaty"]
+        "tags": [
+          "meaty"
+        ]
       }
     ]
   },
@@ -161,73 +306,150 @@
         "slug": "elderflower-sour",
         "name": "Elderflower Sour",
         "dek": "A sour you can take home to your parents.",
-        "ingredients": ["orange pekoe infused whiskey", "elderflower liqueur", "lemon", "bitters", "simple", "egg white"],
+        "ingredients": [
+          "orange pekoe infused whiskey",
+          "elderflower liqueur",
+          "lemon",
+          "bitters",
+          "simple",
+          "egg white"
+        ],
         "price": "$12",
-        "tags": ["whiskey", "sour"]
+        "tags": [
+          "whiskey",
+          "sour"
+        ]
       },
       {
         "slug": "bubble-infusion",
         "name": "Bubble Infusion",
         "dek": "A from-scratch creation topped with a vapour-filled bubble. We pop it for you.",
-        "ingredients": ["blueberry infused gin", "lemon", "honey", "egg white", "vapour bubble"],
+        "ingredients": [
+          "blueberry infused gin",
+          "lemon",
+          "honey",
+          "egg white",
+          "vapour bubble"
+        ],
         "price": "$12",
-        "tags": ["gin", "showpiece"]
+        "tags": [
+          "gin",
+          "showpiece"
+        ]
       },
       {
         "slug": "candied-peach-brulee",
         "name": "Candied Peach Brulee",
         "dek": "Torched on top. Soft underneath. You know.",
-        "ingredients": ["Ontario peach infused whiskey", "Liqueur 43", "pressed peach", "lemon", "egg white", "brûlée sugar"],
+        "ingredients": [
+          "Ontario peach infused whiskey",
+          "Liqueur 43",
+          "pressed peach",
+          "lemon",
+          "egg white",
+          "brûlée sugar"
+        ],
         "price": "$12",
-        "tags": ["whiskey"]
+        "tags": [
+          "whiskey"
+        ]
       },
       {
         "slug": "aloe-cucumber-gimlet",
         "name": "Aloe Cucumber Gimlet",
         "dek": "A walk in the park. A short, ice-cold walk.",
-        "ingredients": ["freshly pressed cucumber", "aloe", "lime infused gin", "organic lime", "simple syrup"],
+        "ingredients": [
+          "freshly pressed cucumber",
+          "aloe",
+          "lime infused gin",
+          "organic lime",
+          "simple syrup"
+        ],
         "price": "$12",
-        "tags": ["gin"]
+        "tags": [
+          "gin"
+        ]
       },
       {
         "slug": "lavender-lemonade",
         "name": "Lavender Lemonade",
         "dek": "It is doing more than lemonade. It is doing a job.",
-        "ingredients": ["butterfly pea flower gin", "white tea", "lemon", "lavender", "whipped lemon cream liqueur", "egg whites"],
+        "ingredients": [
+          "butterfly pea flower gin",
+          "white tea",
+          "lemon",
+          "lavender",
+          "whipped lemon cream liqueur",
+          "egg whites"
+        ],
         "price": "$12",
-        "tags": ["gin"]
+        "tags": [
+          "gin"
+        ]
       },
       {
         "slug": "almost-poolside",
         "name": "Almost Poolside",
         "dek": "Sun is implied.",
-        "ingredients": ["Ontario strawberry vodka", "fresh pineapple", "ginger syrup", "strawberry juice", "lime", "soda"],
+        "ingredients": [
+          "Ontario strawberry vodka",
+          "fresh pineapple",
+          "ginger syrup",
+          "strawberry juice",
+          "lime",
+          "soda"
+        ],
         "price": "$12",
-        "tags": ["vodka"]
+        "tags": [
+          "vodka"
+        ]
       },
       {
         "slug": "wolf-in-the-herb-garden",
         "name": "Wolf in the Herb Garden",
         "dek": "Bitter, herbal, slightly menacing. We respect that.",
-        "ingredients": ["gin", "Aperol", "guava", "grapefruit", "lime", "rosemary", "simple", "salt & sugar rim"],
+        "ingredients": [
+          "gin",
+          "Aperol",
+          "guava",
+          "grapefruit",
+          "lime",
+          "rosemary",
+          "simple",
+          "salt & sugar rim"
+        ],
         "price": "$12",
-        "tags": ["gin"]
+        "tags": [
+          "gin"
+        ]
       },
       {
         "slug": "smoked-cherry-blossom-old-fashioned",
         "name": "Smoked Cherry Blossom Old Fashioned",
         "dek": "Same chair, same regulars. Now with cherrywood smoke.",
-        "ingredients": ["whiskey", "cherry & orange syrup", "cherry blossom bitters", "cherrywood smoke"],
+        "ingredients": [
+          "whiskey",
+          "cherry & orange syrup",
+          "cherry blossom bitters",
+          "cherrywood smoke"
+        ],
         "price": "$12",
-        "tags": ["whiskey"]
+        "tags": [
+          "whiskey"
+        ]
       },
       {
         "slug": "birthday-cocktail",
         "name": "Birthday Cocktail",
         "dek": "Celebrating? We have just the thing. Ask your server for details.",
-        "ingredients": ["chef's choice", "rotating"],
+        "ingredients": [
+          "chef's choice",
+          "rotating"
+        ],
         "price": "$8",
-        "tags": ["special"]
+        "tags": [
+          "special"
+        ]
       }
     ]
   },
@@ -238,41 +460,78 @@
         "slug": "margarita-flight",
         "name": "Margaritas",
         "dek": "Lime hierarchy.",
-        "ingredients": ["classic lime", "watermelon", "dragon fruit", "strawberry"],
+        "ingredients": [
+          "classic lime",
+          "watermelon",
+          "dragon fruit",
+          "strawberry"
+        ],
         "price": "$14",
-        "tags": ["tequila"]
+        "tags": [
+          "tequila"
+        ]
       },
       {
         "slug": "gin-tonic-flight",
         "name": "Gin & Tonic",
         "dek": "Garden, but ordered.",
-        "ingredients": ["classic lime", "dragon fruit", "pineapple", "strawberry"],
+        "ingredients": [
+          "classic lime",
+          "dragon fruit",
+          "pineapple",
+          "strawberry"
+        ],
         "price": "$14",
-        "tags": ["gin"]
+        "tags": [
+          "gin"
+        ]
       },
       {
         "slug": "whiskey-sour-flight",
         "name": "Whiskey Sour",
         "dek": "Four sours, one decision. Choose violence.",
-        "ingredients": ["classic lemon", "dragon fruit", "watermelon", "pineapple"],
+        "ingredients": [
+          "classic lemon",
+          "dragon fruit",
+          "watermelon",
+          "pineapple"
+        ],
         "price": "$14",
-        "tags": ["whiskey"]
+        "tags": [
+          "whiskey"
+        ]
       },
       {
         "slug": "vodka-caesar-flight",
         "name": "Vodka Caesar",
         "dek": "Canada, condensed.",
-        "ingredients": ["classic", "smoked", "dill pickle", "extra spicy"],
+        "ingredients": [
+          "classic",
+          "smoked",
+          "dill pickle",
+          "extra spicy"
+        ],
         "price": "$14",
-        "tags": ["vodka", "spicy"]
+        "tags": [
+          "vodka",
+          "spicy"
+        ]
       },
       {
         "slug": "coconut-creamsicle-rum-flight",
         "name": "Coconut Creamsicle Rum",
         "dek": "Tropical, but with paperwork.",
-        "ingredients": ["lime", "orange", "blueberry", "raspberry"],
+        "ingredients": [
+          "lime",
+          "orange",
+          "blueberry",
+          "raspberry"
+        ],
         "price": "$14",
-        "tags": ["rum", "sweet"]
+        "tags": [
+          "rum",
+          "sweet"
+        ]
       }
     ]
   },
@@ -283,33 +542,62 @@
         "slug": "civil-lager",
         "name": "The Civil Lager",
         "dek": "Brewed in collaboration with Bellwoods. House proud.",
-        "ingredients": ["16oz pour", "rotating tall cans available"],
+        "ingredients": [
+          "16oz pour",
+          "rotating tall cans available"
+        ],
         "price": "$8.25",
-        "tags": ["beer"]
+        "tags": [
+          "beer"
+        ]
       },
       {
         "slug": "tall-cans",
         "name": "Rotating Tall Cans",
         "dek": "Whatever the bar manager loved this week.",
-        "ingredients": ["ask your server"],
+        "ingredients": [
+          "ask your server"
+        ],
         "price": "$8.75",
-        "tags": ["beer"]
+        "tags": [
+          "beer"
+        ]
       },
       {
         "slug": "pinot-grigio",
         "name": "Pinot Grigio",
         "dek": "Bright, dry, the workhorse pour.",
-        "ingredients": ["glass · bottle"],
+        "ingredients": [
+          "glass · bottle"
+        ],
         "price": "$10 / $38",
-        "tags": ["wine"]
+        "tags": [
+          "wine"
+        ]
       },
       {
         "slug": "cab-nero",
         "name": "Cab Nero",
         "dek": "Dark, easy, too drinkable.",
-        "ingredients": ["glass · bottle"],
+        "ingredients": [
+          "glass · bottle"
+        ],
         "price": "$10 / $38",
-        "tags": ["wine"]
+        "tags": [
+          "wine"
+        ]
+      },
+      {
+        "slug": "item",
+        "name": "Test",
+        "dek": "Test new item",
+        "ingredients": [
+          "ingredient"
+        ],
+        "price": "$0",
+        "tags": [
+          "tag"
+        ]
       }
     ]
   },
@@ -320,41 +608,71 @@
         "slug": "lunch-feature",
         "name": "Lunch Feature",
         "dek": "Any one of our from-scratch pizzas plus two side salads.",
-        "ingredients": ["pizza", "two side salads"],
+        "ingredients": [
+          "pizza",
+          "two side salads"
+        ],
         "price": "$28",
-        "tags": ["lunch", "deal"]
+        "tags": [
+          "lunch",
+          "deal"
+        ]
       },
       {
         "slug": "fresh-baked-sandwich",
         "name": "Fresh-Baked Sandwiches",
         "dek": "Prosciutto · Genoa · Chicken Pesto. Served with soup or salad.",
-        "ingredients": ["fior di latte", "mixed greens", "balsamic", "soup or salad"],
+        "ingredients": [
+          "fior di latte",
+          "mixed greens",
+          "balsamic",
+          "soup or salad"
+        ],
         "price": "$18",
-        "tags": ["lunch", "meaty"]
+        "tags": [
+          "lunch",
+          "meaty"
+        ]
       },
       {
         "slug": "garlic-bread-soup-salad",
         "name": "Garlic Bread & Soup / Salad",
         "dek": "Classic, dill pickle, or pepperoni loaf. Cheese always.",
-        "ingredients": ["garlic bread loaf", "mozzarella", "soup or salad"],
+        "ingredients": [
+          "garlic bread loaf",
+          "mozzarella",
+          "soup or salad"
+        ],
         "price": "$18",
-        "tags": ["lunch"]
+        "tags": [
+          "lunch"
+        ]
       },
       {
         "slug": "roasted-red-pepper-soup",
         "name": "Roasted Red Pepper Soup",
         "dek": "Roasted whole. Blended hot. Eaten faster.",
-        "ingredients": ["soup of the season"],
+        "ingredients": [
+          "soup of the season"
+        ],
         "price": "$8",
-        "tags": ["lunch", "veggie"]
+        "tags": [
+          "lunch",
+          "veggie"
+        ]
       },
       {
         "slug": "soup-pep-cheese-pockets",
         "name": "Soup & Pep / Cheese Pockets",
         "dek": "Soup, plus little stuffed pockets. Adult lunchables.",
-        "ingredients": ["soup", "pepperoni or cheese pockets"],
+        "ingredients": [
+          "soup",
+          "pepperoni or cheese pockets"
+        ],
         "price": "$16",
-        "tags": ["lunch"]
+        "tags": [
+          "lunch"
+        ]
       }
     ]
   }
