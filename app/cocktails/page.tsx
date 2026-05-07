@@ -3,7 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Bubble } from '@/components/motion/Bubble';
 import { Rule } from '@/components/ui/Rule';
-import { Stamp } from '@/components/ui/Stamp';
 import { buildMetadata, site } from '@/lib/seo';
 import { withBase } from '@/lib/url';
 import menu from '@/content/menu.json';
@@ -43,9 +42,6 @@ export default function Cocktails() {
             <div className="absolute -bottom-6 -left-6 sm:-bottom-10 sm:-left-10">
               <Bubble size={180} className="" />
             </div>
-            <Stamp className="absolute right-3 top-3" rotate={-7} tone="paper">
-              FROM SCRATCH
-            </Stamp>
           </div>
         </div>
       </header>

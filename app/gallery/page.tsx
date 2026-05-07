@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { Stamp } from '@/components/ui/Stamp';
 import { Rule } from '@/components/ui/Rule';
 import { buildMetadata } from '@/lib/seo';
 import { withBase } from '@/lib/url';
@@ -16,6 +15,7 @@ const SECTIONS: Array<{ key: string; label: string }> = [
   { key: 'pies', label: 'The pies' },
   { key: 'cocktails', label: 'Cocktails' },
   { key: 'flights', label: 'Flights' },
+  { key: 'exterior', label: 'The block' },
 ];
 
 export default function GalleryPage() {
@@ -36,7 +36,7 @@ export default function GalleryPage() {
           The <span className="italic text-ember">Gallery</span>
         </h1>
         <p className="dek mx-auto mt-4 max-w-xl text-pretty text-lg">
-          Pies, cocktails, flights, and the room itself. Tap a photo for a closer look.
+          The room, the food, the bar, the block. Tap a photo for a closer look.
         </p>
       </header>
 
@@ -46,6 +46,7 @@ export default function GalleryPage() {
       <section className="mt-10 grid gap-3 sm:grid-cols-3">
         {gallery.items
           .filter((g) => g.feature)
+          .slice(0, 3)
           .map((g, idx) => (
             <figure
               key={g.id}
@@ -67,11 +68,6 @@ export default function GalleryPage() {
                 className="object-cover"
                 priority={idx === 0}
               />
-              {g.stamp && (
-                <Stamp className="absolute right-3 top-3" rotate={idx % 2 ? 6 : -8}>
-                  {g.stamp}
-                </Stamp>
-              )}
             </figure>
           ))}
       </section>
@@ -91,7 +87,7 @@ export default function GalleryPage() {
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {items.map((g, idx) => (
+              {items.map((g) => (
                 <figure
                   key={g.id}
                   className="relative aspect-[4/5] overflow-hidden border border-paper/15"
@@ -103,14 +99,6 @@ export default function GalleryPage() {
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover transition-transform duration-700 hover:scale-[1.03]"
                   />
-                  {g.stamp && (
-                    <Stamp
-                      className="absolute right-3 top-3"
-                      rotate={idx % 2 ? 6 : -8}
-                    >
-                      {g.stamp}
-                    </Stamp>
-                  )}
                 </figure>
               ))}
             </div>

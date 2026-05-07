@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { Stamp } from '@/components/ui/Stamp';
 import { Rule } from '@/components/ui/Rule';
 import { buildMetadata, site } from '@/lib/seo';
 import { weekTable } from '@/lib/hours';
@@ -79,11 +78,6 @@ export default function Visit() {
                   sizes="(max-width: 768px) 33vw, 25vw"
                   className="object-cover"
                 />
-                {g.stamp && (
-                  <Stamp className="absolute right-3 top-3" rotate={idx % 2 ? 6 : -8}>
-                    {g.stamp}
-                  </Stamp>
-                )}
               </figure>
             ))}
           </div>

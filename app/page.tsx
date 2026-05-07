@@ -138,9 +138,6 @@ export default function Home() {
                 sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover"
               />
-              <Stamp className="absolute right-3 top-3" rotate={-7} tone="paper">
-                $12 · 1.5oz
-              </Stamp>
             </figure>
           </div>
           <div className="md:col-span-7 flex flex-col">
@@ -210,11 +207,6 @@ export default function Home() {
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent" aria-hidden="true" />
-              {g.stamp && (
-                <Stamp className="absolute right-3 top-3" rotate={idx % 2 === 0 ? -8 : 6}>
-                  {g.stamp}
-                </Stamp>
-              )}
             </figure>
           ))}
         </div>
