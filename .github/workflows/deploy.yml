@@ -38,6 +38,12 @@ jobs:
         env:
           NEXT_PUBLIC_BASE_PATH: /thecivil
           NEXT_PUBLIC_SITE_URL: https://demo.gabrielgabrie.com/thecivil
+          # Owner login: when ADMIN_PAT secret is set in repo settings, the
+          # admin page hides the GitHub-token field and shows a plain
+          # username/password form instead. The token is baked into the
+          # built JS bundle — security trade-off for a friendlier owner UX.
+          # See ADMIN.md for setup steps.
+          NEXT_PUBLIC_ADMIN_PAT: ${{ secrets.ADMIN_PAT }}
 
       - name: Push out/ to deploy branch
         uses: peaceiris/actions-gh-pages@v4

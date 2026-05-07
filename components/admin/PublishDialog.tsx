@@ -4,6 +4,23 @@ import { useState } from 'react';
 import { commitBatch, jsonToText, type FileEdit } from '@/lib/admin/github';
 import type { PendingImage } from './GalleryTab';
 
+// Friendly labels for the underlying data files. Owners shouldn't have
+// to read repo paths.
+const SECTION_LABELS: Record<string, string> = {
+  'content/seo.json': 'Contact & links',
+  'content/menu.json': 'Menu',
+  'content/hours.json': 'Hours',
+  'content/gallery.json': 'Gallery',
+};
+
+function friendlyPath(path: string): string {
+  if (SECTION_LABELS[path]) return SECTION_LABELS[path];
+  if (path.startsWith('public/images/')) {
+    return `Image: ${path.slice('public/images/'.length)}`;
+  }
+  return path;
+}
+
 type DiffSummary = {
   filePath: string;
   status: 'modified' | 'new';
@@ -27,7 +44,6 @@ export function PublishDialog({
 }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [message, setMessage] = useState('content: edits via /admin');
 
   const changes: DiffSummary[] = [];
   for (const [filePath, draft] of Object.entries(drafts)) {
@@ -63,11 +79,15 @@ export function PublishDialog({
           contentBase64: img.contentBase64,
         });
       }
-      if (edits.length === 0) throw new Error('Nothing to publish.');
-      const sha = await commitBatch(token, edits, message || 'content: admin edits');
+      if (edits.length === 0) throw new Error('Nothing to save yet.');
+      const sha = await commitBatch(token, edits, `content: edits via /admin`);
       onPublished(sha);
     } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong saving. Please try again."
+      );
       setBusy(false);
     }
   };
@@ -76,9 +96,11 @@ export function PublishDialog({
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink/60 p-4 sm:items-center">
       <div className="w-full max-w-2xl overflow-hidden rounded-lg bg-paper shadow-2xl">
         <header className="border-b border-ink/10 px-6 py-5">
-          <p className="text-sm font-medium text-ink/65">Review changes</p>
+          <p className="text-sm font-medium text-ink/65">Review</p>
           <h2 className="mt-1 text-xl font-semibold text-ink">
-            {changes.length} file{changes.length === 1 ? '' : 's'} will be committed
+            {changes.length === 1
+              ? '1 area of the site will be updated'
+              : `${changes.length} areas of the site will be updated`}
           </h2>
         </header>
 
@@ -98,10 +120,10 @@ export function PublishDialog({
                           : 'bg-brass/20 text-ink')
                       }
                     >
-                      {c.status}
+                      {c.status === 'new' ? 'new' : 'edited'}
                     </span>{' '}
-                    <span className="font-mono text-xs text-ink/70">
-                      {c.filePath}
+                    <span className="text-sm font-medium text-ink">
+                      {friendlyPath(c.filePath)}
                     </span>
                   </p>
                   {c.notes.length > 0 && (
@@ -125,30 +147,21 @@ export function PublishDialog({
         </div>
 
         <div className="border-t border-ink/10 bg-paper-2/40 px-6 py-5">
-          <label className="block">
-            <span className="text-sm font-medium text-ink">Commit message</span>
-            <input
-              type="text"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              className="mt-1.5 block w-full rounded-md border border-ink/20 bg-white px-3.5 py-2.5 text-sm text-ink focus:border-ink/50 focus:outline-none focus:ring-2 focus:ring-ink/20"
-            />
-          </label>
           {error && (
             <p
               role="alert"
-              className="mt-3 rounded-md border border-ember/40 bg-ember/10 px-3.5 py-2.5 text-sm text-ember"
+              className="mb-3 rounded-md border border-ember/40 bg-ember/10 px-3.5 py-2.5 text-sm text-ember"
             >
               {error}
             </p>
           )}
-          <div className="mt-4 flex flex-wrap items-center justify-end gap-3">
+          <div className="flex flex-wrap items-center justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
               className="inline-flex items-center justify-center rounded-md border border-ink/25 bg-white px-4 py-2.5 text-sm font-medium text-ink transition hover:bg-ink/5"
             >
-              Cancel
+              Keep editing
             </button>
             <button
               type="button"
@@ -156,11 +169,11 @@ export function PublishDialog({
               disabled={busy || changes.length === 0}
               className="inline-flex items-center justify-center rounded-md bg-ember px-5 py-2.5 text-sm font-medium text-paper transition hover:bg-ember/90 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {busy ? 'Publishing…' : 'Publish to main'}
+              {busy ? 'Saving…' : 'Save and update site'}
             </button>
           </div>
           <p className="mt-3 text-xs text-ink/55">
-            Commit triggers GitHub Actions → deploy branch → Hostinger pulls (~90s).
+            Your changes should appear on the live site in about a minute.
           </p>
         </div>
       </div>
@@ -185,25 +198,34 @@ function summarizeJsonChange(draft: unknown, original: unknown): string[] {
       const bMap = new Map(bv.map((x) => [idA(x), x]));
       for (const [id, item] of aMap) {
         if (!id) continue;
-        if (!bMap.has(id)) notes.push(`${key}: + ${id}`);
+        if (!bMap.has(id)) notes.push(`added ${id}`);
         else if (JSON.stringify(item) !== JSON.stringify(bMap.get(id)))
-          notes.push(`${key}: ~ ${id}`);
+          notes.push(`updated ${id}`);
       }
       for (const [id] of bMap) {
-        if (id && !aMap.has(id)) notes.push(`${key}: - ${id}`);
+        if (id && !aMap.has(id)) notes.push(`removed ${id}`);
       }
     } else if (typeof av === 'object' && typeof bv === 'object') {
       const subNotes = summarizeJsonChange(av, bv);
-      for (const n of subNotes) notes.push(`${key}.${n}`);
+      for (const n of subNotes) notes.push(`${key}: ${n}`);
     } else {
-      notes.push(`${key}: ${truncate(bv)} → ${truncate(av)}`);
+      notes.push(`${humanizeKey(key)}: ${truncate(bv)} → ${truncate(av)}`);
     }
   }
   return notes;
 }
 
+function humanizeKey(key: string): string {
+  // Convert camelCase / kebab to Title Case for friendlier diff lines.
+  return key
+    .replace(/([A-Z])/g, ' $1')
+    .replace(/[-_]/g, ' ')
+    .replace(/^./, (c) => c.toUpperCase())
+    .trim();
+}
+
 function truncate(v: unknown): string {
   const s = typeof v === 'string' ? v : JSON.stringify(v);
-  if (!s) return '∅';
+  if (!s) return 'empty';
   return s.length > 40 ? s.slice(0, 37) + '…' : s;
 }

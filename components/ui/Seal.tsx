@@ -5,8 +5,9 @@
 //
 // Geometry notes:
 //  - Circle: center (50, 50), r = 38
-//  - V wedge: opens 12 wide at the rim (44, 12) → (56, 12), apex at (50, 50).
-//    Apex angle ≈ 18° — sharp.
+//  - V wedge: opens 16 wide at the rim (42, 13) → (58, 13), apex at (50, 50).
+//    Apex angle ≈ 24° — sharper than the original wide V (~34°), wider than
+//    the previous narrow V (~18°).
 //  - Arrow tails sit on the right inner arc, sliding clockwise so each
 //    subsequent arrow starts further down. Tips stay anchored on the
 //    lower-left rim, which makes the slope shallower than 45° and the
@@ -26,7 +27,7 @@ export function Seal({ className, size = 64 }: { className?: string; size?: numb
     >
       {/* Pizza outline minus a sharp V wedge whose apex is the center. */}
       <path
-        d="M 44 12 L 50 50 L 56 12 A 38 38 0 1 1 44 12"
+        d="M 42 13 L 50 50 L 58 13 A 38 38 0 1 1 42 13"
         fill="none"
         stroke="currentColor"
         strokeWidth="4"

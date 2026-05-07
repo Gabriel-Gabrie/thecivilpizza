@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { readJson } from '@/lib/admin/github';
 import { clearToken } from '@/lib/admin/storage';
+import { endSession, HAS_BUNDLED_PAT } from '@/lib/admin/auth';
 import { ContactTab, type SeoFile } from './ContactTab';
 import { HoursTab, type HoursFile } from './HoursTab';
 import { MenuTab, type MenuFile } from './MenuTab';
@@ -95,7 +96,10 @@ export function AdminShell({ token, login, onSignOut }: { token: string; login: 
 
   const signOut = () => {
     if (totalDirtyFiles > 0 && !confirm('You have unsaved changes. Sign out anyway?')) return;
-    clearToken();
+    endSession();
+    // Only wipe a stored token if we're in the dev / token-paste flow.
+    // In production the PAT is bundled, not stored.
+    if (!HAS_BUNDLED_PAT) clearToken();
     onSignOut();
   };
 
@@ -103,14 +107,11 @@ export function AdminShell({ token, login, onSignOut }: { token: string; login: 
     <div className="min-h-screen">
       <header className="sticky top-0 z-30 border-b border-ink/10 bg-paper/95 backdrop-blur supports-[backdrop-filter]:bg-paper/85">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6">
-          <div className="flex items-baseline gap-3">
-            <span className="text-base font-semibold text-ink">The Civil — Owner</span>
-            <span className="hidden text-sm text-ink/50 sm:inline">{login}</span>
-          </div>
+          <span className="text-base font-semibold text-ink">The Civil — Owner</span>
           <div className="flex items-center gap-3">
             {totalDirtyFiles > 0 && (
               <span className="hidden rounded-full bg-brass/20 px-3 py-1 text-xs font-medium text-ink sm:inline">
-                {totalDirtyFiles} unsaved
+                {totalDirtyFiles} unsaved change{totalDirtyFiles === 1 ? '' : 's'}
               </span>
             )}
             <button
@@ -119,7 +120,7 @@ export function AdminShell({ token, login, onSignOut }: { token: string; login: 
               disabled={totalDirtyFiles === 0}
               className="inline-flex items-center justify-center rounded-md bg-ember px-4 py-2 text-sm font-medium text-paper transition hover:bg-ember/90 disabled:cursor-not-allowed disabled:opacity-40"
             >
-              Publish ({totalDirtyFiles})
+              Save changes
             </button>
             <button
               type="button"
@@ -154,7 +155,7 @@ export function AdminShell({ token, login, onSignOut }: { token: string; login: 
       </header>
 
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
-        {loading && <p className="text-sm text-ink/60">Loading content from main…</p>}
+        {loading && <p className="text-sm text-ink/60">Loading…</p>}
         {error && (
           <p
             role="alert"
@@ -165,16 +166,7 @@ export function AdminShell({ token, login, onSignOut }: { token: string; login: 
         )}
         {lastCommit && (
           <p className="mb-6 rounded-md border border-basil/40 bg-basil/10 px-4 py-3 text-sm text-ink">
-            Published. CI is now building →{' '}
-            <a
-              href={`https://github.com/Gabriel-Gabrie/thecivilpizza/commit/${lastCommit}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-ember underline-offset-4 hover:underline"
-            >
-              view commit
-            </a>
-            . Live in ~90s.
+            Saved. Your changes should appear on the live site in about a minute.
           </p>
         )}
 
