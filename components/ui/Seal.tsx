@@ -1,12 +1,12 @@
 // The Civil's logomark — a pizza-shaped circle with a triangular slice
 // removed from the top (open V), and three diagonal arrows shooting from
-// the upper-right toward the lower-left. Hand-traced from the official
-// high-res logo.
+// the upper-right rim toward the lower-left. Hand-traced from the
+// official high-res logo.
 //
-// Note on the arrows: each arrow's start slides DOWN-RIGHT along the
-// upper rim of the circle from the previous arrow's start, and each
-// arrow is progressively shorter than the one above it. They are NOT
-// just three parallel lines stacked horizontally.
+// Each arrow's TAIL touches the inner-right arc of the circle. The
+// tail positions slide clockwise along that arc (starts get lower as
+// you go down through the three arrows). Lengths step shortest →
+// longest from bottom to top.
 
 import { clsx } from 'clsx';
 
@@ -30,8 +30,9 @@ export function Seal({ className, size = 64 }: { className?: string; size?: numb
         strokeLinejoin="round"
       />
 
-      {/* Three diagonal arrows — each starts further down-right along
-          the upper rim and is shorter than the one above it. */}
+      {/* Three diagonal arrows. Tails sit on the right inner arc; tips
+          land at progressively lower-and-rightward positions on the
+          lower-left arc. Top arrow is the longest. */}
       <g
         fill="none"
         stroke="currentColor"
@@ -39,22 +40,19 @@ export function Seal({ className, size = 64 }: { className?: string; size?: numb
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        {/* Top arrow — longest. Starts near the top of the V's right edge. */}
-        <line x1="50" y1="26" x2="16" y2="64" />
-        {/* Middle arrow — slightly shorter, shifted down-right. */}
-        <line x1="62" y1="36" x2="26" y2="72" />
-        {/* Bottom arrow — shortest. Starts mid-right, ends near 6 o'clock. */}
-        <line x1="72" y1="50" x2="42" y2="80" />
+        {/* Top: tail on right arc at y=26 (x≈79 = 50 + √(38² − 24²)). */}
+        <line x1="79" y1="26" x2="16" y2="64" />
+        {/* Middle: tail at y=36 (x≈85). */}
+        <line x1="85" y1="36" x2="26" y2="72" />
+        {/* Bottom: tail at y=50 (x=88, exactly on the right edge). */}
+        <line x1="88" y1="50" x2="42" y2="80" />
       </g>
 
-      {/* Filled triangle arrowheads at each line's lower-left tip. */}
+      {/* Filled triangle arrowheads at each tip. */}
       <g fill="currentColor" stroke="currentColor" strokeWidth="0.6" strokeLinejoin="round">
-        {/* Tip at (16, 64). Direction (-34, 38) → unit (-0.67, 0.75). */}
-        <polygon points="16,64 24,62 18,56" />
-        {/* Tip at (26, 72). Direction (-36, 36) → unit (-0.71, 0.71). */}
-        <polygon points="26,72 34,70 28,64" />
-        {/* Tip at (42, 80). Direction (-30, 30) → unit (-0.71, 0.71). */}
-        <polygon points="42,80 50,78 44,72" />
+        <polygon points="16,64 24,63 20,57" />
+        <polygon points="26,72 34,71 30,65" />
+        <polygon points="42,80 50,79 46,73" />
       </g>
     </svg>
   );
