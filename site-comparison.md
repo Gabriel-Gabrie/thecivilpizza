@@ -11,8 +11,8 @@ A plain-English comparison of what customers see at **thecivil.ca** right now ve
 | See the menu | Not on the site | Full menu, every item priced |
 | Filter pies by veggie / meaty / spicy / sweet / dine-in only | No | Yes, one tap |
 | See whether you're open right now | Hours table only | Live "Open now / Closed" badge in the header |
-| Get directions | No map link | One tap to Google Maps |
-| Call you | Phone not listed | One tap to call (`(519) 570-9992`) |
+| Get directions | No map link | One tap to Google Maps (footer + visit page) |
+| Call you | Phone not listed | One tap to call — discreet floating button on every mobile page |
 | Reserve a table | Yes (Toast) | Yes (Toast) |
 | Order takeout | Yes (Toast) | Yes (Toast) |
 | Browse photos | Small gallery referenced on the homepage | 56 photos, sorted into 5 categories |
@@ -83,9 +83,9 @@ Plus a featured pair at the top for the strongest interior + exterior shot.
 
 Today, a customer who finds your site and wants to call has to copy the address into Maps themselves. There's no phone number listed at all. The new site shows the address, phone, and a one-tap **Get directions** button on every page (in the footer and on `/visit`), plus the live phone number in the sticky action bar on phones.
 
-### A sticky action bar on phones
+### A discreet tap-to-call button on phones
 
-On a mobile phone, four buttons stay pinned to the bottom of every page no matter how far the customer scrolls: **Reserve, Order, Directions, Call.** They auto-hide as someone scrolls down (so they don't cover content) and reappear the moment they scroll up. Whatever the customer decides to do, it's a single thumb-tap away.
+On a mobile phone, a small phone-icon button sits in the bottom-right corner of every page. It doesn't get in the way, doesn't auto-hide on scroll, doesn't pulse — it's just there when someone wants to call. The earlier version of the site had a four-button bar (Reserve / Order / Directions / Call) but it ate too much screen and pulled focus from the actual content.
 
 ### A live "Open now / Closed" badge
 
@@ -129,7 +129,7 @@ Every page has a proper title, description, and structured data (`Restaurant` an
 | Directions link | ❌ | ✅ |
 | Charity program visible | ❌ | ✅ (The Cause) |
 | Live open/closed indicator | ❌ | ✅ |
-| Mobile sticky action bar | ❌ | ✅ (4 buttons) |
+| Mobile tap-to-call button | ❌ | ✅ (discreet floating icon) |
 | Owner can edit | ❌ | ✅ |
 | Private events section | ❌ | ✅ |
 

@@ -80,7 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <Masthead />
-        <main id="main" className="flex-1 pb-28 md:pb-0">
+        <main id="main" className="flex-1">
           {children}
         </main>
         <Footer />

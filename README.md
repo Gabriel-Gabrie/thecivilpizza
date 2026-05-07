@@ -26,7 +26,7 @@ Node 20+ recommended.
 
 A demo-grade replacement for The Civil's GoDaddy-template site. Designed to be:
 
-- **Mobile-first.** Designed at 375px. Sticky bottom action bar with 4 buttons (Reserve / Order / Directions / Call). Live open-closed pill in `America/Toronto`.
+- **Mobile-first.** Designed at 375px. Discreet floating tap-to-call button in the bottom-right corner. Live open-closed pill in `America/Toronto`.
 - **Editorial.** "The Civil Times" — newspaper masthead, broadsheet menu, classified-ad sections, drop caps, rules.
 - **Theatrical.** A single animated vapour bubble (the Bubble Infusion cocktail) drifts in the hero. Tap it. It pops. It comes back.
 - **Operationally invisible.** Reserve/Order CTAs deep-link to The Civil's existing **Toast** flows. Nothing about their POS, ordering, or menu data flow changes.
@@ -87,7 +87,7 @@ components/
 ├── layout/
 │   ├── Masthead.tsx        # sticky top: status strip + nav (drawer is portaled to body)
 │   ├── Footer.tsx          # seal, address, IG/email, "Built by Gabriel Gabrie"
-│   └── StickyActionBar.tsx # mobile-only Reserve/Order/Directions/Call bar
+│   └── StickyActionBar.tsx # mobile-only floating tap-to-call button
 ├── menu/
 │   ├── PizzaTile.tsx       # photo-or-SVG tile
 │   └── MenuFilters.tsx     # client-side filter chips (DOM toggle)
