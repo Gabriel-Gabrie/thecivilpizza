@@ -1,21 +1,30 @@
 # Hosting
 
-## Status quo: Hostinger + full-repo clone
+## How deployment works (current)
 
-Hostinger's webhook clones the entire repository into a directory under
-`demo.gabrielgabrie.com/thecivil` on every push to `main`. The site is
-served via the `.htaccess` at the repo root, which rewrites every request
-under `/thecivil/` to `out/`. The rest of the repo (source, node_modules
-references, plans, ASSETS.md, etc.) sits there unused.
+```
+push to main
+   ↓
+GitHub Actions runs (.github/workflows/deploy.yml)
+   ↓
+npm ci  →  next build  →  out/
+   ↓
+peaceiris/actions-gh-pages force-pushes out/* to the deploy branch
+   ↓
+Hostinger webhook clones deploy → demo.gabrielgabrie.com/thecivil/
+```
 
-This works, but:
+`main` only contains source. `deploy` only contains the built static
+site (HTML, JS, CSS, fonts, images, `.htaccess`). The two are kept in
+sync by CI, never by hand.
 
-- **The repo footprint is large** — the build ships everything: source,
-  scripts, plans, original photo collections.
-- **Cold loads are slow** — Hostinger's shared hosting isn't the fastest
-  globally, and there's no CDN edge caching.
-- **No image optimization** — static export skips the Next.js image
-  optimizer, so mobile downloads full-resolution photos.
+### How this used to work
+
+Earlier the demo deployed by having Hostinger watch `main` and serving
+`/thecivil/` via a root `.htaccess` that rewrote every request to
+`out/`. That meant the entire repo (source, plans, original photos,
+node_modules references, etc.) lived at the served path even though
+none of it was reachable via the rewrite. Cleaner now.
 
 ## What we've already done
 
@@ -101,42 +110,12 @@ jobs:
 Pros: keep the Hostinger setup, only ship the static output.
 Cons: still hosting on Hostinger's shared infrastructure, no edge CDN.
 
-## What's actually wired up right now
+## What lives where
 
-We chose to stay on Hostinger and use the **deploy branch** approach.
-[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) builds
-the static site on every push to `main` and force-pushes the contents
-of `out/` to a `deploy` branch as a single orphan commit.
-
-### One-time switch the owner needs to do
-
-The first push of this commit will create the `deploy` branch
-automatically once GitHub Actions runs. After that:
-
-1. Open the Hostinger panel for the `demo.gabrielgabrie.com/thecivil`
-   webhook deployment.
-2. Change the watched branch from `main` to `deploy`.
-3. Trigger a manual sync (or push any small commit) so Hostinger
-   pulls `deploy` for the first time.
-
-After that switch, every push to `main`:
-- triggers the GitHub Action
-- which builds the site
-- which force-pushes `out/*` to `deploy` (replacing whatever was there)
-- which Hostinger pulls and serves at `/thecivil/`
-
-### What lives where after the switch
-
-- **`main`**: source code, plans, original photos, all the docs. Never
-  served to anyone.
+- **`main`**: source code, plans, content JSON, original photos, docs.
+  Never served to anyone.
 - **`deploy`**: only the contents of `out/` — `index.html`, per-route
   folders, `_next/static/*`, `images/*`, the Next.js icon files, plus
-  `public/.htaccess` for caching headers. No source, no node_modules,
-  no `.git` history.
-
-### Cleanup (do this AFTER you confirm `deploy` is serving correctly)
-
-Once `deploy` is the source of truth and Hostinger is pulling from it,
-the `out/` folder and the root `.htaccess` (with the rewrite rules)
-can be removed from `main` — they're no longer needed there. Tell me
-when you've confirmed and I'll write that cleanup commit.
+  `.htaccess` (sourced from `public/.htaccess` and copied during build)
+  for caching headers. No source, no node_modules, no rewrite rules
+  needed because everything lives at the served path already.

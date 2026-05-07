@@ -33,25 +33,19 @@ A demo-grade replacement for The Civil's GoDaddy-template site. Designed to be:
 
 ---
 
-## Subpath deployment
+## Deployment
 
-The demo serves from `https://demo.gabrielgabrie.com/thecivil` — a **subpath**, not a domain root. This is configured in [next.config.mjs](next.config.mjs) via `basePath` and `assetPrefix`, controlled by env vars:
+Push to `main` → GitHub Actions builds the static site → force-pushes
+`out/` to the `deploy` branch as an orphan commit → Hostinger watches
+`deploy` and clones it into `demo.gabrielgabrie.com/thecivil`.
 
-```bash
-NEXT_PUBLIC_BASE_PATH=/thecivil
-NEXT_PUBLIC_SITE_URL=https://demo.gabrielgabrie.com/thecivil
-```
-
-In dev (no env vars) the site runs at `http://localhost:3000` with no prefix.
-
-**Two host modes** depending on the autodeploy pipeline:
-
-| Mode | What requests look like at the Next.js server | Config |
-|------|----------------------------------------------|--------|
-| Native basePath | `/thecivil/...` | Set both env vars above |
-| Proxy strips prefix | `/...` (proxy strips `/thecivil` before forwarding) | Set `NEXT_PUBLIC_BASE_PATH=""`, `NEXT_PUBLIC_ASSET_PREFIX=https://demo.gabrielgabrie.com/thecivil` |
-
-If you are not sure which mode the host uses, deploy in basePath mode first and look at the network tab — if static assets 404 at `/thecivil/_next/static/...`, switch to proxy-strip mode.
+- **Workflow:** [.github/workflows/deploy.yml](.github/workflows/deploy.yml)
+- **Detail / migration history:** [HOSTING.md](HOSTING.md)
+- **Subpath:** the site lives at `/thecivil`, configured in
+  [next.config.mjs](next.config.mjs) via `basePath` and `assetPrefix`.
+  The workflow injects `NEXT_PUBLIC_BASE_PATH=/thecivil` and
+  `NEXT_PUBLIC_SITE_URL` at build time. In dev (no env vars) the site
+  runs at `http://localhost:3000` with no prefix.
 
 ---
 
