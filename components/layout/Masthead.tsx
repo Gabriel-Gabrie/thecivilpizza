@@ -40,8 +40,10 @@ export function Masthead() {
   // IMPORTANT: do not add backdrop-filter / filter / transform to the <header>.
   // Those properties create a CSS containing block, which would scope the
   // drawer's position:fixed inside the masthead and collapse it to ~0 height.
+  // Masthead is z-40, drawer is z-30 — masthead always sits on top of the
+  // open drawer regardless of how tall the masthead is on a given device.
   return (
-    <header className="sticky top-0 z-30 bg-ink">
+    <header className="sticky top-0 z-40 bg-ink">
       {/* status strip */}
       <div className="border-b border-paper/15">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2 text-[10px] font-mono uppercase tracking-[0.2em] text-paper/80 sm:px-6">
@@ -97,16 +99,18 @@ export function Masthead() {
         </div>
       </div>
 
-      {/* mobile drawer — original architecture, just with a fully-opaque backdrop. */}
+      {/* mobile drawer — covers the full viewport behind the masthead.
+          The masthead (z-40) sits on top, so we don't need to compute its
+          exact height. Drawer's nav content uses pt to clear the masthead. */}
       <div
         id="mobile-nav"
         className={clsx(
-          'md:hidden fixed inset-x-0 top-[88px] bottom-0 z-30 transition',
+          'md:hidden fixed inset-0 z-30 transition',
           open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         )}
         aria-hidden={!open}
       >
-        {/* backdrop — solid bg-ink. Was bg-ink/85 (15% transparent), which let the page bleed through. */}
+        {/* backdrop — solid bg-ink covering the entire viewport */}
         <button
           type="button"
           aria-label="Close menu"
@@ -114,11 +118,12 @@ export function Masthead() {
           className="absolute inset-0 bg-ink"
           tabIndex={open ? 0 : -1}
         />
-        {/* sheet */}
+        {/* nav content — pt-28 (112px) is more than the tallest masthead so
+            links never start behind it, even with iOS safe-area inset. */}
         <nav
           aria-label="Primary"
           className={clsx(
-            'absolute inset-x-0 top-0 origin-top transform px-4 pb-8 pt-6 transition-transform duration-200',
+            'relative h-full overflow-y-auto px-4 pb-8 pt-28 origin-top transform transition-transform duration-200',
             open ? 'translate-y-0' : '-translate-y-3'
           )}
         >
