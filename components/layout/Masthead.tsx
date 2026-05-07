@@ -37,8 +37,11 @@ export function Masthead() {
     };
   }, [open]);
 
+  // IMPORTANT: do not add backdrop-filter / filter / transform to the <header>.
+  // Those properties create a CSS containing block, which would scope the
+  // drawer's position:fixed inside the masthead and collapse it to ~0 height.
   return (
-    <header className="sticky top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-ink/75 bg-ink/95">
+    <header className="sticky top-0 z-30 bg-ink">
       {/* status strip */}
       <div className="border-b border-paper/15">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2 text-[10px] font-mono uppercase tracking-[0.2em] text-paper/80 sm:px-6">
@@ -139,36 +142,6 @@ export function Masthead() {
               );
             })}
           </ul>
-
-          <div className="mt-8 grid grid-cols-2 gap-3 text-center">
-            <a
-              href={site.reserveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-ember"
-              onClick={() => setOpen(false)}
-            >
-              Reserve
-            </a>
-            <a
-              href={site.orderUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-paper"
-              onClick={() => setOpen(false)}
-            >
-              Order pickup
-            </a>
-          </div>
-
-          <div className="mt-6 flex justify-between font-mono text-[11px] uppercase tracking-[0.2em] text-paper/75">
-            <a href={`tel:${site.phone}`} onClick={() => setOpen(false)} className="hover:text-paper">
-              {site.phoneDisplay}
-            </a>
-            <a href={site.instagram} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)} className="hover:text-paper">
-              @thecivilkitchener
-            </a>
-          </div>
         </nav>
       </div>
     </header>

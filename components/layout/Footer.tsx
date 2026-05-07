@@ -71,7 +71,17 @@ export function Footer() {
 
         <div className="mt-10 flex flex-col gap-2 border-t border-paper/15 pt-6 text-[11px] font-mono uppercase tracking-[0.2em] text-paper/65 sm:flex-row sm:items-center sm:justify-between">
           <span>© {year} The Civil — Kitchener</span>
-          <span>Built with disobedience.</span>
+          <span>
+            Built by{' '}
+            <a
+              href="https://gabrielgabrie.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-paper underline-offset-4 hover:text-ember hover:underline"
+            >
+              Gabriel Gabrie
+            </a>
+          </span>
         </div>
       </div>
     </footer>
