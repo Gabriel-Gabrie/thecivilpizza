@@ -5,9 +5,11 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 
 // Vapour-bubble showpiece. Borrowed from The Civil's Bubble Infusion
-// cocktail. Idle drift, faint cursor parallax on desktop, pop-on-tap that
-// emits puff dots and reveals a "See cocktails →" CTA so visitors connect
-// the bubble to the cocktail program. Respects prefers-reduced-motion.
+// cocktail. Continuous meandering drift (visible on every device,
+// completes a loop in ~3.8s), faint cursor parallax stacked on top
+// for desktop, pop-on-tap that emits puff dots and reveals a
+// "See cocktails →" CTA so visitors connect the bubble to the cocktail
+// program. Respects prefers-reduced-motion.
 
 export function Bubble({
   className,
@@ -61,7 +63,16 @@ export function Bubble({
     <div
       ref={ref}
       className={className}
-      style={{ width: size, height: size, position: 'relative' }}
+      style={{
+        width: size,
+        height: size,
+        position: 'relative',
+        // Cursor parallax (desktop only) is applied to the WRAPPER so the
+        // autonomous drift animation on the inner button stacks on top.
+        transform: `translate3d(${parallax.x}px, ${parallax.y}px, 0)`,
+        transition: 'transform 0.25s ease-out',
+        willChange: 'transform',
+      }}
     >
       <AnimatePresence initial={false} mode="wait">
         {!popped && (
@@ -76,16 +87,24 @@ export function Bubble({
               reduced
                 ? { scale: 1, opacity: 1 }
                 : {
-                    scale: [1, 1.04, 1],
+                    // Autonomous meandering drift — visible on desktop AND mobile
+                    // (where there's no cursor parallax). Keyframes form a small
+                    // loop around the origin.
+                    scale: [1, 1.05, 0.97, 1.03, 1],
+                    x: [0, 26, -12, -22, 0],
+                    y: [0, -18, 14, 8, 0],
                     opacity: 1,
-                    x: parallax.x,
-                    y: parallax.y,
                   }
             }
             transition={
               reduced
                 ? { duration: 0 }
-                : { scale: { repeat: Infinity, duration: 6.4, ease: 'easeInOut' }, opacity: { duration: 0.6 } }
+                : {
+                    scale: { repeat: Infinity, duration: 3.8, ease: 'easeInOut' },
+                    x: { repeat: Infinity, duration: 3.8, ease: 'easeInOut' },
+                    y: { repeat: Infinity, duration: 3.8, ease: 'easeInOut' },
+                    opacity: { duration: 0.6 },
+                  }
             }
             exit={{ scale: 1.6, opacity: 0, transition: { duration: 0.18 } }}
             whileTap={{ scale: 0.96 }}
