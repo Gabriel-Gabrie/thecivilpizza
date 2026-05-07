@@ -3,8 +3,8 @@
 import { clsx } from 'clsx';
 import type { ReactNode } from 'react';
 
-// Reusable text input. Adapts to label, helper text, and a "dirty" hint
-// (rendered when value !== original).
+// Reusable text input for the admin. Light theme, normal-case labels,
+// roomy padding so it's pleasant to edit a long menu in one sitting.
 
 export function Field({
   label,
@@ -30,18 +30,18 @@ export function Field({
   dirty?: boolean;
 }) {
   const inputClass = clsx(
-    'block w-full rounded-md border bg-ink/60 px-3 py-2 text-paper placeholder:text-paper/40 focus:outline-none',
+    'block w-full rounded-md border bg-white px-3.5 py-2.5 text-base text-ink placeholder:text-ink/35 focus:outline-none focus:ring-2 focus:ring-ink/20',
     monospace && 'font-mono text-sm',
     dirty
       ? 'border-brass focus:border-brass'
-      : 'border-paper/25 focus:border-paper/70'
+      : 'border-ink/20 focus:border-ink/50'
   );
   return (
     <label className="block">
-      <span className="flex items-baseline justify-between">
-        <span className="kicker">{label}</span>
+      <span className="flex items-baseline justify-between gap-3">
+        <span className="text-sm font-medium text-ink">{label}</span>
         {dirty && (
-          <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-brass">
+          <span className="rounded-full bg-brass/20 px-2 py-0.5 text-[11px] font-medium text-ink">
             edited
           </span>
         )}
@@ -67,9 +67,7 @@ export function Field({
         )}
       </span>
       {helper && (
-        <span className="mt-1.5 block font-mono text-[10px] text-paper/55">
-          {helper}
-        </span>
+        <span className="mt-1.5 block text-xs text-ink/55">{helper}</span>
       )}
     </label>
   );

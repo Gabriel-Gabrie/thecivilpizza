@@ -30,13 +30,11 @@ export function AdminShell({ token, login, onSignOut }: { token: string; login: 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Originals — fetched from main on mount, never mutated.
   const [origSeo, setOrigSeo] = useState<SeoFile | null>(null);
   const [origHours, setOrigHours] = useState<HoursFile | null>(null);
   const [origMenu, setOrigMenu] = useState<MenuFile | null>(null);
   const [origGallery, setOrigGallery] = useState<GalleryFile | null>(null);
 
-  // Drafts — what the owner is editing.
   const [seo, setSeo] = useState<SeoFile | null>(null);
   const [hours, setHours] = useState<HoursFile | null>(null);
   const [menu, setMenu] = useState<MenuFile | null>(null);
@@ -85,7 +83,6 @@ export function AdminShell({ token, login, onSignOut }: { token: string; login: 
     (gallery && origGallery && dirty(gallery, origGallery) ? 1 : 0) +
     pendingImages.length;
 
-  // Warn before navigating away with unsaved changes.
   useEffect(() => {
     if (totalDirtyFiles === 0) return;
     const handler = (e: BeforeUnloadEvent) => {
@@ -103,20 +100,16 @@ export function AdminShell({ token, login, onSignOut }: { token: string; login: 
   };
 
   return (
-    <div className="min-h-screen bg-ink">
-      <header className="sticky top-0 z-30 border-b border-paper/15 bg-ink">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
+    <div className="min-h-screen">
+      <header className="sticky top-0 z-30 border-b border-ink/10 bg-paper/95 backdrop-blur supports-[backdrop-filter]:bg-paper/85">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6">
           <div className="flex items-baseline gap-3">
-            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-paper/65">
-              The Civil · Owner
-            </p>
-            <p className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-paper/45 sm:inline">
-              · {login}
-            </p>
+            <span className="text-base font-semibold text-ink">The Civil — Owner</span>
+            <span className="hidden text-sm text-ink/50 sm:inline">{login}</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {totalDirtyFiles > 0 && (
-              <span className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-brass sm:inline">
+              <span className="hidden rounded-full bg-brass/20 px-3 py-1 text-xs font-medium text-ink sm:inline">
                 {totalDirtyFiles} unsaved
               </span>
             )}
@@ -124,57 +117,60 @@ export function AdminShell({ token, login, onSignOut }: { token: string; login: 
               type="button"
               onClick={() => setShowPublish(true)}
               disabled={totalDirtyFiles === 0}
-              className="btn-ember px-4 py-2 text-[11px] disabled:opacity-40"
+              className="inline-flex items-center justify-center rounded-md bg-ember px-4 py-2 text-sm font-medium text-paper transition hover:bg-ember/90 disabled:cursor-not-allowed disabled:opacity-40"
             >
               Publish ({totalDirtyFiles})
             </button>
             <button
               type="button"
               onClick={signOut}
-              className="font-mono text-[10px] uppercase tracking-[0.22em] text-paper/65 hover:text-paper"
+              className="text-sm text-ink/60 hover:text-ink"
             >
               Sign out
             </button>
           </div>
         </div>
 
-        <nav className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 pb-3 sm:px-6">
-          {TABS.map((t) => (
-            <button
-              key={t.key}
-              type="button"
-              onClick={() => setActive(t.key)}
-              className={
-                'pill shrink-0 transition-colors ' +
-                (active === t.key
-                  ? 'border-paper bg-paper text-ink'
-                  : 'border-paper/30 text-paper/85 hover:text-paper')
-              }
-            >
-              {t.label}
-            </button>
-          ))}
+        <nav className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 sm:px-6">
+          {TABS.map((t) => {
+            const isActive = active === t.key;
+            return (
+              <button
+                key={t.key}
+                type="button"
+                onClick={() => setActive(t.key)}
+                className={
+                  'shrink-0 border-b-2 px-3 py-2.5 text-sm font-medium transition-colors ' +
+                  (isActive
+                    ? 'border-ink text-ink'
+                    : 'border-transparent text-ink/55 hover:text-ink')
+                }
+              >
+                {t.label}
+              </button>
+            );
+          })}
         </nav>
       </header>
 
-      <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-        {loading && <p className="font-mono text-sm text-paper/65">Loading content from {`${' '}main `} …</p>}
+      <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
+        {loading && <p className="text-sm text-ink/60">Loading content from main…</p>}
         {error && (
           <p
             role="alert"
-            className="rounded-md border border-ember/60 bg-ember/10 px-4 py-3 font-mono text-sm text-ember"
+            className="rounded-md border border-ember/40 bg-ember/10 px-4 py-3 text-sm text-ember"
           >
             {error}
           </p>
         )}
         {lastCommit && (
-          <p className="mb-4 rounded-md border border-basil/60 bg-basil/10 px-4 py-3 font-mono text-sm text-basil">
+          <p className="mb-6 rounded-md border border-basil/40 bg-basil/10 px-4 py-3 text-sm text-ink">
             Published. CI is now building →{' '}
             <a
               href={`https://github.com/Gabriel-Gabrie/thecivilpizza/commit/${lastCommit}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline-offset-4 hover:underline"
+              className="font-medium text-ember underline-offset-4 hover:underline"
             >
               view commit
             </a>
@@ -224,7 +220,6 @@ export function AdminShell({ token, login, onSignOut }: { token: string; login: 
           pendingImages={pendingImages}
           onClose={() => setShowPublish(false)}
           onPublished={(sha) => {
-            // After a successful commit, the live "originals" are the new draft state.
             setOrigSeo(structuredClone(seo));
             setOrigHours(structuredClone(hours));
             setOrigMenu(structuredClone(menu));

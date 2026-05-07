@@ -11,7 +11,27 @@ export type HoursFile = {
   exceptions: unknown[];
 };
 
-const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const DAY_LABELS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+function Section({
+  title,
+  description,
+  children,
+}: {
+  title: string;
+  description?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="rounded-lg border border-ink/10 bg-white p-6 shadow-sm">
+      <h2 className="text-lg font-semibold text-ink">{title}</h2>
+      {description && (
+        <p className="mt-1 text-sm text-ink/65">{description}</p>
+      )}
+      <div className="mt-5">{children}</div>
+    </section>
+  );
+}
 
 export function HoursTab({
   draft,
@@ -49,14 +69,12 @@ export function HoursTab({
   };
 
   return (
-    <div className="space-y-8">
-      <section>
-        <h2 className="font-display text-2xl font-black italic">Weekly hours</h2>
-        <p className="dek mt-1 text-base">
-          Times in 24-hour format, e.g. 17:00 = 5pm. Add a second range for split shifts.
-          Leave a day empty (no ranges) to mark it closed.
-        </p>
-        <div className="mt-6 space-y-3">
+    <div className="space-y-6">
+      <Section
+        title="Weekly hours"
+        description="Times in 24-hour format (e.g. 17:00 = 5pm). Add a second range for split shifts. Leave a day with no ranges to mark it closed."
+      >
+        <div className="space-y-3">
           {draft.schedule.map((day) => {
             const origDay = original.schedule.find((d) => d.day === day.day);
             const isDirty = dirty(day, origDay);
@@ -65,45 +83,45 @@ export function HoursTab({
                 key={day.day}
                 className={
                   'rounded-md border p-4 ' +
-                  (isDirty ? 'border-brass' : 'border-paper/15')
+                  (isDirty
+                    ? 'border-brass bg-brass/5'
+                    : 'border-ink/10 bg-paper-2/30')
                 }
               >
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-paper">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-base font-medium text-ink">
                     {DAY_LABELS[day.day]}
                   </span>
                   <button
                     type="button"
                     onClick={() => addRange(day.day)}
-                    className="font-mono text-[10px] uppercase tracking-[0.2em] text-paper/70 hover:text-paper"
+                    className="text-sm text-ink/65 hover:text-ink"
                   >
                     + add range
                   </button>
                 </div>
                 {day.ranges.length === 0 && (
-                  <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.2em] text-paper/55">
-                    Closed
-                  </p>
+                  <p className="mt-2 text-sm text-ink/55">Closed</p>
                 )}
                 {day.ranges.map((r, i) => (
-                  <div key={i} className="mt-3 flex items-center gap-2">
+                  <div key={i} className="mt-3 flex flex-wrap items-center gap-2">
                     <input
                       type="time"
                       value={r.open}
                       onChange={(e) => setRange(day.day, i, 'open', e.target.value)}
-                      className="rounded border border-paper/25 bg-ink/60 px-3 py-1.5 font-mono text-sm text-paper"
+                      className="rounded-md border border-ink/20 bg-white px-3 py-2 text-sm text-ink focus:border-ink/50 focus:outline-none focus:ring-2 focus:ring-ink/20"
                     />
-                    <span className="font-mono text-paper/50">→</span>
+                    <span className="text-ink/40">→</span>
                     <input
                       type="time"
                       value={r.close}
                       onChange={(e) => setRange(day.day, i, 'close', e.target.value)}
-                      className="rounded border border-paper/25 bg-ink/60 px-3 py-1.5 font-mono text-sm text-paper"
+                      className="rounded-md border border-ink/20 bg-white px-3 py-2 text-sm text-ink focus:border-ink/50 focus:outline-none focus:ring-2 focus:ring-ink/20"
                     />
                     <button
                       type="button"
                       onClick={() => removeRange(day.day, i)}
-                      className="ml-auto font-mono text-[10px] uppercase tracking-[0.2em] text-ember/80 hover:text-ember"
+                      className="ml-auto text-sm text-ember/85 hover:text-ember"
                     >
                       Remove
                     </button>
@@ -113,14 +131,13 @@ export function HoursTab({
             );
           })}
         </div>
-      </section>
+      </Section>
 
-      <section>
-        <h2 className="font-display text-2xl font-black italic">Lunch window</h2>
-        <p className="dek mt-1 text-base">
-          A separate "Lunch served Wed–Sat 12pm–4pm" type message appears below the hours table.
-        </p>
-        <div className="mt-4 grid gap-4 sm:grid-cols-3">
+      <Section
+        title="Lunch window"
+        description="Used in the dek beneath the hours table — e.g. “Lunch served Wed–Sat 12pm–4pm.”"
+      >
+        <div className="grid gap-4 sm:grid-cols-3">
           <Field
             label="Lunch open"
             value={draft.lunch.open}
@@ -156,7 +173,7 @@ export function HoursTab({
             dirty={dirty(draft.lunch.days, original.lunch.days)}
           />
         </div>
-      </section>
+      </Section>
     </div>
   );
 }

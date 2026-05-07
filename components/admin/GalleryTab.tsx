@@ -20,13 +20,9 @@ export type GalleryFile = {
 };
 
 export type PendingImage = {
-  /** Repo path the image will be committed to (e.g. "public/images/foo.jpg"). */
   path: string;
-  /** Base64 contents (no data: prefix) for the GitHub blob upload. */
   contentBase64: string;
-  /** Local data URL for previewing in the admin before publish. */
   previewDataUrl: string;
-  /** What the file is called locally — for friendly display. */
   filename: string;
 };
 
@@ -35,6 +31,33 @@ const CATEGORIES = ['interior', 'exterior', 'pies', 'cocktails', 'flights', 'fea
 function slugifyName(name: string): string {
   const base = name.toLowerCase().replace(/[^a-z0-9.]+/g, '-').replace(/^-+|-+$/g, '');
   return base || 'image';
+}
+
+function Section({
+  title,
+  description,
+  right,
+  children,
+}: {
+  title: string;
+  description?: string;
+  right?: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="rounded-lg border border-ink/10 bg-white p-6 shadow-sm">
+      <div className="flex flex-wrap items-baseline justify-between gap-3">
+        <div>
+          <h2 className="text-lg font-semibold text-ink">{title}</h2>
+          {description && (
+            <p className="mt-1 text-sm text-ink/65">{description}</p>
+          )}
+        </div>
+        {right}
+      </div>
+      <div className="mt-5">{children}</div>
+    </section>
+  );
 }
 
 export function GalleryTab({
@@ -96,55 +119,56 @@ export function GalleryTab({
 
   return (
     <div className="space-y-6">
-      <section>
-        <h2 className="font-display text-2xl font-black italic">Upload images</h2>
-        <p className="dek mt-1 text-base">
-          Pick one or more files. They show up at the bottom of the list as drafts;
-          publish to commit them and add their entries to the gallery.
-        </p>
-        <div className="mt-4 flex flex-wrap items-center gap-3">
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/jpeg,image/png,image/webp,image/avif"
-            multiple
-            onChange={(e) => onFiles(e.target.files)}
-            className="hidden"
-            id="admin-image-upload"
-          />
-          <label htmlFor="admin-image-upload" className="btn-ember cursor-pointer">
-            {uploading ? 'Reading…' : 'Choose images'}
-          </label>
-          {pendingImages.length > 0 && (
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-brass">
+      <Section
+        title="Upload images"
+        description="Pick one or more files. They show up in the list as drafts; click Publish to commit them."
+        right={
+          pendingImages.length > 0 ? (
+            <span className="rounded-full bg-brass/20 px-3 py-1 text-xs font-medium text-ink">
               {pendingImages.length} new image{pendingImages.length === 1 ? '' : 's'} pending
             </span>
-          )}
-        </div>
-      </section>
+          ) : null
+        }
+      >
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/avif"
+          multiple
+          onChange={(e) => onFiles(e.target.files)}
+          className="hidden"
+          id="admin-image-upload"
+        />
+        <label
+          htmlFor="admin-image-upload"
+          className="inline-flex cursor-pointer items-center justify-center rounded-md bg-ember px-4 py-2.5 text-sm font-medium text-paper transition hover:bg-ember/90"
+        >
+          {uploading ? 'Reading…' : 'Choose images'}
+        </label>
+      </Section>
 
-      <section>
-        <h2 className="font-display text-2xl font-black italic">
-          All photos <span className="text-paper/55">· {draft.items.length}</span>
-        </h2>
-
-        <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <Section
+        title="All photos"
+        description={`${draft.items.length} item${draft.items.length === 1 ? '' : 's'}.`}
+      >
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {draft.items.map((item, idx) => {
             const orig = original.items.find((o) => o.id === item.id);
             const isDirty = !orig || dirty(item, orig);
             const isNew = !orig;
             const pending = pendingImages.find((p) => p.path === `public${item.src}`);
-            // For pending uploads, use the preview data URL; otherwise the live URL.
             const previewSrc = pending ? pending.previewDataUrl : withBase(item.src);
             return (
               <li
                 key={item.id + idx}
                 className={
                   'rounded-md border p-3 ' +
-                  (isDirty ? 'border-brass' : 'border-paper/15')
+                  (isDirty
+                    ? 'border-brass bg-brass/5'
+                    : 'border-ink/10 bg-paper-2/20')
                 }
               >
-                <div className="relative aspect-[4/5] overflow-hidden border border-paper/10 bg-ink">
+                <div className="relative aspect-[4/5] overflow-hidden rounded border border-ink/10 bg-ink/5">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={previewSrc}
@@ -152,16 +176,14 @@ export function GalleryTab({
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                   {(isNew || pending) && (
-                    <span className="absolute left-2 top-2 rounded-full bg-basil/90 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-paper">
+                    <span className="absolute left-2 top-2 rounded-full bg-basil/90 px-2 py-0.5 text-[11px] font-medium text-paper">
                       {pending ? 'uploading' : 'new'}
                     </span>
                   )}
                 </div>
-                <p className="mt-2 truncate font-mono text-[10px] uppercase tracking-[0.22em] text-paper/55">
-                  {item.id}
-                </p>
+                <p className="mt-2 truncate text-sm text-ink/60">{item.id}</p>
 
-                <div className="mt-2 space-y-2">
+                <div className="mt-3 space-y-3">
                   <Field
                     label="ID (used as React key)"
                     value={item.id}
@@ -169,11 +191,11 @@ export function GalleryTab({
                     monospace
                   />
                   <label className="block">
-                    <span className="kicker">Category</span>
+                    <span className="text-sm font-medium text-ink">Category</span>
                     <select
                       value={item.category}
                       onChange={(e) => updateItem(idx, { category: e.target.value })}
-                      className="mt-1.5 block w-full rounded-md border border-paper/25 bg-ink/60 px-3 py-2 font-mono text-sm text-paper focus:border-paper/70 focus:outline-none"
+                      className="mt-1.5 block w-full rounded-md border border-ink/20 bg-white px-3 py-2.5 text-base text-ink focus:border-ink/50 focus:outline-none focus:ring-2 focus:ring-ink/20"
                     >
                       {CATEGORIES.map((c) => (
                         <option key={c} value={c}>
@@ -189,7 +211,7 @@ export function GalleryTab({
                     multiline
                     rows={2}
                   />
-                  <label className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-paper/85">
+                  <label className="flex items-center gap-2 text-sm text-ink/85">
                     <input
                       type="checkbox"
                       checked={Boolean(item.feature)}
@@ -202,7 +224,7 @@ export function GalleryTab({
                   <button
                     type="button"
                     onClick={() => removeItem(idx)}
-                    className="font-mono text-[10px] uppercase tracking-[0.2em] text-ember/80 hover:text-ember"
+                    className="text-sm text-ember/85 hover:text-ember"
                   >
                     Remove
                   </button>
@@ -211,7 +233,7 @@ export function GalleryTab({
             );
           })}
         </ul>
-      </section>
+      </Section>
     </div>
   );
 }

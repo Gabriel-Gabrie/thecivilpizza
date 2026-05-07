@@ -29,7 +29,6 @@ export function PublishDialog({
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState('content: edits via /admin');
 
-  // Compute summary of what's changing.
   const changes: DiffSummary[] = [];
   for (const [filePath, draft] of Object.entries(drafts)) {
     const original = originals[filePath];
@@ -74,41 +73,46 @@ export function PublishDialog({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink/90 p-4 sm:items-center">
-      <div className="w-full max-w-2xl overflow-hidden rounded-md border border-paper/25 bg-ink shadow-2xl">
-        <header className="border-b border-paper/15 px-5 py-4">
-          <p className="kicker">Review changes</p>
-          <h2 className="mt-1 font-display text-2xl font-black italic">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink/60 p-4 sm:items-center">
+      <div className="w-full max-w-2xl overflow-hidden rounded-lg bg-paper shadow-2xl">
+        <header className="border-b border-ink/10 px-6 py-5">
+          <p className="text-sm font-medium text-ink/65">Review changes</p>
+          <h2 className="mt-1 text-xl font-semibold text-ink">
             {changes.length} file{changes.length === 1 ? '' : 's'} will be committed
           </h2>
         </header>
 
-        <div className="max-h-[50vh] overflow-y-auto px-5 py-4">
+        <div className="max-h-[55vh] overflow-y-auto px-6 py-5">
           {changes.length === 0 ? (
-            <p className="font-mono text-sm text-paper/65">No pending changes.</p>
+            <p className="text-sm text-ink/65">No pending changes.</p>
           ) : (
-            <ul className="space-y-3">
+            <ul className="space-y-4">
               {changes.map((c) => (
-                <li key={c.filePath} className="border-b border-paper/10 pb-3 last:border-0">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-paper/85">
+                <li key={c.filePath} className="border-b border-ink/10 pb-4 last:border-0 last:pb-0">
+                  <p className="text-sm">
                     <span
                       className={
-                        c.status === 'new' ? 'text-basil' : 'text-brass'
+                        'rounded px-2 py-0.5 text-xs font-medium ' +
+                        (c.status === 'new'
+                          ? 'bg-basil/20 text-ink'
+                          : 'bg-brass/20 text-ink')
                       }
                     >
                       {c.status}
                     </span>{' '}
-                    · {c.filePath}
+                    <span className="font-mono text-xs text-ink/70">
+                      {c.filePath}
+                    </span>
                   </p>
                   {c.notes.length > 0 && (
-                    <ul className="mt-1 space-y-0.5 pl-4">
+                    <ul className="mt-2 space-y-1 pl-4">
                       {c.notes.slice(0, 12).map((n, i) => (
-                        <li key={i} className="font-mono text-[11px] text-paper/65">
+                        <li key={i} className="font-mono text-xs text-ink/65">
                           {n}
                         </li>
                       ))}
                       {c.notes.length > 12 && (
-                        <li className="font-mono text-[10px] text-paper/40">
+                        <li className="text-xs text-ink/45">
                           + {c.notes.length - 12} more
                         </li>
                       )}
@@ -120,38 +124,42 @@ export function PublishDialog({
           )}
         </div>
 
-        <div className="border-t border-paper/15 px-5 py-4">
+        <div className="border-t border-ink/10 bg-paper-2/40 px-6 py-5">
           <label className="block">
-            <span className="kicker">Commit message</span>
+            <span className="text-sm font-medium text-ink">Commit message</span>
             <input
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="mt-1.5 block w-full rounded-md border border-paper/25 bg-ink/60 px-3 py-2 font-mono text-sm text-paper focus:border-paper/70 focus:outline-none"
+              className="mt-1.5 block w-full rounded-md border border-ink/20 bg-white px-3.5 py-2.5 text-sm text-ink focus:border-ink/50 focus:outline-none focus:ring-2 focus:ring-ink/20"
             />
           </label>
           {error && (
             <p
               role="alert"
-              className="mt-3 rounded-md border border-ember/60 bg-ember/10 px-3 py-2 font-mono text-xs text-ember"
+              className="mt-3 rounded-md border border-ember/40 bg-ember/10 px-3.5 py-2.5 text-sm text-ember"
             >
               {error}
             </p>
           )}
           <div className="mt-4 flex flex-wrap items-center justify-end gap-3">
-            <button type="button" onClick={onClose} className="btn-paper">
+            <button
+              type="button"
+              onClick={onClose}
+              className="inline-flex items-center justify-center rounded-md border border-ink/25 bg-white px-4 py-2.5 text-sm font-medium text-ink transition hover:bg-ink/5"
+            >
               Cancel
             </button>
             <button
               type="button"
               onClick={publish}
               disabled={busy || changes.length === 0}
-              className="btn-ember disabled:opacity-50"
+              className="inline-flex items-center justify-center rounded-md bg-ember px-5 py-2.5 text-sm font-medium text-paper transition hover:bg-ember/90 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {busy ? 'Publishing…' : 'Publish to main'}
             </button>
           </div>
-          <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-paper/55">
+          <p className="mt-3 text-xs text-ink/55">
             Commit triggers GitHub Actions → deploy branch → Hostinger pulls (~90s).
           </p>
         </div>
@@ -160,9 +168,6 @@ export function PublishDialog({
   );
 }
 
-// Build a small list of human-readable bullet points describing what changed
-// between two objects. Walks one level deep into arrays of objects keyed by
-// `slug` (menu) or `id` (gallery).
 function summarizeJsonChange(draft: unknown, original: unknown): string[] {
   const notes: string[] = [];
   if (typeof draft !== 'object' || draft === null) return notes;

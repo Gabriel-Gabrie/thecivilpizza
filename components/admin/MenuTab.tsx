@@ -130,7 +130,6 @@ export function MenuTab({
     const section = draft[sectionKey] as MenuSection;
     const item = section.items[index];
     if (!item) return;
-    // If the slug was auto-derived from the prior name, update it. Otherwise leave alone.
     const oldSlug = item.slug;
     const oldDerived = slugify(item.name);
     const shouldRegen = oldSlug === oldDerived || oldSlug.startsWith('new-item');
@@ -149,8 +148,7 @@ export function MenuTab({
 
   return (
     <div className="space-y-6">
-      {/* Section picker */}
-      <div className="-mx-1 flex gap-2 overflow-x-auto pb-1">
+      <div className="flex flex-wrap items-center gap-2 rounded-lg border border-ink/10 bg-white p-2">
         {SECTION_KEYS.map((key) => {
           const isActive = activeSection === key;
           const sec = draft[key] as MenuSection;
@@ -162,24 +160,35 @@ export function MenuTab({
               type="button"
               onClick={() => setActiveSection(key)}
               className={
-                'pill shrink-0 transition-colors ' +
+                'rounded-md px-3 py-2 text-sm transition-colors ' +
                 (isActive
-                  ? 'border-ember bg-ember text-paper'
-                  : 'border-paper/35 text-paper/85 hover:text-paper')
+                  ? 'bg-ink text-paper'
+                  : 'text-ink/70 hover:bg-ink/5')
               }
             >
-              {SECTION_LABELS[key]}{' '}
-              <span className="opacity-60">· {sec.items.length}</span>
-              {isDirty && <span className="ml-1.5 text-brass">●</span>}
+              <span className="font-medium">{SECTION_LABELS[key]}</span>
+              <span className={isActive ? 'ml-1 opacity-70' : 'ml-1 text-ink/45'}>
+                · {sec.items.length}
+              </span>
+              {isDirty && !isActive && (
+                <span className="ml-1.5 inline-block h-1.5 w-1.5 rounded-full bg-brass" />
+              )}
             </button>
           );
         })}
       </div>
 
-      <section>
-        <div className="mb-3 flex items-baseline justify-between gap-3">
+      <section className="rounded-lg border border-ink/10 bg-white p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-ink">
+          {SECTION_LABELS[activeSection as string]}
+        </h2>
+        <p className="mt-1 text-sm text-ink/65">
+          {section.items.length} item{section.items.length === 1 ? '' : 's'} in this section.
+        </p>
+
+        <div className="mt-4 max-w-md">
           <Field
-            label="Section heading"
+            label="Section heading (shown on /menu)"
             value={section.heading}
             onChange={(v) =>
               setDraft({
@@ -191,7 +200,7 @@ export function MenuTab({
           />
         </div>
 
-        <ul className="space-y-3">
+        <ul className="mt-6 space-y-4">
           {section.items.map((item, idx) => {
             const orig = origSection.items.find((o) => o.slug === item.slug);
             const isDirty = !orig || dirty(item, orig);
@@ -200,22 +209,28 @@ export function MenuTab({
               <li
                 key={item.slug}
                 className={
-                  'rounded-md border p-4 ' +
-                  (isDirty ? 'border-brass' : 'border-paper/20')
+                  'rounded-md border p-5 ' +
+                  (isDirty
+                    ? 'border-brass bg-brass/5'
+                    : 'border-ink/10 bg-paper-2/20')
                 }
               >
-                <div className="mb-3 flex items-center gap-3">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-paper/55">
-                    #{idx + 1} · {item.slug}
-                    {isNew && <span className="ml-2 text-basil">new</span>}
+                <div className="mb-4 flex flex-wrap items-center gap-3">
+                  <span className="text-sm text-ink/60">
+                    #{idx + 1} · <span className="font-mono text-xs">{item.slug}</span>
+                    {isNew && (
+                      <span className="ml-2 rounded-full bg-basil/20 px-2 py-0.5 text-xs font-medium text-ink">
+                        new
+                      </span>
+                    )}
                   </span>
-                  <div className="ml-auto flex items-center gap-1">
+                  <div className="ml-auto flex items-center gap-2">
                     <button
                       type="button"
                       onClick={() => moveItem(activeSection, idx, -1)}
                       disabled={idx === 0}
                       aria-label="Move up"
-                      className="px-2 py-1 font-mono text-[12px] text-paper/75 hover:text-paper disabled:opacity-30"
+                      className="rounded border border-ink/15 px-2 py-1 text-sm text-ink/70 hover:bg-ink/5 disabled:opacity-30"
                     >
                       ↑
                     </button>
@@ -224,21 +239,21 @@ export function MenuTab({
                       onClick={() => moveItem(activeSection, idx, 1)}
                       disabled={idx === section.items.length - 1}
                       aria-label="Move down"
-                      className="px-2 py-1 font-mono text-[12px] text-paper/75 hover:text-paper disabled:opacity-30"
+                      className="rounded border border-ink/15 px-2 py-1 text-sm text-ink/70 hover:bg-ink/5 disabled:opacity-30"
                     >
                       ↓
                     </button>
                     <button
                       type="button"
                       onClick={() => removeItem(activeSection, idx)}
-                      className="ml-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ember/80 hover:text-ember"
+                      className="ml-2 text-sm text-ember/85 hover:text-ember"
                     >
                       Remove
                     </button>
                   </div>
                 </div>
 
-                <div className="grid gap-3 sm:grid-cols-2">
+                <div className="grid gap-4 sm:grid-cols-2">
                   <Field
                     label="Name"
                     value={item.name}
@@ -302,7 +317,7 @@ export function MenuTab({
         <button
           type="button"
           onClick={() => addItem(activeSection)}
-          className="btn-paper mt-4"
+          className="mt-6 inline-flex items-center justify-center rounded-md border border-ink/25 bg-white px-4 py-2.5 text-sm font-medium text-ink transition hover:bg-ink/5"
         >
           + Add item to {SECTION_LABELS[activeSection as string]}
         </button>

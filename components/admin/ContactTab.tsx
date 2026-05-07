@@ -2,10 +2,6 @@
 
 import { Field } from './Field';
 
-// `seo` is the parsed content/seo.json. We only edit fields under .site
-// here — the .routes section is per-page metadata that the owner doesn't
-// need to touch.
-
 export type SeoSite = {
   name: string;
   tagline: string;
@@ -32,6 +28,26 @@ export type SeoSite = {
 
 export type SeoFile = { site: SeoSite; routes: Record<string, unknown> };
 
+function Section({
+  title,
+  description,
+  children,
+}: {
+  title: string;
+  description?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="rounded-lg border border-ink/10 bg-white p-6 shadow-sm">
+      <h2 className="text-lg font-semibold text-ink">{title}</h2>
+      {description && (
+        <p className="mt-1 text-sm text-ink/65">{description}</p>
+      )}
+      <div className="mt-5">{children}</div>
+    </section>
+  );
+}
+
 export function ContactTab({
   draft,
   original,
@@ -57,11 +73,12 @@ export function ContactTab({
   const dirty = (a: unknown, b: unknown) => JSON.stringify(a) !== JSON.stringify(b);
 
   return (
-    <div className="space-y-8">
-      <section>
-        <h2 className="font-display text-2xl font-black italic">Reach us</h2>
-        <p className="dek mt-1 text-base">Phone, email, social, and the addresses for Reserve / Order / Directions.</p>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+    <div className="space-y-6">
+      <Section
+        title="Reach us"
+        description="Phone, email, social, and the addresses for Reserve / Order / Directions."
+      >
+        <div className="grid gap-4 sm:grid-cols-2">
           <Field
             label="Phone (E.164)"
             value={site.phone}
@@ -101,14 +118,13 @@ export function ContactTab({
             dirty={dirty(site.instagramHandle, orig.instagramHandle)}
           />
         </div>
-      </section>
+      </Section>
 
-      <section>
-        <h2 className="font-display text-2xl font-black italic">Toast links</h2>
-        <p className="dek mt-1 text-base">
-          When Toast changes the URLs, paste the new ones here.
-        </p>
-        <div className="mt-4 grid gap-4">
+      <Section
+        title="Toast links"
+        description="When Toast changes the URLs, paste the new ones here."
+      >
+        <div className="grid gap-4">
           <Field
             label="Reserve URL"
             value={site.reserveUrl}
@@ -135,12 +151,10 @@ export function ContactTab({
             dirty={dirty(site.mapsUrl, orig.mapsUrl)}
           />
         </div>
-      </section>
+      </Section>
 
-      <section>
-        <h2 className="font-display text-2xl font-black italic">Address</h2>
-        <p className="dek mt-1 text-base">Used in the footer, /visit, and structured data.</p>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+      <Section title="Address" description="Used in the footer, /visit, and structured data.">
+        <div className="grid gap-4 sm:grid-cols-2">
           <Field
             label="Street (display)"
             value={site.address.street}
@@ -185,11 +199,10 @@ export function ContactTab({
             dirty={dirty(site.address.country, orig.address.country)}
           />
         </div>
-      </section>
+      </Section>
 
-      <section>
-        <h2 className="font-display text-2xl font-black italic">Brand copy</h2>
-        <div className="mt-4 grid gap-4">
+      <Section title="Brand copy">
+        <div className="grid gap-4">
           <Field
             label="Tagline"
             value={site.tagline}
@@ -206,7 +219,7 @@ export function ContactTab({
             dirty={dirty(site.description, orig.description)}
           />
         </div>
-      </section>
+      </Section>
     </div>
   );
 }
