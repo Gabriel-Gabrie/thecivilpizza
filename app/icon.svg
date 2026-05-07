@@ -2,13 +2,13 @@
   <rect width="100" height="100" fill="#1a1814"/>
   <path d="M 30 18 L 50 48 L 70 18 A 38 38 0 1 1 30 18" fill="none" stroke="#f6f0e2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
   <g fill="none" stroke="#f6f0e2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-    <line x1="70" y1="38" x2="38" y2="70"/>
-    <line x1="62" y1="38" x2="30" y2="70"/>
-    <line x1="54" y1="38" x2="22" y2="70"/>
+    <line x1="50" y1="26" x2="16" y2="64"/>
+    <line x1="62" y1="36" x2="26" y2="72"/>
+    <line x1="72" y1="50" x2="42" y2="80"/>
   </g>
   <g fill="#f6f0e2">
-    <polygon points="38,70 44,68 40,64"/>
-    <polygon points="30,70 36,68 32,64"/>
-    <polygon points="22,70 28,68 24,64"/>
+    <polygon points="16,64 24,62 18,56"/>
+    <polygon points="26,72 34,70 28,64"/>
+    <polygon points="42,80 50,78 44,72"/>
   </g>
 </svg>

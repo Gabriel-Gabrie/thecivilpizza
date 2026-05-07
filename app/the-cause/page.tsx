@@ -26,20 +26,29 @@ const ROTATION = [
 export default function TheCause() {
   return (
     <article>
-      <section className="bg-ember text-paper">
+      <section className="relative">
+        {/* Soft ember glow in the corners — matches the rest of the site,
+            keeps a hint of red without painting the whole hero. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{
+            backgroundImage:
+              'radial-gradient(ellipse 900px 480px at 0% 0%, rgb(var(--ember) / 0.12), transparent 60%), radial-gradient(ellipse 700px 400px at 100% 100%, rgb(var(--ember) / 0.10), transparent 65%)',
+          }}
+        />
         <div className="mx-auto max-w-4xl px-4 py-20 sm:px-6 sm:py-28">
-          <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-paper/85">
-            The Cause
-          </p>
-          <h1 className="mt-3 font-display text-balance text-5xl font-black italic leading-[0.92] tracking-masthead sm:text-7xl">
-            One pie. <br/>A different local cause every month.
+          <p className="kicker mb-3">The Cause</p>
+          <h1 className="font-display text-balance text-5xl font-black italic leading-[0.92] tracking-masthead sm:text-7xl">
+            One pie. <br />
+            A different local cause <span className="text-ember">every month.</span>
           </h1>
-          <p className="dek mt-6 max-w-2xl text-pretty text-lg text-paper/95">
-            Each month we rotate one pizza on the menu. $3 from every Cause pie goes to a
-            Kitchener-Waterloo charity that we picked, that we know by name, that does work
-            we have actually seen with our own eyes.
+          <p className="dek mt-6 max-w-2xl text-pretty text-lg">
+            Each month we rotate one pizza on the menu. <span className="text-ember">$3</span> from
+            every Cause pie goes to a Kitchener-Waterloo charity that we picked, that we know by
+            name, that does work we have actually seen with our own eyes.
           </p>
-          <p className="mt-3 max-w-2xl font-display italic text-paper/95 text-lg">
+          <p className="dek mt-3 max-w-2xl text-pretty text-lg">
             Dine-in only — because we want you to ask us about it.
           </p>
         </div>
