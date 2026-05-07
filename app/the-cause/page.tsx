@@ -1,8 +1,27 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { Rule } from '@/components/ui/Rule';
+import { Marquee } from '@/components/motion/Marquee';
 import { buildMetadata, site } from '@/lib/seo';
+import { withBase } from '@/lib/url';
 
 export const metadata: Metadata = buildMetadata({ routeKey: 'the-cause', path: '/the-cause' });
+
+// A continuously scrolling row of pizza photos so the "rotating monthly"
+// promise is felt before it's read. Pulled from the gallery's pies set,
+// hand-picked for visual variety so no two adjacent images repeat a vibe.
+const ROTATION = [
+  { src: '/images/pro-bouge-topdown.jpg',           alt: 'Top-down prosciutto and arugula pizza.' },
+  { src: '/images/pro-pepperoni-window.jpg',        alt: 'Pepperoni pizza foreground with another pie behind.' },
+  { src: '/images/pro-egg-bbq-pizza.jpg',           alt: 'BBQ pizza with eggs, top-down.' },
+  { src: '/images/pro-mushroom-side.jpg',           alt: 'Mushroom pizza side angle.' },
+  { src: '/images/pro-donair-topdown.jpg',          alt: 'Donair-style pizza top-down.' },
+  { src: '/images/pizza-pepperoni-honey.jpg',       alt: 'Pepperoni pizza drizzled with hot honey.' },
+  { src: '/images/pie-pesto-chicken-tomato.jpg',    alt: 'Pesto chicken and tomato pizza, top-down.' },
+  { src: '/images/pie-egg-greenonion.jpg',          alt: 'Pizza with eggs and green onion drizzled in sauce.' },
+  { src: '/images/pizza-dill-communication.webp',   alt: 'Pizza with dill pickles, sesame seeds, and sauce drizzle.' },
+  { src: '/images/pro-chicken-tomato-topdown.jpg',  alt: 'Chicken, tomato, and red onion pizza top-down.' },
+];
 
 export default function TheCause() {
   return (
@@ -24,6 +43,32 @@ export default function TheCause() {
             Dine-in only — because we want you to ask us about it.
           </p>
         </div>
+      </section>
+
+      {/* Rotating pizza ribbon — visual reminder that the Cause pie isn't fixed. */}
+      <section
+        aria-label="Examples of past pies"
+        className="border-y border-paper/15 bg-ink py-6 sm:py-8"
+      >
+        <Marquee speed="slow" className="-mx-4 sm:-mx-6">
+          {ROTATION.map((p, i) => (
+            <figure
+              key={i}
+              className="relative h-32 w-44 shrink-0 overflow-hidden border border-paper/15 sm:h-44 sm:w-60"
+            >
+              <Image
+                src={withBase(p.src)}
+                alt={p.alt}
+                fill
+                sizes="(max-width: 640px) 176px, 240px"
+                className="object-cover"
+              />
+            </figure>
+          ))}
+        </Marquee>
+        <p className="mt-4 text-center font-mono text-[10px] uppercase tracking-[0.32em] text-paper/55">
+          A few past pies — the next one is something else
+        </p>
       </section>
 
       <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-20">

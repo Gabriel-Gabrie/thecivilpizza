@@ -4,7 +4,6 @@ import { Rule } from '@/components/ui/Rule';
 import { buildMetadata, site } from '@/lib/seo';
 import { weekTable } from '@/lib/hours';
 import { withBase } from '@/lib/url';
-import gallery from '@/content/gallery.json';
 
 const PRIVATE_EVENTS_EMAIL_SUBJECT = encodeURIComponent('Private event inquiry');
 
@@ -12,7 +11,6 @@ export const metadata: Metadata = buildMetadata({ routeKey: 'visit', path: '/vis
 
 export default function Visit() {
   const week = weekTable();
-  const featured = gallery.items.slice(0, 3);
 
   return (
     <article className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-16">
@@ -68,19 +66,15 @@ export default function Visit() {
         </div>
 
         <div className="md:col-span-7">
-          <div className="grid gap-3 sm:grid-cols-3">
-            {featured.map((g, idx) => (
-              <figure key={g.id} className="relative aspect-[4/5] overflow-hidden border border-paper/15">
-                <Image
-                  src={withBase(g.src)}
-                  alt={g.alt}
-                  fill
-                  sizes="(max-width: 768px) 33vw, 25vw"
-                  className="object-cover"
-                />
-              </figure>
-            ))}
-          </div>
+          <figure className="relative aspect-[4/5] overflow-hidden border border-paper/15 sm:aspect-[3/4]">
+            <Image
+              src={withBase('/images/exterior-lang-tanning.jpg')}
+              alt="The Civil's storefront at night — black awning with the cursive logo, bright wall lamps overhead, neon PIZZA OPEN sign in the window, patio tables out front. Lang Tanning Company brick facade above."
+              fill
+              sizes="(max-width: 768px) 100vw, 58vw"
+              className="object-cover"
+            />
+          </figure>
         </div>
       </section>
 
